@@ -28,3 +28,11 @@ footer li:not(:last-child):after {
     content: " | ";
     margin-right: 3px;
 }
+
+.mainFlag {
+    max-width: 100%;
+}
+
+.nationInfoPanel table tr:first-of-type td {
+    border: none !important;
+}

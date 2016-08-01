@@ -14,3 +14,7 @@
 Route::auth();
 
 Route::get('/', 'HomeController@index');
+
+Route::group(["middleware" => "auth"], function() { // Pages that require you to be logged in
+    Route::get("/nation/{id?}", "NationController@View");
+});
