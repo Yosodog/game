@@ -122,6 +122,7 @@
 
 <main>
     <div class="container">
+        @include("alerts") {{-- Include the template for alerts. This checks if there's something needed to display --}}
         @yield('content')
     </div>
 </main>
