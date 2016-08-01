@@ -5,27 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Some Game</title>
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
+    <!--
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    Yeti.css contains default bootstrap so no need to load it
+    -->
+    <link rel="stylesheet" href="{{ url("/lib/css/yeti/yeti.css") }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.smartmenus/1.0.0/addons/bootstrap/jquery.smartmenus.bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url("/lib/css/custom.css") }}">
 </head>
 <body id="app-layout">
+<header>
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
@@ -40,30 +35,78 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Laravel
+                    Some Game
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
+                <ul class="nav navbar-nav" id="main-menu">
+                    @if (!Auth::guest()) {{-- If the user isn't a guest --}}
+                        <li class="dropdown">
+                            <a href="#">
+                                Nation <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url("#") }}">View Nation</a></li>
+                                <li><a href="{{ url("#") }}">Cities</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#">
+                                Military <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url("#") }}">Army</a></li>
+                                <li><a href="{{ url("#") }}">Air Force</a></li>
+                                <li><a href="{{ url("#") }}">Navy</a></li>
+                                <li><a href="{{ url("#") }}">Your Wars</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#">
+                                International <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url("#") }}">Nations</a></li>
+                                <li><a href="{{ url("#") }}">Alliances</a></li>
+                                <li><a href="{{ url("#") }}">Your Alliance</a></li>
+                                <li><a href="{{ url("#") }}">Wars</a></li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#">
+                            Community <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url("#") }}">Forums</a></li>
+                            <li><a href="{{ url("#") }}">IRC</a></li>
+                        </ul>
+                    </li>
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <a href="#">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                <li><a href="{{ url('#') }}"></i>Messages</a></li>
+                                <li><a href="{{ url('#') }}"></i>Notifications</a></li>
+                                <li><a href="{{ url('#') }}">Account</a></li>
+                                <li><a href="{{ url('#') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
                     @endif
@@ -71,12 +114,39 @@
             </div>
         </div>
     </nav>
+</header>
 
-    @yield('content')
+<main>
+    <div class="container">
+        @yield('content')
+    </div>
+</main>
+
+<footer>
+    <div class="container text-center">
+        <ul class="small">
+            <li><a href="">Task List</a></li>
+            <li><a href="https://github.com/Yosodog/game">Source</a></li>
+        </ul>
+    </div>
+</footer>
 
     <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.smartmenus/1.0.0/jquery.smartmenus.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.smartmenus/1.0.0/addons/bootstrap/jquery.smartmenus.bootstrap.min.js"></script>
+    <script>
+        $.SmartMenus.prototype.isTouchMode = function() {
+            return true;
+        };
+
+        $(function() {
+            $('#main-menu').smartmenus({
+                subIndicators: false,
+            });
+            // activate touch mode permanently
+        });
+    </script>
 </body>
 </html>
