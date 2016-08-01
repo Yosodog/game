@@ -4,6 +4,7 @@ namespace App\Models\Nation;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Nations extends Model
 {
@@ -24,6 +25,16 @@ class Nations extends Model
     public function user() : BelongsTo
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    /**
+     * Relationship between the Nation and its Cities
+     *
+     * @return HasMany
+     */
+    public function cities() : HasMany
+    {
+        return $this->hasMany('App\Models\Nation\Cities', "nation_id");
     }
 
     /**
