@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Nations;
+use App\Models\Nation\Nations;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -40,10 +40,34 @@ class NationController extends Controller
      */
     public function create()
     {
-        // Check if they have a nation. If they do, then redirect them to dit
+        // Check if they have a nation. If they do, then redirect them to it
         if (Auth::user()->hasNation)
             return redirect("/nation/view");
-        
+
         return view("nation.create");
+    }
+
+    public function createPOST(Request $request)
+    {
+        // Check if they have a nation. If they do, then redirect them to it
+        if (Auth::user()->hasNation)
+            return redirect("/nation/view");
+
+        // Validate the request
+        $this->validate($request, [
+            'name' => 'required|unique:nations|max:25',
+        ]);
+
+        // If it's valid, create the nation
+        $nation = Nations::create([
+            'user_id' => Auth::user()->id,
+            'name' => $request->name,
+        ]);
+
+        // Update user model to say that they now have a nation
+        Auth::user()->hasNation = true;
+        Auth::user()->save();
+
+        return redirect("/nation/view");
     }
 }

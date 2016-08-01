@@ -1,12 +1,21 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Nation;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Nations extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'user_id',
+    ];
+
     /**
      * Returns the user that this nation belongs to
      *

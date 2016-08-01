@@ -49,7 +49,11 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url("/nation/view/".Auth::user()->nation->id) }}">View Nation</a></li>
+                                @if (Auth::user()->hasNation)
+                                    <li><a href="{{ url("/nation/view/".Auth::user()->nation->id) }}">View Nation</a></li>
+                                @else
+                                    <li><a href="{{ url("/nation/view/create") }}">Create Nation</a></li>
+                                @endif
                                 <li><a href="{{ url("#") }}">Cities</a></li>
                             </ul>
                         </li>

@@ -15,7 +15,10 @@ Route::auth();
 
 Route::get('/', 'HomeController@index');
 
-Route::get('/nation/create', 'NationController@create')->middleware(["auth"]);
+Route::group(["middleware" => "auth"], function() {
+    Route::get('/nation/create', 'NationController@create');
+    Route::post("/nation/create", 'NationController@createPOST');
+});
 
 Route::group(["middleware" => ["auth", "NoNation"]], function() { // Pages that require you to be logged in
     Route::get("/nation/view/{id?}", "NationController@View");

@@ -31,6 +31,6 @@ class User extends Authenticatable
      */
     public function nation()
     {
-        return $this->hasOne('App\Models\Nations');
+        return $this->hasOne('App\Models\Nation\Nations');
     }
 }
