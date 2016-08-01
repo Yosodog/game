@@ -31,4 +31,19 @@ class NationController extends Controller
             "nation" => $nation
         ]);
     }
+
+    /**
+     * Controller for displaying the create nation page.
+     * Should only be viewed if they're logged in and don't have a nation
+     *
+     * @return mixed
+     */
+    public function create()
+    {
+        // Check if they have a nation. If they do, then redirect them to dit
+        if (Auth::user()->hasNation)
+            return redirect("/nation/view");
+        
+        return view("nation.create");
+    }
 }
