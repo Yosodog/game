@@ -43,44 +43,44 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav" id="main-menu">
                     @if (!Auth::guest()) {{-- If the user isn't a guest --}}
-                        <li class="dropdown">
-                            <a href="#">
-                                Nation <span class="caret"></span>
-                            </a>
+                        @if (!Auth::user()->hasNation) {{-- If the user doesn't have a nation --}}
+                            <li><a href="{{ url("/nation/view/create") }}">Create Nation</a></li>
+                        @else
+                            <li class="dropdown">
+                                <a href="#">
+                                    Nation <span class="caret"></span>
+                                </a>
 
-                            <ul class="dropdown-menu" role="menu">
-                                @if (Auth::user()->hasNation)
+                                <ul class="dropdown-menu" role="menu">
                                     <li><a href="{{ url("/nation/view/".Auth::user()->nation->id) }}">View Nation</a></li>
-                                @else
-                                    <li><a href="{{ url("/nation/view/create") }}">Create Nation</a></li>
-                                @endif
-                                <li><a href="{{ url("#") }}">Cities</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#">
-                                Military <span class="caret"></span>
-                            </a>
+                                    <li><a href="{{ url("#") }}">Cities</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#">
+                                    Military <span class="caret"></span>
+                                </a>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url("#") }}">Army</a></li>
-                                <li><a href="{{ url("#") }}">Air Force</a></li>
-                                <li><a href="{{ url("#") }}">Navy</a></li>
-                                <li><a href="{{ url("#") }}">Your Wars</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#">
-                                International <span class="caret"></span>
-                            </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ url("#") }}">Army</a></li>
+                                    <li><a href="{{ url("#") }}">Air Force</a></li>
+                                    <li><a href="{{ url("#") }}">Navy</a></li>
+                                    <li><a href="{{ url("#") }}">Your Wars</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#">
+                                    International <span class="caret"></span>
+                                </a>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url("#") }}">Nations</a></li>
-                                <li><a href="{{ url("#") }}">Alliances</a></li>
-                                <li><a href="{{ url("#") }}">Your Alliance</a></li>
-                                <li><a href="{{ url("#") }}">Wars</a></li>
-                            </ul>
-                        </li>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ url("#") }}">Nations</a></li>
+                                    <li><a href="{{ url("#") }}">Alliances</a></li>
+                                    <li><a href="{{ url("#") }}">Your Alliance</a></li>
+                                    <li><a href="{{ url("#") }}">Wars</a></li>
+                                </ul>
+                            </li>
+                        @endif
                     @endif
                 </ul>
 

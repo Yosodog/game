@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nation\Cities;
 use App\Models\Nation\Nations;
 use Illuminate\Http\Request;
 
@@ -74,12 +75,19 @@ class NationController extends Controller
         // Validate the request
         $this->validate($this->request, [
             'name' => 'required|unique:nations|max:25',
+            'capital' => 'required|max:25',
         ]);
 
         // If it's valid, create the nation
         $nation = Nations::create([
             'user_id' => Auth::user()->id,
             'name' => $this->request->name,
+        ]);
+
+        // Create their capital city
+        Cities::create([
+            'nation_id' => $nation->id,
+            'name' => $this->request->capital,
         ]);
 
         // TODO display errors on the page if something is invalid

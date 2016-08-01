@@ -13,7 +13,11 @@
                         <form method="post">
                             <div class="form-group">
                                 <label for="name">Nation Name</label>
-                                <input type="text" class="form-control" id="name" name="name" maxlength="25" placeholder="Nation Name">
+                                <input type="text" class="form-control" id="name" name="name" maxlength="25">
+                            </div>
+                            <div class="form-group">
+                                <label for="capital">Capital City Name</label>
+                                <input type="text" class="form-control" id="capital" name="capital" maxlength="25">
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Create Your Nation">
