@@ -23,4 +23,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Returns the nation that belongs to this uer
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function nation()
+    {
+        return $this->hasOne('App\Models\Nations');
+    }
 }
