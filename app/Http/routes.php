@@ -23,18 +23,3 @@ Route::group(["middleware" => "auth"], function() {
 Route::group(["middleware" => ["auth", "NoNation"]], function() { // Pages that require you to be logged in
     Route::get("/nation/view/{id?}", "NationController@View");
 });
-
-Route::get("/test", function() {
-    $shit = scandir(__DIR__."/../../public/img/flags/countries");
-    echo "<pre>";
-    foreach ($shit as $s)
-    {
-        if ($s === "." || $s === "..")
-            continue;
-
-        $url = "img/flags/countries/".$s;
-        $name = str_replace('_', ' ', preg_replace('/\\.[^.\\s]{3,4}$/', '', $s));
-
-        echo "$url - $name <br>";
-    }
-});
