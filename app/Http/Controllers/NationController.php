@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Flags;
 use App\Models\Nation\Cities;
 use App\Models\Nation\Nations;
 use Illuminate\Http\Request;
@@ -57,7 +58,12 @@ class NationController extends Controller
         if (Auth::user()->hasNation)
             return redirect("/nation/view");
 
-        return view("nation.create");
+        // Get all flags
+        $flags = Flags::all();
+
+        return view("nation.create", [
+            "flags" => $flags
+        ]);
     }
 
     /**
