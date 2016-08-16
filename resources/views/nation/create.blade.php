@@ -20,6 +20,15 @@
                                 <input type="text" class="form-control" id="capital" name="capital" maxlength="25">
                             </div>
                             <div class="form-group">
+                                <label for="flag">Flag</label>
+                                <select name="flag" id="flags" class="form-control">
+                                    @foreach ($flags as $flag)
+                                        <option value="{{ $flag->id }}">{{ $flag->name }}</option>
+                                    @endforeach
+                                </select>
+                                <img src="{{ url($flags[0]->url) }}" class="mainFlag" id="flagPreview">
+                            </div>
+                            <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Create Your Nation">
                             </div>
                             {{ csrf_field() }}
@@ -29,5 +38,14 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section("scripts")
+    <script>
+        // Updating the flag preview
+        // TODO create an API to retrive info about the flag and display the previewed flag
+        /*$("#flags").change(function() {
+            $("#flagPreview").attr("src", $("#flags").val());
+        });*/
+    </script>
 @endsection

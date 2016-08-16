@@ -5,6 +5,7 @@ namespace App\Models\Nation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Nations extends Model
 {
@@ -14,7 +15,7 @@ class Nations extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'user_id',
+        'name', 'user_id', 'flagID'
     ];
 
     /**
@@ -35,6 +36,16 @@ class Nations extends Model
     public function cities() : HasMany
     {
         return $this->hasMany('App\Models\Nation\Cities', "nation_id");
+    }
+
+    /**
+     * Relationship between the nation and it's flag
+     *
+     * @return HasOne
+     */
+    public function flag() : BelongsTo
+    {
+        return $this->belongsTo('App\Models\Flags', "flagID");
     }
 
     /**

@@ -82,12 +82,14 @@ class NationController extends Controller
         $this->validate($this->request, [
             'name' => 'required|unique:nations|max:25',
             'capital' => 'required|max:25',
+            'flag' => 'required|integer|exists:flags,id'
         ]);
 
         // If it's valid, create the nation
         $nation = Nations::create([
             'user_id' => Auth::user()->id,
             'name' => $this->request->name,
+            'flagID' => $this->request->flag
         ]);
 
         // Create their capital city

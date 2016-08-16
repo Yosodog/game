@@ -161,5 +161,6 @@
             // activate touch mode permanently
         });
     </script>
+    @yield("scripts") {{-- For loading custom scripts on pages --}}
 </body>
 </html>

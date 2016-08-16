@@ -4,7 +4,7 @@
     <div class="jumbotron">
         <div class="row">
             <div class="col-md-4">
-                <img src="{{ url("/img/flags/United_States_of_America.png") }}" class="mainFlag">
+                <img src="{{ url($nation->flag->url) }}" class="mainFlag">
             </div>
             <div class="col-md-8">
                 <h1 class="text-center">{{ $nation->name }}</h1>
