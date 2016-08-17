@@ -121,6 +121,21 @@
             </div>
         </div>
     </div>
+    <hr>
+    <h2>Buildings</h2>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#services">Services</a> </li>
+        <li><a data-toggle="tab" href="#transportation">Transportation</a> </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="services" class="tab-pane fade in active">
+            @include('nation.cities.buildings', ['category' => "services"])
+        </div>
+        <div id="transportation" class="tab-pane fade">
+            @include('nation.cities.buildings', ['category' => "transportation"])
+        </div>
+    </div>
 @endsection
 
 @section("scripts")

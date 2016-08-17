@@ -68,3 +68,7 @@ footer li:not(:last-child):after {
     padding: 18px;
     font-size: 32px;
 }
+
+.smallForm {
+    display: inline-block;
+}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BuildingTypes;
 use App\Models\Nation\Cities;
 use Illuminate\Http\Request;
 
@@ -42,8 +43,14 @@ class CityController extends Controller
     {
         $city = Cities::find($id);
 
+        $buildings = BuildingTypes::all();
+
+        $isOwner = $city->isOwner();
+
         return view("nation.cities.view", [
-            "city" => $city
+            "city" => $city,
+            "buildings" => $buildings,
+            "isOwner" => $isOwner
         ]);
     }
 
