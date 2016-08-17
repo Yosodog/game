@@ -57,7 +57,7 @@
                                         <ul class="dropdown-menu">
                                             <li><a href="{{ url("#") }}">View All</a></li>
                                             <li class="divider"></li>
-                                            @foreach ($nation->cities as $city)
+                                            @foreach (Auth::user()->nation->cities as $city)
                                                 <li><a href="{{ url("cities/view/".$city->id) }}">{{ $city->name }}</a></li>
                                             @endforeach
                                         </ul>
