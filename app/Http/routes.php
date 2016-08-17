@@ -24,6 +24,6 @@ Route::group(["middleware" => ["auth", "NoNation"]], function() { // Pages that 
     Route::get("/nation/view/{id?}", "NationController@View");
 
     Route::get("/cities", "CityController@overview");
-    Route::get("/cities/{id}", "CityController@view");
+    Route::get("/cities/view/{id}", "CityController@view");
     Route::post("/cities/create", "CityController@create");
 });

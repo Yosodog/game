@@ -38,9 +38,13 @@ class CityController extends Controller
     /**
      * Displays a city's page
      */
-    public function view()
+    public function view($id)
     {
-        
+        $city = Cities::find($id);
+
+        return view("nation.cities.view", [
+            "city" => $city
+        ]);
     }
 
     /**
