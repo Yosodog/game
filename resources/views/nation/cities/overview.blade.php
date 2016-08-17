@@ -7,12 +7,14 @@
             <th>Name</th>
             <th>Population</th>
             <th>Avg Income</th>
+            <th>Growth Rate</th>
         </tr>
         @foreach (Auth::user()->nation->cities as $city)
             <tr>
                 <td><a href="{{ url("cities/view"."/$city->id") }}">{{ $city->name }}</a></td>
-                <td>1,000,000</td>
-                <td>$459.47</td>
+                <td>{{ number_format($city->population) }}</td>
+                <td>${{ number_format($city->avgIncome) }}</td>
+                <td>{{ number_format($city->popGrowth) }}</td>
             </tr>
         @endforeach
     </table>

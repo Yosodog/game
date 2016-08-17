@@ -46,3 +46,25 @@ footer li:not(:last-child):after {
     height: 35px;
     width: 35px;
 }
+
+.parallax-window {
+    margin-top: -21px;
+    height: 400px;
+    background: transparent;
+}
+
+.cityName {
+    position: absolute;
+    left: 0;
+    top: 200px;
+    width: 100%;
+    text-align: center;
+    color: #000;
+}
+
+.cityName span {
+    background-color: #111;
+    color: #fff;
+    padding: 18px;
+    font-size: 32px;
+}
