@@ -111,7 +111,7 @@ class NationController extends Controller
 
     public function allNations()
     {
-        $nations = Nations::paginate(10);
+        $nations = Nations::paginate(25);
 
         return view ("nation.all", [
             "nations" => $nations
