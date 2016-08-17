@@ -21,9 +21,18 @@ Route::group(["middleware" => "auth"], function() {
 });
 
 Route::group(["middleware" => ["auth", "NoNation"]], function() { // Pages that require you to be logged in
+    // Nation Related Pages
     Route::get("/nation/view/{id?}", "NationController@View");
 
+    // City related Pages
     Route::get("/cities", "CityController@overview");
     Route::get("/cities/view/{id}", "CityController@view");
     Route::post("/cities/create", "CityController@create");
+
+    // Account related pages
+    Route::get("/account/inbox", "MessagesController@inbox");
+    Route::get("/account/inbox/create", "MessagesController@createView");
+    Route::post("/account/inbox/create", "MessagesController@create");
+    Route::get("/account/messages/{id}", "MessagesController@view");
+    Route::put("/account/messages/update/{id}", "MessagesController@update");
 });

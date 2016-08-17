@@ -36,3 +36,8 @@ footer li:not(:last-child):after {
 .nationInfoPanel table tr:first-of-type td {
     border: none !important;
 }
+
+.avatarFlag {
+    height: 75px;
+    width: 75px;
+}
