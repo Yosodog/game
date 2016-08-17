@@ -108,4 +108,13 @@ class NationController extends Controller
 
         return redirect("/nation/view");
     }
+
+    public function allNations()
+    {
+        $nations = Nations::paginate(10);
+
+        return view ("nation.all", [
+            "nations" => $nations
+        ]);
+    }
 }

@@ -23,6 +23,7 @@ Route::group(["middleware" => "auth"], function() {
 Route::group(["middleware" => ["auth", "NoNation"]], function() { // Pages that require you to be logged in
     // Nation Related Pages
     Route::get("/nation/view/{id?}", "NationController@View");
+    Route::get("/nations", "NationController@allNations");
 
     // City related Pages
     Route::get("/cities", "CityController@overview");
