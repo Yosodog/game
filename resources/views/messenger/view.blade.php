@@ -2,7 +2,23 @@
 
 @section('content')
     <h1 class="text-center">{{ $thread->subject }}</h1>
+    <div class="row">
+        @foreach ($thread->participants as $p)
+            <div class="col-md-2">
+                <div class="media">
+                    <a class="media-left" href="{{ url("/nation/view"."/{$p->user->nation->id}") }}">
+                        <img src="{{ url($p->user->nation->flag->url) }}" class="img-circle avatarFlagTiny">
+                    </a>
+                    <div class="media-body">
+                        <h5 class="media-heading"><a href="{{ url("/nation/view"."/{$p->user->nation->id}") }}">{{ $p->user->name }}</a></h5>
+                        <small class="text-muted">{{ ($p->last_read) != null ? $p->last_read->diffForHumans() : "Unread" }}</small>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
     @foreach ($thread->messages as $message)
+        <hr>
         <div class="media">
             <a class="media-left" href="{{ url("/nation/view"."/{$message->user->nation->id}") }}">
                 <img src="{{ url($message->user->nation->flag->url) }}" class="img-circle avatarFlag">
