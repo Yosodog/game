@@ -2,7 +2,7 @@
 
 @section('content')
     </div> {{-- The container is set in the layout, but here close it so we can do the parallax background --}}
-<div class="parallax-window" data-parallax="scroll" data-image-src="http://wallpapercave.com/wp/WShsIJl.jpg">
+<div class="parallax-window">
     <div class="cityName">
         <span>{{ $city->name }}</span>
     </div>
@@ -136,6 +136,32 @@
             @include('nation.cities.buildings', ['category' => "transportation"])
         </div>
     </div>
+
+    <hr>
+    <h2>Land</h2>
+    <form method="post" action="{{ url("/cities/".$city->id."/land") }}">
+        <table class="table">
+            <tr>
+                <th>Buy Price</th>
+                <th>Sell Price</th>
+                <th>Amount</th>
+                <th>Cost</th>
+                <th>Go</th>
+            </tr>
+            <tr>
+                <td>$100</td>
+                <td>$10</td>
+                <td>
+                    <input type="number" id="amount" name="amount" class="form-control" required>
+                </td>
+                <td>$0</td>
+                <td>
+                    <input type="submit" value="Buy" class="btn btn-primary">
+                </td>
+            </tr>
+        </table>
+        {{ csrf_field() }}
+    </form>
 @endsection
 
 @section("scripts")

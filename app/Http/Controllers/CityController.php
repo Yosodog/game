@@ -38,8 +38,10 @@ class CityController extends Controller
 
     /**
      * Displays a city's page
+     *
+     * @param int
      */
-    public function view($id)
+    public function view(int $id)
     {
         $city = Cities::find($id);
 
@@ -71,5 +73,27 @@ class CityController extends Controller
         $this->request->session()->flash("alert-success", ["{$this->request->name} has been created!"]);
 
         return redirect("/cities/");
+    }
+
+    public function buyLand(int $id)
+    {
+        // Get the city
+        $city = Cities::find($id);
+        // Check if the user owns the city
+        if (!$city->isOwner())
+            abort(403);
+
+        // TODO calculate the cost of land
+
+        $this->validate($this->request, [
+            'amount' => 'required',
+        ]);
+
+        $city->land += $this->request->amount;
+        $city->save();
+
+        $this->request->session()->flash("alert-success", ["You've bought {$this->request->amount} sq mi of land!"]);
+
+        return redirect("/cities/view/$id");
     }
 }

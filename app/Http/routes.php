@@ -36,4 +36,5 @@ Route::group(["middleware" => ["auth", "NoNation"]], function() { // Pages that 
     Route::post("/account/inbox/create", "MessagesController@create");
     Route::get("/account/messages/{id}", "MessagesController@view");
     Route::put("/account/messages/update/{id}", "MessagesController@update");
+    Route::post("/cities/{id}/land", "CityController@buyLand");
 });
