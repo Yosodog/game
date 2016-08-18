@@ -136,4 +136,24 @@
             </div>
         </div>
     </div>
+    <hr>
+    <h2>Cities</h2>
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>Name</th>
+            <th>Population</th>
+            <th>Avg Income</th>
+            <th>Growth Rate</th>
+            <th>Land</th>
+        </tr>
+        @foreach ($nation->cities as $city)
+            <tr>
+                <td><a href="{{ url("cities/view"."/$city->id") }}">{{ $city->name }}</a></td>
+                <td>{{ number_format($city->population) }}</td>
+                <td>${{ number_format($city->avgincome) }}</td>
+                <td>{{ number_format($city->popGrowth) }}</td>
+                <td>{{ number_format($city->land) }} sq mi</td>
+            </tr>
+        @endforeach
+    </table>
 @endsection
