@@ -19,11 +19,21 @@ class Cities extends Model
     /**
      * Relationship between the nation and the city
      *
-     * @return BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function nation() : BelongsTo
+    public function nation() : \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo('App\Models\Nation\Nation');
+        return $this->belongsTo('App\Models\Nation\Nations');
+    }
+
+    /**
+     * City/Jobs relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function jobs() : \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany('App\Models\Jobs', 'city_id');
     }
 
     /**
@@ -34,5 +44,22 @@ class Cities extends Model
     public function isOwner() : bool
     {
        return Auth::user()->nation->id === $this->nation_id;
+    }
+
+    public function checkIfOpenBuildingSlots() : bool
+    {
+        // TODO implement more than one building slots
+
+        $activeSlots = $this->countActiveJobs();
+
+        if ($activeSlots > 0)
+            return false;
+        else
+            return true;
+    }
+
+    public function countActiveJobs() : int
+    {
+        return $this->jobs()->where("status", "active")->count();
     }
 }

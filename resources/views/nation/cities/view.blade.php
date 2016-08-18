@@ -138,6 +138,41 @@
         </div>
     </div>
 
+    @if ($city->isOwner())
+        @if (count($city->jobs) === 0)
+            <p>No active/pending jobs</p>
+        @else
+            <hr>
+            <h2>Queue</h2>
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th>Building</th>
+                    <th>Status</th>
+                    <th>Turns Left</th>
+                    <th>Progress</th>
+                </tr>
+                @foreach ($city->jobs as $job)
+                    @if ($job->status === "active" || $job->status === "queued")
+                        <tr>
+                            <td>{{ $job->relation->name }}</td>
+                            <td class="text-capitalize">{{ $job->status }}</td>
+                            <td>{{ $job->turnsLeft }} Turns</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:{{ $job->percentageFinished() }}%">
+                                        {{ $job->percentageFinished() }}%
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                    @endif
+                @endforeach
+            </table>
+        @endif
+    @endif
+
     <hr>
     <h2>Land</h2>
     <form method="post" action="{{ url("/cities/".$city->id."/land") }}">

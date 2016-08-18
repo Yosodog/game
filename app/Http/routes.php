@@ -29,6 +29,9 @@ Route::group(["middleware" => ["auth", "NoNation"]], function() { // Pages that 
     Route::get("/cities", "CityController@overview");
     Route::get("/cities/view/{id}", "CityController@view");
     Route::post("/cities/create", "CityController@create");
+    Route::post("/cities/{id}/land", "CityController@buyLand");
+    Route::post("/cities/{cities}/buildings/buy/{buildingtypes}", "CityController@buyBuilding");
+    Route::post("/cities/{id}/buildings/sell/{bID}", "CityController@sellBuilding");
 
     // Account related pages
     Route::get("/account/inbox", "MessagesController@inbox");
@@ -36,5 +39,4 @@ Route::group(["middleware" => ["auth", "NoNation"]], function() { // Pages that 
     Route::post("/account/inbox/create", "MessagesController@create");
     Route::get("/account/messages/{id}", "MessagesController@view");
     Route::put("/account/messages/update/{id}", "MessagesController@update");
-    Route::post("/cities/{id}/land", "CityController@buyLand");
 });

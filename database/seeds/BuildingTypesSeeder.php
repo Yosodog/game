@@ -20,6 +20,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'A School',
             "energy" => 5,
             "baseCost" => 1000,
+            "buildingTime" => 10,
         ]);
 
         BuildingTypes::create([
@@ -28,6 +29,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'A university',
             "energy" => 10,
             "baseCost" => 10000,
+            "buildingTime" => 10,
         ]);
 
         BuildingTypes::create([
@@ -36,6 +38,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'A fire station',
             "energy" => 5,
             "baseCost" => 2000,
+            "buildingTime" => 10,
         ]);
 
         BuildingTypes::create([
@@ -44,6 +47,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'A Police Station',
             "energy" => 5,
             "baseCost" => 1000,
+            "buildingTime" => 10,
         ]);
 
         BuildingTypes::create([
@@ -52,6 +56,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'A clinic',
             "energy" => 5,
             "baseCost" => 1000,
+            "buildingTime" => 10,
         ]);
 
         BuildingTypes::create([
@@ -60,6 +65,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'A hospital',
             "energy" => 10,
             "baseCost" => 10000,
+            "buildingTime" => 10,
         ]);
 
         BuildingTypes::create([
@@ -68,6 +74,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'A cemetery',
             "energy" => 1,
             "baseCost" => 1000,
+            "buildingTime" => 10,
         ]);
 
         BuildingTypes::create([
@@ -76,6 +83,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'An airport',
             "energy" => 10,
             "baseCost" => 10000,
+            "buildingTime" => 10,
         ]);
 
         BuildingTypes::create([
@@ -84,6 +92,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'An International Airport',
             "energy" => 100,
             "baseCost" => 1000000,
+            "buildingTime" => 10,
         ]);
 
         BuildingTypes::create([
@@ -92,6 +101,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'A bus depot',
             "energy" => 10,
             "baseCost" => 10000,
+            "buildingTime" => 10,
         ]);
 
         BuildingTypes::create([
@@ -100,6 +110,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'A harbor',
             "energy" => 10,
             "baseCost" => 10000,
+            "buildingTime" => 10,
         ]);
 
         BuildingTypes::create([
@@ -108,6 +119,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'A landfill',
             "energy" => 2,
             "baseCost" => 1000,
+            "buildingTime" => 10,
         ]);
 
         BuildingTypes::create([
@@ -116,6 +128,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'A metro',
             "energy" => 50,
             "baseCost" => 50000,
+            "buildingTime" => 10,
         ]);
 
         BuildingTypes::create([
@@ -124,6 +137,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'A prison',
             "energy" => 10,
             "baseCost" => 20000,
+            "buildingTime" => 10,
         ]);
 
         BuildingTypes::create([
@@ -132,6 +146,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'Railway',
             "energy" => 50,
             "baseCost" => 100000,
+            "buildingTime" => 10,
         ]);
 
         BuildingTypes::create([
@@ -140,6 +155,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'Road',
             "energy" => 50,
             "baseCost" => 100000,
+            "buildingTime" => 10,
         ]);
     }
 }

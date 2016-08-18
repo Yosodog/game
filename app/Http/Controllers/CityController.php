@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BuildingTypes;
+use App\Models\Jobs;
 use App\Models\Nation\Cities;
 use Illuminate\Http\Request;
 
@@ -95,5 +96,35 @@ class CityController extends Controller
         $this->request->session()->flash("alert-success", ["You've bought {$this->request->amount} sq mi of land!"]);
 
         return redirect("/cities/view/$id");
+    }
+
+    public function buyBuilding(Cities $cities, BuildingTypes $buildingtypes)
+    {
+        // Check if they own the city
+        if (!$cities->isOwner())
+            abort(403);
+
+        // TODO charge the user the amount needed
+
+        // Determine if the request should be active or queued
+        if ($cities->checkIfOpenBuildingSlots())
+            $status = "active";
+        else
+            $status = "queued";
+
+        // Add building to queue
+        $job = Jobs::create([
+            "type" => "building",
+            "status" => $status,
+            "nation_id" => $cities->nation->id,
+            "city_id" => $cities->id,
+            "item_id" => $buildingtypes->id,
+            "totalTurns" => $buildingtypes->buildingTime,
+            "turnsLeft" => $buildingtypes->buildingTime,
+        ]);
+
+        $this->request->session()->flash("alert-success", ["You've added a $buildingtypes->name to your queue"]);
+
+        return redirect("/cities/view/$cities->id");
     }
 }
