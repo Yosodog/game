@@ -173,31 +173,33 @@
         @endif
     @endif
 
-    <hr>
-    <h2>Land</h2>
-    <form method="post" action="{{ url("/cities/".$city->id."/land") }}">
-        <table class="table">
-            <tr>
-                <th>Buy Price</th>
-                <th>Sell Price</th>
-                <th>Amount</th>
-                <th>Cost</th>
-                <th>Go</th>
-            </tr>
-            <tr>
-                <td>$100</td>
-                <td>$10</td>
-                <td>
-                    <input type="number" id="amount" name="amount" class="form-control" required>
-                </td>
-                <td>$0</td>
-                <td>
-                    <input type="submit" value="Buy" class="btn btn-primary">
-                </td>
-            </tr>
-        </table>
-        {{ csrf_field() }}
-    </form>
+    @if ($isOwner)
+        <hr>
+        <h2>Land</h2>
+        <form method="post" action="{{ url("/cities/".$city->id."/land") }}">
+            <table class="table">
+                <tr>
+                    <th>Buy Price</th>
+                    <th>Sell Price</th>
+                    <th>Amount</th>
+                    <th>Cost</th>
+                    <th>Go</th>
+                </tr>
+                <tr>
+                    <td>$100</td>
+                    <td>$10</td>
+                    <td>
+                        <input type="number" id="amount" name="amount" class="form-control" required>
+                    </td>
+                    <td>$0</td>
+                    <td>
+                        <input type="submit" value="Buy" class="btn btn-primary">
+                    </td>
+                </tr>
+            </table>
+            {{ csrf_field() }}
+        </form>
+    @endif
 @endsection
 
 @section("scripts")
