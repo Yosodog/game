@@ -8,6 +8,7 @@
     </div>
 </div>
 <div class="container" style="margin-top: 20px;">
+    @include("alerts") {{-- Include the template for alerts. This checks if there's something needed to display --}}
     <div class="row">
         <div class="col-md-4">
             <div class="panel panel-default nationInfoPanel">

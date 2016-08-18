@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @include("alerts") {{-- Include the template for alerts. This checks if there's something needed to display --}}
     <h1 class="text-center">Compose a New Message</h1>
     <form method="post">
         <div class="form-group">

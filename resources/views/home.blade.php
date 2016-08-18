@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<p>Some shit</p>
+    @include("alerts") {{-- Include the template for alerts. This checks if there's something needed to display --}}
+    <p>Some shit</p>
 @endsection

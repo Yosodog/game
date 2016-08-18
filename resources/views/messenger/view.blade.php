@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @include("alerts") {{-- Include the template for alerts. This checks if there's something needed to display --}}
     <h1 class="text-center">{{ $thread->subject }}</h1>
     <div class="row">
         @foreach ($thread->participants as $p)

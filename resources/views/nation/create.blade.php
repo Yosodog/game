@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @include("alerts") {{-- Include the template for alerts. This checks if there's something needed to display --}}
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">

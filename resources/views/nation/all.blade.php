@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @include("alerts") {{-- Include the template for alerts. This checks if there's something needed to display --}}
     <h1 class="text-center">Nations</h1>
     <div class="text-center">
         {{ $nations->links() }}
