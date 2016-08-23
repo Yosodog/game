@@ -159,7 +159,7 @@ class Jobs extends Model
     public function startNextJob()
     {
         $next = self::where("runsAfter", $this->id)->first();
-        if ($next->exists)
+        if ($next != null)
         {
             $next->status = "active";
             $next->save();
