@@ -13,7 +13,7 @@ class AddRunsafterToJobsTable extends Migration
     public function up()
     {
         Schema::table("jobs", function(Blueprint $table) {
-           $table->integer("runsAfter")->unsigned()->comment("The ID of the job that this job will run after");
+           $table->integer("runsAfter")->unsigned()->comment("The ID of the job that this job will run after")->nullable();
         });
     }
 

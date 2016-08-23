@@ -31,6 +31,6 @@ class AddBuildingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropTable("buildings");
+        Schema::drop("buildings");
     }
 }
