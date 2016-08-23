@@ -46,14 +46,25 @@ class CityController extends Controller
     {
         $city = Cities::find($id);
 
-        $buildings = BuildingTypes::all();
+        $buildingTypes = BuildingTypes::all();
 
         $isOwner = $city->isOwner();
 
+        /*
+         * In order to avoid having to query the buildings table a thousand times on the city view page
+         * we'll use one query to get all the buildings in a city and then store them in an array like:
+         * "building_id" => "quantity"
+         * Then to get the quantity on the view just do $quantity[$building_id]
+         */
+        $quantity = [];
+        foreach ($city->buildings as $building)
+            $quantity[$building->building_id] = $building->quantity;
+
         return view("nation.cities.view", [
             "city" => $city,
-            "buildings" => $buildings,
-            "isOwner" => $isOwner
+            "buildingTypes" => $buildingTypes,
+            "isOwner" => $isOwner,
+            "quantity" => $quantity
         ]);
     }
 

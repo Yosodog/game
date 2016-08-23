@@ -8,14 +8,14 @@
         <th>Current</th>
         {!! ($isOwner) ? "<th>Buy/Sell</th>" : "" !!}
     </tr>
-    @foreach (\App\Models\BuildingTypes::getByCategory($buildings, $category) as $building)
+    @foreach (\App\Models\BuildingTypes::getByCategory($buildingTypes, $category) as $building)
         <tr>
             <td>{{ $building->name }}</td>
             <td>{{ $building->description }}</td>
             <td>{{ $building->energy }} MW</td>
             <td>${{ number_format($building->cost) }}</td>
             <td>{{ $building->buildingTime }} Turns</td>
-            <td>0</td>
+            <td>{{ $quantity[$building->id] ?? 0 }}</td>
             @if ($isOwner)
                 <td>
                     <form method="post" action="{{ url("/cities/".$city->id."/buildings/buy"."/$building->id") }}" class="form-inline smallForm">

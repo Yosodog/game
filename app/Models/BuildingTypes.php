@@ -10,11 +10,21 @@ class BuildingTypes extends Model
     public $fillable = ["name", "category", "description", "energy", "baseCost", "resources"];
 
     /**
+     * BuildingType/Building relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function buildings()
+    {
+        return $this->hasMany('\App\Models\Nation\Building', 'building_id');
+    }
+
+    /**
      * Returns collection of buildings of a certain category
      *
      * @param Collection $collection
      * @param string $category
-     * @return Collection
+     * @return array
      */
     public static function getByCategory(Collection $collection, string $category) : array 
     {

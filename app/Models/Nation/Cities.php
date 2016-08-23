@@ -36,6 +36,11 @@ class Cities extends Model
         return $this->hasMany('App\Models\Jobs', 'city_id');
     }
 
+    public function buildings()
+    {
+        return $this->hasMany('\App\Models\Nation\Building', 'city_id');
+    }
+
     /**
      * Determines if the user viewing the city owns the city
      *
