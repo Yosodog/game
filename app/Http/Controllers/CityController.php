@@ -113,7 +113,7 @@ class CityController extends Controller
             $status = "queued";
 
         // Add building to queue
-        $job = Jobs::create([
+        $job = Jobs::addJob([
             "type" => "building",
             "status" => $status,
             "nation_id" => $cities->nation->id,
