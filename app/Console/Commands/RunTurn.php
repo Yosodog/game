@@ -53,8 +53,7 @@ class RunTurn extends Command
      */
     public function handle()
     {
-        //$nations = Nations::all();
-        $nations = Nations::where("id", 4)->get();
+        $nations = Nations::all();
         foreach ($nations as $nation) // Run through every nation in the game
         {
             $this->nation = $nation;
