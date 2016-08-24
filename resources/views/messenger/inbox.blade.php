@@ -17,7 +17,7 @@
                 <tr>
                     <td>{{ $thread->updated_at }}</td>
                     <td><a href="{{ url("/account/messages"."/$thread->id") }}">{{ $thread->subject }}</a></td>
-                    <td>{{ $thread->participantsString(Auth::id()) }}</td>
+                    <td>{{-- TODO this doesn't work after updating to Laravel 5.3 $thread->participantsString(Auth::id()) --}}</td>
                 </tr>
             @endforeach
         </table>

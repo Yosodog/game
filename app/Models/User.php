@@ -3,9 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Cmgmyr\Messenger\Traits\Messagable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+
+    use Messagable;
+    use Notifiable;
     /**
      * The attributes that are mass assignable.
      *
