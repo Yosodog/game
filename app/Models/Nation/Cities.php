@@ -67,4 +67,16 @@ class Cities extends Model
     {
         return $this->jobs()->where("status", "active")->count();
     }
+
+    /**
+     * Returns information about a building by searching for the building ID
+     * If the city doesn't have that building, it returns an empty array
+     *
+     * @param int $buildingID
+     * @return mixed
+     */
+    public function getBuilding(int $buildingID)
+    {
+        return $this->buildings->where("building_id", $buildingID);
+    }
 }
