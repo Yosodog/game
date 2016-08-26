@@ -19,6 +19,11 @@ class BuildingTypes extends Model
         return $this->hasMany('\App\Models\Nation\Building', 'building_id');
     }
 
+    public function effects()
+    {
+        return $this->hasMany('\App\Models\Effects', "relation");
+    }
+
     /**
      * Returns collection of buildings of a certain category
      *
