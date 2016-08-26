@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use \App\Models\BuildingTypes;
+use \App\Models\Effects;
+use \App\Models\Properties;
 
 class BuildingTypesSeeder extends Seeder
 {
@@ -14,13 +16,31 @@ class BuildingTypesSeeder extends Seeder
      */
     public function run()
     {
-        BuildingTypes::create([
+        $building = BuildingTypes::create([
             "name" => 'School',
             "category" => 'services',
             "description" => 'A School',
             "energy" => 5,
             "baseCost" => 1000,
             "buildingTime" => 10,
+        ]);
+
+        // Get ID of property this next effect will affect
+        $property = Properties::where("name", "Literacy")->firstOrFail();
+
+        Effects::create([
+            "property" => $property->id,
+            "relation" => $building->id,
+            "affect" => 5,
+        ]);
+
+        // Get ID of property this next effect will affect
+        $property = Properties::where("name", "Unemployment")->firstOrFail();
+
+        Effects::create([
+            "property" => $property->id,
+            "relation" => $building->id,
+            "affect" => 2,
         ]);
 
         BuildingTypes::create([
