@@ -2,6 +2,7 @@
 
 namespace App\Models\Nation;
 
+use App\Models\BuildingTypes;
 use Illuminate\Database\Eloquent\Model;
 use Auth;
 
@@ -78,5 +79,15 @@ class Cities extends Model
     public function getBuilding(int $buildingID)
     {
         return $this->buildings->where("building_id", $buildingID);
+    }
+
+    /**
+     * Loads the "full city"
+     *
+     * Includes the city's buildings, those building types, and the effects for that building
+     */
+    public function loadFullCity()
+    {
+        $this->load('buildings.buildingType.effects');
     }
 }
