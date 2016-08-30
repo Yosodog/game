@@ -104,6 +104,8 @@ class Cities extends Model
         {
             $this->properties[$prop->name] = [
                 "id" => $prop->id,
+                "higherIsBetter" => $prop->higherIsBetter,
+                "isOutOf100" => $prop->isOutOf100,
                 "maxPoints" => $this->population * $prop->pointsPerPerson,
                 "points" => 0, // Would be calculated later
                 "value" => 0.00
@@ -138,6 +140,8 @@ class Cities extends Model
         foreach ($this->properties as $k => $property)
         {
             $value = @(round(($property["points"] / $property["maxPoints"]) * 100, 2));
+            if (!$property["higherIsBetter"] && $property["isOutOf100"])
+                $value = 100 - $value;
             if ($value > 100)
                 $value = 100;
             else if ($value < 0)
@@ -147,12 +151,5 @@ class Cities extends Model
 
             $this->properties[$k]["value"] = $value;
         }
-    }
-
-    public function test()
-    {
-        $this->calcStats();
-        echo $this->toJson(149);
-        //var_dump($this->toArray());
     }
 }
