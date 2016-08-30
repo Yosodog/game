@@ -14,47 +14,47 @@ class PropertiesSeeder extends Seeder
     {
         Properties::create([
             "name" => "Birth Rate",
-            "baseValue" => 100,
+            "pointsPerPerson" => 0.0010,
         ]);
 
         Properties::create([
             "name" => "Death Rate",
-            "baseValue" => 40,
+            "pointsPerPerson" => 0.0010,
         ]);
 
         Properties::create([
             "name" => "Immigration",
-            "baseValue" => 10,
+            "pointsPerPerson" => 0.0010,
         ]);
 
         Properties::create([
             "name" => "Crime",
-            "baseValue" => 50,
+            "pointsPerPerson" => 0.0010,
         ]);
 
         Properties::create([
             "name" => "Disease",
-            "baseValue" => 50,
+            "pointsPerPerson" => 0.0010,
         ]);
 
         Properties::create([
             "name" => "Govt Satisfaction",
-            "baseValue" => 50,
+            "pointsPerPerson" => 0.0010,
         ]);
 
         Properties::create([
             "name" => "Avg Income",
-            "baseValue" => 30,
+            "pointsPerPerson" => 0.0010,
         ]);
 
         Properties::create([
             "name" => "Unemployment",
-            "baseValue" => 50,
+            "pointsPerPerson" => 0.0010,
         ]);
 
         Properties::create([
             "name" => "Literacy",
-            "baseValue" => 30,
+            "pointsPerPerson" => 0.0010,
         ]);
     }
 }
