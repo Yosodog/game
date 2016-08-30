@@ -137,7 +137,6 @@ class Cities extends Model
         // Now calculate the value of the property
         foreach ($this->properties as $k => $property)
         {
-            //$property["value"] = @(round(($property["points"] / $property["maxPoints"]) * 100, 2));
             $value = @(round(($property["points"] / $property["maxPoints"]) * 100, 2));
             if ($value > 100)
                 $value = 100;
