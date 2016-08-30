@@ -22,7 +22,7 @@ class BuildingTypesSeeder extends Seeder
             "description" => 'A School',
             "energy" => 5,
             "baseCost" => 1000,
-            "buildingTime" => 10,
+            "buildingTime" => 1,
         ]);
 
         // Get ID of property this next effect will affect
@@ -43,88 +43,187 @@ class BuildingTypesSeeder extends Seeder
             "affect" => 2,
         ]);
 
-        BuildingTypes::create([
+        $building = BuildingTypes::create([
             "name" => 'University',
             "category" => 'services',
             "description" => 'A university',
             "energy" => 10,
             "baseCost" => 10000,
-            "buildingTime" => 10,
+            "buildingTime" => 1,
         ]);
 
-        BuildingTypes::create([
+        // Get ID of property this next effect will affect
+        $property = Properties::where("name", "Literacy")->firstOrFail();
+
+        Effects::create([
+            "property" => $property->id,
+            "relation" => $building->id,
+            "affect" => 10,
+        ]);
+
+        // Get ID of property this next effect will affect
+        $property = Properties::where("name", "Unemployment")->firstOrFail();
+
+        Effects::create([
+            "property" => $property->id,
+            "relation" => $building->id,
+            "affect" => 10,
+        ]);
+
+        $building = BuildingTypes::create([
             "name" => 'Fire Station',
             "category" => 'services',
             "description" => 'A fire station',
             "energy" => 5,
             "baseCost" => 2000,
-            "buildingTime" => 10,
+            "buildingTime" => 1,
         ]);
 
-        BuildingTypes::create([
+        // Get ID of property this next effect will affect
+        $property = Properties::where("name", "Unemployment")->firstOrFail();
+
+        Effects::create([
+            "property" => $property->id,
+            "relation" => $building->id,
+            "affect" => 3,
+        ]);
+
+        $building = BuildingTypes::create([
             "name" => 'Police Station',
             "category" => 'services',
             "description" => 'A Police Station',
             "energy" => 5,
             "baseCost" => 1000,
-            "buildingTime" => 10,
+            "buildingTime" => 1,
         ]);
 
-        BuildingTypes::create([
+        // Get ID of property this next effect will affect
+        $property = Properties::where("name", "Unemployment")->firstOrFail();
+
+        Effects::create([
+            "property" => $property->id,
+            "relation" => $building->id,
+            "affect" => 3,
+        ]);
+
+        // Get ID of property this next effect will affect
+        $property = Properties::where("name", "Crime")->firstOrFail();
+
+        Effects::create([
+            "property" => $property->id,
+            "relation" => $building->id,
+            "affect" => 10,
+        ]);
+
+        $building = BuildingTypes::create([
             "name" => 'Clinic',
             "category" => 'services',
             "description" => 'A clinic',
             "energy" => 5,
             "baseCost" => 1000,
-            "buildingTime" => 10,
+            "buildingTime" => 1,
         ]);
 
-        BuildingTypes::create([
+        // Get ID of property this next effect will affect
+        $property = Properties::where("name", "Unemployment")->firstOrFail();
+
+        Effects::create([
+            "property" => $property->id,
+            "relation" => $building->id,
+            "affect" => 3,
+        ]);
+
+        // Get ID of property this next effect will affect
+        $property = Properties::where("name", "Death Rate")->firstOrFail();
+
+        Effects::create([
+            "property" => $property->id,
+            "relation" => $building->id,
+            "affect" => 10,
+        ]);
+
+        $building = BuildingTypes::create([
             "name" => 'Hospital',
             "category" => 'services',
             "description" => 'A hospital',
             "energy" => 10,
             "baseCost" => 10000,
-            "buildingTime" => 10,
+            "buildingTime" => 1,
         ]);
 
-        BuildingTypes::create([
+        // Get ID of property this next effect will affect
+        $property = Properties::where("name", "Unemployment")->firstOrFail();
+
+        Effects::create([
+            "property" => $property->id,
+            "relation" => $building->id,
+            "affect" => 5,
+        ]);
+
+        // Get ID of property this next effect will affect
+        $property = Properties::where("name", "Death Rate")->firstOrFail();
+
+        Effects::create([
+            "property" => $property->id,
+            "relation" => $building->id,
+            "affect" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
             "name" => 'Cemetery',
             "category" => 'services',
             "description" => 'A cemetery',
             "energy" => 1,
             "baseCost" => 1000,
-            "buildingTime" => 10,
+            "buildingTime" => 1,
         ]);
 
-        BuildingTypes::create([
+        // Get ID of property this next effect will affect
+        $property = Properties::where("name", "Unemployment")->firstOrFail();
+
+        Effects::create([
+            "property" => $property->id,
+            "relation" => $building->id,
+            "affect" => 1,
+        ]);
+
+        // Get ID of property this next effect will affect
+        $property = Properties::where("name", "Disease")->firstOrFail();
+
+        Effects::create([
+            "property" => $property->id,
+            "relation" => $building->id,
+            "affect" => 5,
+        ]);
+
+        $building = BuildingTypes::create([
             "name" => 'Airport',
             "category" => 'transportation',
             "description" => 'An airport',
             "energy" => 10,
             "baseCost" => 10000,
-            "buildingTime" => 10,
+            "buildingTime" => 1,
         ]);
 
-        BuildingTypes::create([
+        $building = BuildingTypes::create([
             "name" => 'International Airport',
             "category" => 'transportation',
             "description" => 'An International Airport',
             "energy" => 100,
             "baseCost" => 1000000,
-            "buildingTime" => 10,
+            "buildingTime" => 1,
         ]);
 
-        BuildingTypes::create([
+        $building = BuildingTypes::create([
             "name" => 'Bus Depot',
             "category" => 'transportation',
             "description" => 'A bus depot',
             "energy" => 10,
             "baseCost" => 10000,
-            "buildingTime" => 10,
+            "buildingTime" => 1,
         ]);
 
-        BuildingTypes::create([
+        $building = BuildingTypes::create([
             "name" => 'Harbor',
             "category" => 'transportation',
             "description" => 'A harbor',
@@ -133,49 +232,49 @@ class BuildingTypesSeeder extends Seeder
             "buildingTime" => 10,
         ]);
 
-        BuildingTypes::create([
+        $building = BuildingTypes::create([
             "name" => 'Landfill',
             "category" => 'services',
             "description" => 'A landfill',
             "energy" => 2,
             "baseCost" => 1000,
-            "buildingTime" => 10,
+            "buildingTime" => 1,
         ]);
 
-        BuildingTypes::create([
+        $building = BuildingTypes::create([
             "name" => 'Metro',
             "category" => 'transportation',
             "description" => 'A metro',
             "energy" => 50,
             "baseCost" => 50000,
-            "buildingTime" => 10,
+            "buildingTime" => 1,
         ]);
 
-        BuildingTypes::create([
+        $building = BuildingTypes::create([
             "name" => 'Prison',
             "category" => 'services',
             "description" => 'A prison',
             "energy" => 10,
             "baseCost" => 20000,
-            "buildingTime" => 10,
+            "buildingTime" => 1,
         ]);
 
-        BuildingTypes::create([
+        $building = BuildingTypes::create([
             "name" => 'Railway',
             "category" => 'transportation',
             "description" => 'Railway',
             "energy" => 50,
             "baseCost" => 100000,
-            "buildingTime" => 10,
+            "buildingTime" => 1,
         ]);
 
-        BuildingTypes::create([
+        $building = BuildingTypes::create([
             "name" => 'Road',
             "category" => 'transportation',
             "description" => 'Road',
             "energy" => 50,
             "baseCost" => 100000,
-            "buildingTime" => 10,
+            "buildingTime" => 1,
         ]);
     }
 }
