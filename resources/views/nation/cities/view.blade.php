@@ -99,7 +99,7 @@
                         </tr>
                         <tr>
                             <td>Literacy</td>
-                            <td>{{ $city->literacy }}</td>
+                            <td>{{ $city->properties["Literacy"]["value"] }}%</td>
                         </tr>
                         <tr>
                             <td>Some Label</td>

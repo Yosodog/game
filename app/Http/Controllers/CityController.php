@@ -46,6 +46,9 @@ class CityController extends Controller
     {
         $city = Cities::find($id);
 
+        $city->loadFullCity();
+        $city->calcStats();
+
         $buildingTypes = BuildingTypes::all();
 
         $isOwner = $city->isOwner();
