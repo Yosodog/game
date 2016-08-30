@@ -54,31 +54,31 @@
                     <table class="table table-hover">
                         <tr>
                             <td>Growth Rate</td>
-                            <td>{{ number_format($city->popGrowth) }} ppl Per Day</td>
+                            <td>{{ number_format(0) }} ppl Per Day</td>
                         </tr>
                         <tr>
                             <td>Birth Rate</td>
-                            <td>{{ number_format($city->birthRate) }}</td>
+                            <td>{{ number_format($city->properties["Birth Rate"]["value"]) }}</td>
                         </tr>
                         <tr>
                             <td>Death Rate</td>
-                            <td>{{ number_format($city->deathRate) }}</td>
+                            <td>{{ number_format($city->properties["Death Rate"]["value"]) }}</td>
                         </tr>
                         <tr>
                             <td>Immigration</td>
-                            <td>{{ number_format($city->immigration) }}</td>
+                            <td>{{ number_format($city->properties["Immigration"]["value"]) }}</td>
                         </tr>
                         <tr>
                             <td>Crime</td>
-                            <td>{{ number_format($city->crime) }}%</td>
+                            <td>{{ number_format($city->properties["Crime"]["value"]) }}%</td>
                         </tr>
                         <tr>
                             <td>Disease</td>
-                            <td>{{ number_format($city->disease) }}%</td>
+                            <td>{{ number_format($city->properties["Disease"]["value"]) }}%</td>
                         </tr>
                         <tr>
                             <td>Satisfaction</td>
-                            <td>{{ number_format($city->satisfaction) }}%</td>
+                            <td>{{ number_format($city->properties["Govt Satisfaction"]["value"]) }}%</td>
                         </tr>
                     </table>
                 </div>
@@ -91,11 +91,11 @@
                     <table class="table table-hover">
                         <tr>
                             <td>Avg Income</td>
-                            <td>${{ number_format($city->avgIncome) }}</td>
+                            <td>${{ number_format($city->properties["Avg Income"]["value"]) }}</td>
                         </tr>
                         <tr>
                             <td>Unemployment</td>
-                            <td>{{ number_format($city->unemployment) }}%</td>
+                            <td>{{ number_format($city->properties["Unemployment"]["value"]) }}%</td>
                         </tr>
                         <tr>
                             <td>Literacy</td>
