@@ -59,6 +59,16 @@ class Nations extends Model
     }
 
     /**
+     * Relationship between the nation and its alliance
+     *
+     * @return BelongsTo
+     */
+    public function alliance() : BelongsTo
+    {
+        return $this->belongsTo('App\Models\Alliance', "id");
+    }
+
+    /**
      * Get and return an instance of this model by the Nation ID
      *
      * @param int $id
@@ -67,5 +77,15 @@ class Nations extends Model
     public static function getNationByID(int $id) : self
     {
         return self::find($id);
+    }
+
+    /**
+     * Checks if the nation has an alliance
+     *
+     * @return bool
+     */
+    public function hasAlliance() : bool
+    {
+        return $this->allianceID != null;
     }
 }
