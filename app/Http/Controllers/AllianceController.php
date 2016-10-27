@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Flags;
+use App\Models\Nation\Nations;
 use Illuminate\Http\Request;
+use Auth;
 
 use App\Http\Requests;
 
@@ -30,6 +33,13 @@ class AllianceController extends Controller
      */
     public function create()
     {
-        
+        if (Auth::user()->nation->hasAlliance())
+            return redirect("/alliance/".Auth::user()->nation->alliance->id);
+
+        $flags = Flags::all();
+
+        return view("alliances.create", [
+            "flags" => $flags
+        ]);
     }
 }
