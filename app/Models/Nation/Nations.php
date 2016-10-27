@@ -65,7 +65,7 @@ class Nations extends Model
      */
     public function alliance() : BelongsTo
     {
-        return $this->belongsTo('App\Models\Alliance', "id");
+        return $this->belongsTo('App\Models\Alliance', "allianceID");
     }
 
     /**
