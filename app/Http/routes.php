@@ -41,6 +41,7 @@ Route::group(["middleware" => ["auth", "NoNation"]], function() { // Pages that 
 
     // Account related pages
 	Route::get("/account", "AccountController@view");
+	Route::patch("/account/edit/username", "AccountController@editUsername");
     Route::get("/account/inbox", "MessagesController@inbox");
     Route::get("/account/inbox/create", "MessagesController@createView");
     Route::post("/account/inbox/create", "MessagesController@create");
