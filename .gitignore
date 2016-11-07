@@ -6,6 +6,6 @@ Homestead.json
 .env
 /.idea
 composer.phar
-.buildpath
-.project
-.settings
+/.buildpath
+/.project
+/.settings
