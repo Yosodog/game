@@ -12,11 +12,12 @@
 
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" placeholder="{{ $user->email }}">
+                            <input type="email" id="email" name="email" class="form-control" placeholder="{{ $user->email }}" required>
                         </div>
 
                         <div class="form-group">
                             {{ csrf_field() }}
+                            {{ method_field("PATCH") }}
                             <input type="submit" value="Edit" class="btn btn-info">
                         </div>
                     </form>
@@ -32,11 +33,12 @@
 
                         <div class="form-group">
                             <label for="username">Username</label>
-                            <input type="username" id="username" name="username" class="form-control" placeholder="{{ $user->name }}">
+                            <input type="username" id="username" name="username" class="form-control" placeholder="{{ $user->name }}" required>
                         </div>
 
                         <div class="form-group">
                             {{ csrf_field() }}
+                            {{ method_field("PATCH") }}
                             <input type="submit" value="Edit" class="btn btn-info">
                         </div>
                     </form>
