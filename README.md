@@ -23,6 +23,10 @@ Then enter the newly created directory
 Install the dependencies:
     
     composer install
+
+If you haven't installed composer globally, the command is:
+
+	php composer.phar install
     
 Copy the .env.example file and rename it to .env
 
@@ -38,7 +42,7 @@ Now run the migrations:
     
 Once that is done, seed the tables by running the following seeders in this order:
 
-    php artisan db:seed --class=FlagsTableSeeder
+    php artisan db:seed --class=FlagTableSeeder
     php artisan db:seed --class=PropertiesSeeder
     php artisan db:seed --class=BuildingTypesSeeder
     
