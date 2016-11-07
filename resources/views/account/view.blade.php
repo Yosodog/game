@@ -33,7 +33,7 @@
 
                         <div class="form-group">
                             <label for="username">Username</label>
-                            <input type="username" id="username" name="username" class="form-control" placeholder="{{ $user->name }}" required>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="{{ $user->name }}" required>
                         </div>
 
                         <div class="form-group">
