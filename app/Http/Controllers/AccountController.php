@@ -42,4 +42,20 @@ class AccountController extends Controller
 
 		return redirect("/account")->with("alert-success", ["Username changed successfully"]);
 	}
+
+	public function editEmail()
+	{
+		// Verify the email
+		$this->validate($this->request, [
+			"email" => "required|email|unique:users,email|max:255"
+		]);
+
+		// Validation is over, update the user
+		Auth::user()->email = $this->request->email;
+		Auth::user()->save();
+
+		// TODO send email to old email address and new informing of change
+
+		return redirect("/account")->with("alert-success", ["Email changed successfully"]);
+	}
 }
