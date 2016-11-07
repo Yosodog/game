@@ -15,11 +15,23 @@ class AccountController extends Controller
 	 */
 	protected $request;
 
+	/**
+	 * AccountController constructor.
+	 *
+	 * @param Request $request
+	 */
 	public function __construct(Request $request)
 	{
 		$this->request = $request;
 	}
 
+	/**
+	 * GET: /account
+	 *
+	 * Basically the page to edit your account. Maybe it should be /account/edit? lmao
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function view()
 	{
 		// Get the currently authenticated user
@@ -29,6 +41,13 @@ class AccountController extends Controller
 		]);
 	}
 
+	/**
+	 * PATCH: /account/edit/username
+	 *
+	 * Edits a username
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function editUsername()
 	{
 		// Verify that the username isn't taken
@@ -43,6 +62,13 @@ class AccountController extends Controller
 		return redirect("/account")->with("alert-success", ["Username changed successfully"]);
 	}
 
+	/**
+	 * PATCH: /account/edit/email
+	 *
+	 * Edits a user's email address
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function editEmail()
 	{
 		// Verify the email
