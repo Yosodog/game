@@ -23,6 +23,26 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">Change Username</div>
+                <div class="panel-body">
+                    <form method="post" action="{{ url("/account/edit/username") }}">
+
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="username" id="username" name="username" class="form-control" placeholder="{{ $user->name }}">
+                        </div>
+
+                        <div class="form-group">
+                            {{ csrf_field() }}
+                            <input type="submit" value="Edit" class="btn btn-info">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 @endsection
