@@ -17,6 +17,7 @@ class PropertiesSeeder extends Seeder
             "pointsPerPerson" => 0.0010,
             "higherIsBetter" => true,
             "isOutOf100" => false,
+            "usesPointSystem" => false,
         ]);
 
         Properties::create([
@@ -24,6 +25,7 @@ class PropertiesSeeder extends Seeder
             "pointsPerPerson" => 0.0010,
             "higherIsBetter" => false,
             "isOutOf100" => false,
+            "usesPointSystem" => false,
         ]);
 
         Properties::create([
@@ -31,6 +33,7 @@ class PropertiesSeeder extends Seeder
             "pointsPerPerson" => 0.0010,
             "higherIsBetter" => true,
             "isOutOf100" => false,
+            "usesPointSystem" => false,
         ]);
 
         Properties::create([
@@ -38,6 +41,7 @@ class PropertiesSeeder extends Seeder
             "pointsPerPerson" => 0.0010,
             "higherIsBetter" => false,
             "isOutOf100" => true,
+            "usesPointSystem" => true,
         ]);
 
         Properties::create([
@@ -45,6 +49,7 @@ class PropertiesSeeder extends Seeder
             "pointsPerPerson" => 0.0010,
             "higherIsBetter" => false,
             "isOutOf100" => true,
+            "usesPointSystem" => true,
         ]);
 
         Properties::create([
@@ -52,6 +57,7 @@ class PropertiesSeeder extends Seeder
             "pointsPerPerson" => 0.0010,
             "higherIsBetter" => true,
             "isOutOf100" => true,
+            "usesPointSystem" => false,
         ]);
 
         Properties::create([
@@ -59,6 +65,7 @@ class PropertiesSeeder extends Seeder
             "pointsPerPerson" => 0.0010,
             "higherIsBetter" => true,
             "isOutOf100" => false,
+            "usesPointSystem" => false,
         ]);
 
         Properties::create([
@@ -66,6 +73,7 @@ class PropertiesSeeder extends Seeder
             "pointsPerPerson" => 0.0010,
             "higherIsBetter" => false,
             "isOutOf100" => true,
+            "usesPointSystem" => true,
         ]);
 
         Properties::create([
@@ -73,6 +81,7 @@ class PropertiesSeeder extends Seeder
             "pointsPerPerson" => 0.0010,
             "higherIsBetter" => true,
             "isOutOf100" => true,
+            "usesPointSystem" => true,
         ]);
     }
 }
