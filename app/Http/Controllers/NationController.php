@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Flags;
 use App\Models\Nation\Cities;
 use App\Models\Nation\Nations;
+use App\Models\Properties;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -39,6 +40,17 @@ class NationController extends Controller
         // Get the nation model
         $nation = Nations::getNationByID($nID);
         $nation->loadFullNation();
+        // Get properties so we don't have to query it for every city
+        $properties = Properties::all();
+
+        // Setup city stuff
+        foreach ($nation->cities as $city)
+        {
+            $city->setupProperties($properties);
+            $city->calcStats();
+        }
+
+        $nation->calcStats();
 
         // TODO check if nation doesn't exist
 
