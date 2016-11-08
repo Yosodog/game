@@ -83,5 +83,13 @@ class PropertiesSeeder extends Seeder
             "isOutOf100" => true,
             "usesPointSystem" => true,
         ]);
+
+        Properties::create([
+            "name" => "Growth Rate",
+            "pointsPerPerson" => 0.0,
+            "higherIsBetter" => true,
+            "isOutOf100" => false,
+            "usesPointSystem" => false,
+        ]);
     }
 }

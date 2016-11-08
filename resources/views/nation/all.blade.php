@@ -17,9 +17,19 @@
             <tr>
                 <td>{{ $nation->user->name }}</td>
                 <td><a href="{{ url("/nation/view"."/$nation->id") }}">{{ $nation->name }}</a></td>
-                <td>None</td>
+                <td>
+                    @if ($nation->allianceID != null)
+                        <a href="{{ url("/alliance/".$nation->allianceID) }}">{{ $nation->alliance->name }}</a>
+                    @else
+                        None
+                    @endif
+                </td>
                 <td>420</td>
             </tr>
         @endforeach
     </table>
+
+    <div class="text-center">
+        {{ $nations->links() }}
+    </div>
 @endsection

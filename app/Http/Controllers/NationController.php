@@ -38,6 +38,7 @@ class NationController extends Controller
 
         // Get the nation model
         $nation = Nations::getNationByID($nID);
+        $nation->loadFullNation();
 
         // TODO check if nation doesn't exist
 
@@ -112,6 +113,8 @@ class NationController extends Controller
     public function allNations()
     {
         $nations = Nations::paginate(25);
+
+        $nations->load("alliance"); // Load alliance info here so we don't have to query a billion times in the view
 
         return view ("nation.all", [
             "nations" => $nations

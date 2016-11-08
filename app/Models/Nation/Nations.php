@@ -88,4 +88,12 @@ class Nations extends Model
     {
         return $this->allianceID != null;
     }
+
+    /**
+     * Loads EVERYTHING to do with this nation
+     */
+    public function loadFullNation()
+    {
+        $this->load("cities.buildings.buildingType.effects.property");
+    }
 }
