@@ -76,11 +76,6 @@ class RunTurn extends Command
      */
     public function handle()
     {
-        \Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
-            var_dump($query->sql);
-            var_dump($query->bindings);
-            var_dump($query->time);
-        });
         $nations = Nations::all();
         $this->properties = Properties::all(); // Get properties now so we don't have to query this a billion times
 
