@@ -45,6 +45,10 @@ Route::group(["middleware" => ["auth", "NoNation"]], function() { // Pages that 
 	Route::patch("/account/edit/username", "AccountController@editUsername");
 	Route::patch("/account/edit/email", "AccountController@editEmail");
     Route::patch("/account/edit/password", "AccountController@editPassword");
+<<<<<<< HEAD
+=======
+    Route::delete("/account/delete", "AccountController@deleteAccount");
+>>>>>>> 3d39d2547d75067614f87b5e183050b6b67e6315
     Route::get("/account/inbox", "MessagesController@inbox");
     Route::get("/account/inbox/create", "MessagesController@createView");
     Route::post("/account/inbox/create", "MessagesController@create");

@@ -110,4 +110,43 @@ class AccountController extends Controller
 
         return redirect("/account")->with("alert-success", ["You've changed your password"]);
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * DELETE: /account/delete
+     *
+     * Deletes the user account :(
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteAccount()
+    {
+        // Make sure the password given is correct
+        if (!Hash::check($this->request->password, Auth::user()->password)) // Passwords don't match, redirect with an error
+            return redirect("/account")->with("alert-danger", ["That password is incorrect"]);
+
+        // Go through and delete everything associated with the account
+        foreach (Auth::user()->nation->cities as $city)
+        {
+            // Delete the city's buildings
+            foreach ($city->buildings as $building)
+                $building->delete();
+
+            // Delete all jobs for the city
+            foreach ($city->jobs as $job)
+                $job->delete();
+
+            // Now actually delete the city
+            $city->delete();
+        }
+
+        // Delete the nation
+        Auth::user()->nation()->delete();
+        // Delete the account
+        Auth::user()->delete();
+
+        return redirect("/")->with("alert-info", ["You've deleted your account :("]);
+    }
+>>>>>>> 3d39d2547d75067614f87b5e183050b6b67e6315
 }
