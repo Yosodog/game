@@ -117,4 +117,25 @@ class NationController extends Controller
             "nations" => $nations
         ]);
     }
+
+   /**
+     * PATCH: /nation/edit/name
+     *
+     * Edits a user's nation name
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
+    public function editNationName()
+    {
+	// Verify the nation name, make sure it doesn't match any others in the game
+	$this->validate($this->request, [
+	"name" => "required|unique:nations,name|max:255"
+	]);
+	
+	Auth::user()->nation->name = $this->request->name;
+	Auth::user()->nation->save();
+
+	return redirect("/account")->with("alert-success", ["Nation name changed successfully"]);
+    } 
 }

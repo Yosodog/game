@@ -47,4 +47,27 @@
         </div>
     </div>
 
+<div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">Change Nation Name</div>
+                <div class="panel-body">
+                    <form method="post" action="{{ url("/nation/edit/name") }}">
+
+                        <div class="form-group">
+                            <label for="name">Nation Name</label>
+                            <input type="name" id="name" name="name" class="form-control" placeholder="{{ $user->nation->name }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            {{ csrf_field() }}
+                            {{ method_field("PATCH") }}
+                            <input type="submit" value="Edit" class="btn btn-info">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
