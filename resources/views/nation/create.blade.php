@@ -22,12 +22,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="flag">Flag</label>
-                                <select name="flag" id="flags" class="form-control">
-                                    @foreach ($flags as $flag)
-                                        <option value="{{ $flag->id }}">{{ $flag->name }}</option>
-                                    @endforeach
-                                </select>
-                                <img src="{{ url($flags[0]->url) }}" class="mainFlag" id="flagPreview">
+                                @include("templates.flagPreview")
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Create Your Nation">

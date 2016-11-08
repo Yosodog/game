@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 |
 */
 
+// For routes that shouldn't be throttled
 Route::get("flag/{flags}", function(\App\Models\Flags $flags) {
     return response($flags->toJson(149), 200)->header("Content-Type", "application/json");
+});
+
+// Routes that should be throttled
+Route::group(["middleware" => "throttle:60,1"], function() {
+
 });
