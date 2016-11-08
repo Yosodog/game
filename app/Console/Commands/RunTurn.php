@@ -87,6 +87,8 @@ class RunTurn extends Command
             $this->processQueue();
             $this->updateCities();
         }
+
+        $this->setupQuery();
     }
 
     /**
