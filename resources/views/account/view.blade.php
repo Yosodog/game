@@ -77,25 +77,6 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-				<div class="panel-heading">Change Nation Name</div>
-    			<div class="panel-body">
-            		<div class="col-md-6">
-                    <form method="post" action="{{ url("/nation/edit/name") }}">
-                        <div class="form-group">
-                            <label for="name">Nation Name</label>
-                            <input type="name" id="name" name="name" class="form-control" placeholder="{{ $user->nation->name }}" required>
-                        </div>
-
-                        <div class="form-group">
-                            {{ csrf_field() }}
-                            {{ method_field("PATCH") }}
-                            <input type="submit" value="Edit" class="btn btn-default">
-                        </div>
-                    </form>
-                	</div>
-           		 </div>
-       		</div>
             <div class="panel panel-danger">
                 <div class="panel-heading">Delete Account</div>
                 <div class="panel-body">
