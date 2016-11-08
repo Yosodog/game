@@ -6,6 +6,7 @@ use App\Models\Jobs;
 use App\Models\Nation\Nations;
 use App\Models\Properties;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class RunTurn extends Command
 {
@@ -45,6 +46,20 @@ class RunTurn extends Command
     protected $properties;
 
     /**
+     * Holds the when $id then $pop statement for every city
+     *
+     * @var array
+     */
+    protected $queries = [];
+
+    /**
+     * Holds an array of all city IDs
+     *
+     * @var array
+     */
+    protected $cIDs = [];
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -61,6 +76,11 @@ class RunTurn extends Command
      */
     public function handle()
     {
+        \Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
+            var_dump($query->sql);
+            var_dump($query->bindings);
+            var_dump($query->time);
+        });
         $nations = Nations::all();
         $this->properties = Properties::all(); // Get properties now so we don't have to query this a billion times
 
@@ -106,6 +126,9 @@ class RunTurn extends Command
         return $job->all();
     }
 
+    /**
+     * Method to update the nation's cities with all their shit
+     */
     protected function updateCities()
     {
         foreach ($this->nation->cities as $city)
@@ -113,11 +136,28 @@ class RunTurn extends Command
             $city->setupProperties($this->properties);
             $city->calcStats();
 
-            $city->population += $city->properties["Growth Rate"]["value"] / 12;
+            $pop = $city->population + ($city->properties["Growth Rate"]["value"] / 12); // Calculate the new population
 
-            // TODO add income and resources here
+            $sql = "when $city->id then ". intval($pop); // Setup whatever needs to be added to the sql query
 
-            $city->save(); // TODO find out if there's a way to save all the cities at once so we can limit queries
+            array_push($this->queries, $sql); // Push it to an array so we can setup the query later
+            array_push($this->cIDs, $city->id); // Add the city ID to an array so we can add that to the query later
         }
+    }
+
+    /**
+     * Sets up and executes one query to update all nations
+     */
+    protected function setupQuery()
+    {
+        $query = "UPDATE cities SET population = CASE id\n"; // Setup the query
+        foreach ($this->queries as $qu) // Add each when $id then $pop to the query for every city
+            $query .= $qu . "\n";
+
+        $IDs = implode(",", $this->cIDs); // Separate the city IDs with commas
+
+        $query .= "END WHERE id IN ($IDs)"; // Add the comma separated IDs to the query
+
+        DB::statement($query); // Now execute the GIGANTIC QUERY. This is a fuck-ton faster than one query for every city
     }
 }
