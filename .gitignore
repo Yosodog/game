@@ -9,3 +9,12 @@ composer.phar
 /.buildpath
 /.project
 /.settings
+.DS_Store
+app/.DS_Store
+app/Console/.DS_Store
+app/Http/.DS_Store
+app/Http/Controllers/.DS_Store
+database/.DS_Store
+resources/.DS_Store
+resources/views/.DS_Store
+storage/.DS_Store
