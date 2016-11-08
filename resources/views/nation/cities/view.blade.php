@@ -54,7 +54,7 @@
                     <table class="table table-hover">
                         <tr>
                             <td>Growth Rate</td>
-                            <td>{{ number_format(0) }} ppl Per Day</td>
+                            <td>{{ number_format($city->properties["Growth Rate"]["value"]) }} ppl Per Day</td>
                         </tr>
                         <tr>
                             <td>Birth Rate</td>

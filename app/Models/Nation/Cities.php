@@ -108,7 +108,8 @@ class Cities extends Model
                 "isOutOf100" => $prop->isOutOf100,
                 "maxPoints" => $this->population * $prop->pointsPerPerson,
                 "points" => 0, // Would be calculated later
-                "value" => 0.00
+                "value" => 0.00,
+                "usesPointSystem" => $prop->usesPointSystem
             ];
         }
     }
@@ -126,6 +127,8 @@ class Cities extends Model
      */
     public function calcStats()
     {
+        // TODO this method is horrible including the methods to find the other stats. Clean this up one day
+
         foreach ($this->buildings as $building)
         {
             foreach ($building->buildingType->effects as $effect)
@@ -139,6 +142,9 @@ class Cities extends Model
         // Now calculate the value of the property
         foreach ($this->properties as $k => $property)
         {
+            if (!$property["usesPointSystem"])
+                continue; // If the property doesn't use the point system, we're going to calculate it below manually
+
             $value = @(round(($property["points"] / $property["maxPoints"]) * 100, 2));
             if (!$property["higherIsBetter"] && $property["isOutOf100"])
                 $value = 100 - $value;
@@ -151,5 +157,115 @@ class Cities extends Model
 
             $this->properties[$k]["value"] = $value;
         }
+
+        // Calculate the other stats that don't use the point system
+        $this->calcSatisfaction();
+        $this->calcAvgIncome();
+        $this->calcBirthRate();
+        $this->calcDeathRate();
+        $this->calcImmigration();
+        $this->calcGrowthRate();
+    }
+
+    /**
+     * Calculates Birth Rate
+     */
+    protected function calcBirthRate()
+    {
+        $crime = $this->properties["Crime"]["value"];
+        $disease = $this->properties["Disease"]["value"];
+        $literacy = $this->properties["Literacy"]["value"];
+
+        $baseBirth = $this->population / 100;
+        $crimeLost = ($crime / 170) * $baseBirth;
+        $diseaseLost = ($disease / 170) * $baseBirth;
+        $literacy = ($literacy / 170) * $baseBirth;
+
+        $value = floor($baseBirth - ($crimeLost + $diseaseLost + $literacy));
+
+        $this->properties["Birth Rate"]["value"] = $value > 0 ? $value : 0; // Death rate can't less than 0...;
+    }
+
+    /**
+     * Calculates Death Rate
+     */
+    protected function calcDeathRate()
+    {
+        $crime = $this->properties["Crime"]["value"];
+        $disease = $this->properties["Disease"]["value"];
+        $literacy = $this->properties["Literacy"]["value"];
+
+        $baseDeath = $this->population / 250;
+        $crimeGained = ($crime / 300) * $baseDeath;
+        $diseaseGained = ($disease / 300) * $baseDeath;
+        $literacyLost = ($literacy / 90) * $baseDeath;
+
+        $value = floor(($baseDeath + $crimeGained + $diseaseGained) - $literacyLost);
+
+        $this->properties["Death Rate"]["value"] = $value > 0 ? $value : 0; // Death rate can't less than 0...
+    }
+
+    /**
+     * Calculates Immigration Rate
+     */
+    protected function calcImmigration()
+    {
+        $crime = $this->properties["Crime"]["value"];
+        $disease = $this->properties["Disease"]["value"];
+        $literacy = $this->properties["Literacy"]["value"];
+        $unemployment = $this->properties["Unemployment"]["value"];
+        $avgIncome = $this->properties["Avg Income"]["value"];
+
+        $baseImm = $this->population / 80;
+        $crimeLost = ($crime / 200) * $baseImm;
+        $diseaseLost = ($disease / 200) * $baseImm;
+        $literacyGained = ($literacy / 90) * $baseImm;
+        $unemploymentLost = ($unemployment / 90) * $baseImm;
+        $incomeGained = ($avgIncome / 90) * $baseImm;
+
+        $value = floor(($baseImm + $literacyGained + $incomeGained) - ($crimeLost + $diseaseLost + $unemploymentLost));
+
+        $this->properties["Immigration"]["value"] = $value;
+    }
+
+    /**
+     * Calculates Growth Rate
+     */
+    protected function calcGrowthRate()
+    {
+        $value = 0;
+        $value += $this->properties["Birth Rate"]["value"];
+        $value += $this->properties["Immigration"]["value"];
+        $value -= $this->properties["Death Rate"]["value"];
+
+        $this->properties["Growth Rate"]["value"] = $value;
+    }
+
+    /**
+     * Calculates Govt Satisfaction
+     *
+     * This is basically an average of a couple properties
+     */
+    protected function calcSatisfaction()
+    {
+        $total = 0;
+        $total += 100 - $this->properties["Crime"]["value"];
+        $total += 100 - $this->properties["Disease"]["value"];
+        $total += 100 - $this->properties["Unemployment"]["value"];
+        $total += $this->properties["Literacy"]["value"];
+
+        $this->properties["Govt Satisfaction"]["value"] = $total / 4;
+    }
+
+    /**
+     * Calculates Average Income
+     */
+    protected function calcAvgIncome()
+    {
+        $satisfaction = $this->properties["Govt Satisfaction"]["value"];
+
+        $value = $satisfaction * 1.5;
+
+        $this->properties["Avg Income"]["value"] = $value;
     }
 }
