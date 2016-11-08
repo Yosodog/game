@@ -110,8 +110,6 @@ class AccountController extends Controller
 
         return redirect("/account")->with("alert-success", ["You've changed your password"]);
     }
-<<<<<<< HEAD
-=======
 
     /**
      * DELETE: /account/delete
@@ -148,5 +146,4 @@ class AccountController extends Controller
 
         return redirect("/")->with("alert-info", ["You've deleted your account :("]);
     }
->>>>>>> 3d39d2547d75067614f87b5e183050b6b67e6315
 }
