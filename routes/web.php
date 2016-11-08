@@ -1,13 +1,12 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
@@ -40,9 +39,9 @@ Route::group(["middleware" => ["auth", "NoNation"]], function() { // Pages that 
     Route::post("/alliance/create", "AllianceController@createPOST");
 
     // Account related pages
-	Route::get("/account", "AccountController@view");
-	Route::patch("/account/edit/username", "AccountController@editUsername");
-	Route::patch("/account/edit/email", "AccountController@editEmail");
+    Route::get("/account", "AccountController@view");
+    Route::patch("/account/edit/username", "AccountController@editUsername");
+    Route::patch("/account/edit/email", "AccountController@editEmail");
     Route::patch("/account/edit/password", "AccountController@editPassword");
     Route::delete("/account/delete", "AccountController@deleteAccount");
     Route::get("/account/inbox", "MessagesController@inbox");
