@@ -42,13 +42,7 @@ Now run the migrations:
     
 Once that is done, seed the tables by running:
 
-<<<<<<< HEAD
-    php artisan db:seed --class=FlagTableSeeder
-    php artisan db:seed --class=PropertiesSeeder
-    php artisan db:seed --class=BuildingTypesSeeder
-=======
     php artisan db:seed --class=InstallSeeder
->>>>>>> 3d39d2547d75067614f87b5e183050b6b67e6315
     
 Finally, generate a key for Laravel
 
