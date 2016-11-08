@@ -4,6 +4,7 @@ namespace App\Models\Nation;
 
 use App\Models\BuildingTypes;
 use App\Models\Properties;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Auth;
 
@@ -98,8 +99,20 @@ class Cities extends Model
     public function loadFullCity()
     {
         $this->load('buildings.buildingType.effects.property');
-        // Get all of the properties
-        $properties = Properties::all();
+        $this->setupProperties();
+    }
+
+    /**
+     * Gets all of the properties and sets them up properly for later use
+     *
+     * @param Collection|null $properties Sometimes we want to call this in a loop and we don't want to lookup all
+     * the properties every single time. So we can look it up once and pass it to this method
+     */
+    public function setupProperties(Collection $properties = null)
+    {
+        if ($properties == null)
+            $properties = Properties::all(); // If we didn't pass the properties, then get them
+
         foreach ($properties as $prop) // Sort the properties how I want them
         {
             $this->properties[$prop->name] = [

@@ -38,6 +38,7 @@ class NationController extends Controller
 
         // Get the nation model
         $nation = Nations::getNationByID($nID);
+        $nation->loadFullNation();
 
         // TODO check if nation doesn't exist
 

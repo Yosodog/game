@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Jobs;
 use App\Models\Nation\Nations;
+use App\Models\Properties;
 use Illuminate\Console\Command;
 
 class RunTurn extends Command
@@ -37,6 +38,13 @@ class RunTurn extends Command
     protected $job;
 
     /**
+     * Holds the properties of the cities
+     *
+     * @var \Illuminate\Database\Eloquent\Collection
+     */
+    protected $properties;
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -54,11 +62,15 @@ class RunTurn extends Command
     public function handle()
     {
         $nations = Nations::all();
+        $this->properties = Properties::all(); // Get properties now so we don't have to query this a billion times
+
         foreach ($nations as $nation) // Run through every nation in the game
         {
             $this->nation = $nation;
+            $this->nation->loadFullNation();
             // Right now all we have to do is process their queue
             $this->processQueue();
+            $this->updateCities();
         }
     }
 
@@ -92,5 +104,20 @@ class RunTurn extends Command
         $job = $this->nation->jobs->where("status", "active");
 
         return $job->all();
+    }
+
+    protected function updateCities()
+    {
+        foreach ($this->nation->cities as $city)
+        {
+            $city->setupProperties($this->properties);
+            $city->calcStats();
+
+            $city->population += $city->properties["Growth Rate"]["value"] / 12;
+
+            // TODO add income and resources here
+
+            $city->save(); // TODO find out if there's a way to save all the cities at once so we can limit queries
+        }
     }
 }
