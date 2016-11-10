@@ -84,6 +84,7 @@ class CityController extends Controller
         Cities::create([
             'nation_id' => Auth::user()->nation->id,
             'name' => $this->request->name,
+        	'land' => 20
         ]);
 
         $this->request->session()->flash("alert-success", ["{$this->request->name} has been created!"]);
