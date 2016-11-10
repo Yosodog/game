@@ -183,4 +183,20 @@ class CityController extends Controller
 
 		return redirect("/cities/view/$cities->id");
     }
+    
+    public function renameCity(int $id)
+    {
+    	// Get the city
+    	$city = Cities::find($id);
+    	// Check if the user owns the city
+    	if (!$city->isOwner())
+    		abort(403);
+    
+    	$city->name = $this->request->name;
+    	$city->save();
+    
+    	$this->request->session()->flash("alert-success", ["You've renamed this city!"]);
+    
+    	return redirect("/cities/view/$id");
+    }
 }
