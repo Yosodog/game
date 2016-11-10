@@ -59,7 +59,7 @@ class Jobs extends Model
             // Check if the job is for a city
             if ($attributes["type"] === "building")
             {
-                $lastJob = self::selectLastCityJob($attributes["city_id"]);
+			   	$lastJob = self::selectLastCityJob($attributes["city_id"]);
                 $attributes["runsAfter"] = $lastJob->id;
             }
             else // If the job isn't for a city, then get the last nation job
