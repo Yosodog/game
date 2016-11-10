@@ -32,7 +32,7 @@ Route::group(["middleware" => ["auth", "NoNation"]], function() { // Pages that 
     Route::post("/cities/create", "CityController@create");
     Route::post("/cities/{id}/land", "CityController@buyLand");
     Route::post("/cities/{cities}/buildings/buy/{buildingtypes}", "CityController@buyBuilding");
-    Route::post("/cities/{id}/buildings/sell/{bID}", "CityController@sellBuilding");
+    Route::post("/cities/{cities}/buildings/sell/{buildingtypes}", "CityController@sellBuilding");
 
     // Alliance related pages
     Route::get("/alliance/create", "AllianceController@create");

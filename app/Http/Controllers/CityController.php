@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BuildingTypes;
+use App\Models\Nation\Building;
 use App\Models\Jobs;
 use App\Models\Nation\Cities;
 use Illuminate\Http\Request;
@@ -140,5 +141,45 @@ class CityController extends Controller
         $this->request->session()->flash("alert-success", ["You've added a $buildingtypes->name to your queue"]);
 
         return redirect("/cities/view/$cities->id");
+    }
+
+    public function sellBuilding(Cities $cities, BuildingTypes $buildingtypes)
+    {
+        // Check if they own the city
+        if (!$cities->isOwner())
+            abort(403);
+
+        // TODO refund the user some amount of cash
+	
+		// Sell a building
+		try
+		{
+			$building = Building::where([
+                ["city_id", $cities->id],
+                ["building_id", $buildingtypes->id]
+            ])->firstOrFail();
+		
+			// if the building is the last one in the city, it will be caught here and the row deleted
+			if ($building->quantity == 1)
+			{
+				$building->delete();
+				$this->request->session()->flash("alert-success", ["You've sold a $buildingtypes->name!"]);
+			}
+
+			else
+			{
+				$building->quantity -= 1;
+				$building->save();
+				$this->request->session()->flash("alert-success", ["You've sold a $buildingtypes->name!"]);
+			}
+		}
+		
+		// If an exception is thrown, the row doesn't exist meaning the building does not exist in the city
+		catch (\Exception $e)
+		{
+			$this->request->session()->flash("alert-danger", ["You don't have a $buildingtypes->name!"]);
+		}
+
+		return redirect("/cities/view/$cities->id");
     }
 }
