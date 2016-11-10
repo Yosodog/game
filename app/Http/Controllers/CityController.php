@@ -154,16 +154,16 @@ class CityController extends Controller
 		// Sell a building
 		try
 		{
-			$building = Building::findOrFail([
-         	   "city_id" => $cities->id,
-          	  "building_id" => $buildingtypes->id,
-      	  ]);
+			$building = Building::where([
+                ["city_id", $cities->id],
+                ["building_id", $buildingtypes->id]
+            ])->firstOrFail();
 		
-			// if the building recently existed, it will be caught here and the row deleted
-			if ($building->quantity == 0)
+			// if the building is the last one in the city, it will be caught here and the row deleted
+			if ($building->quantity == 1)
 			{
 				$building->delete();
-				$this->request->session()->flash("alert-danger", ["You don't have a $buildingtypes->name!"]);
+				$this->request->session()->flash("alert-success", ["You've sold a $buildingtypes->name!"]);
 			}
 
 			else
