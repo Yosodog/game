@@ -109,6 +109,7 @@ class NationController extends Controller
         Cities::create([
             'nation_id' => $nation->id,
             'name' => $this->request->capital,
+        	'land' => 20
         ]);
 
         // TODO display errors on the page if something is invalid
