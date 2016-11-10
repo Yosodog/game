@@ -199,6 +199,23 @@
             </table>
             {{ csrf_field() }}
         </form>
+        <hr>
+        <h2>Rename City</h2>
+        <form method="post" action="{{ url("/cities/".$city->id."/rename") }}">
+            <table class="table">
+                <tr>
+                    <th>New Name</th>
+                    <th>Submit</th>
+                </tr>
+                <tr>
+                    <td><input type="text" id="name" name="name" class="form-control" required></td>
+                    <td>
+                        <input type="submit" value="Rename" class="btn btn-primary">
+                    </td>
+                </tr>
+            </table>
+            {{ csrf_field() }}
+        </form>
     @endif
 @endsection
 
