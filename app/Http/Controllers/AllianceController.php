@@ -83,4 +83,21 @@ class AllianceController extends Controller
             "nations" => $nations
         ]);
     }
+
+    /**
+     * GET: /alliances
+     *
+     * Returns a view with all the alliances in the game with some info about them
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function viewAll()
+    {
+        $alliances = Alliance::paginate(25);
+        $alliances->load("nations"); // Load this here so we don't have to query for every alliance to get their mem num
+
+        return view("alliance.all", [
+            "alliances" => $alliances
+        ]);
+    }
 }
