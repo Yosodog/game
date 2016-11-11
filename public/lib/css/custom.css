@@ -72,3 +72,28 @@ footer li:not(:last-child):after {
 .smallForm {
     display: inline-block;
 }
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.allianceInfoBoxContainer {
+    top: 35px;
+    background: rgba(255,255,255,.85);
+    padding: 10px;
+    text-align: center;
+}
+
+.allianceFlag {
+    width: 240px;
+    height: 135px;
+    margin: 0 auto;
+    display: block;
+    padding-bottom: 10px;
+}
+@media screen and (max-width: 270px) {
+    .allianceFlag {
+        width: 100%;
+    }
+}

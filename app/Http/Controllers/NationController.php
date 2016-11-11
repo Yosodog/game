@@ -127,6 +127,7 @@ class NationController extends Controller
     {
         $nations = Nations::paginate(25);
 
+        $nations->load("user"); // Load user info here so we don't have to query a billion times in the view
         $nations->load("alliance"); // Load alliance info here so we don't have to query a billion times in the view
 
         return view ("nation.all", [

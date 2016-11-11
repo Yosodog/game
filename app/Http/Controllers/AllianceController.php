@@ -71,4 +71,16 @@ class AllianceController extends Controller
 
         return redirect("/alliance/$alliance->id");
     }
+
+    public function view(Alliance $alliance)
+    {
+        // We could get the members by eager loading, but we want to paginate so gotta do it special
+        $nations = Nations::where("allianceID", $alliance->id)->paginate(15);
+        $nations->load("user");
+
+        return view("alliance.view", [
+            "alliance" => $alliance,
+            "nations" => $nations
+        ]);
+    }
 }
