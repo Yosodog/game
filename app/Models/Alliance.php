@@ -32,4 +32,24 @@ class Alliance extends Model
     {
         return $this->hasMany('App\Models\Nation\Nations', "allianceID");
     }
+
+    /**
+     * Relationship between the flag and the alliance
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function flag() : \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne('App\Models\Flags', "id", "flagID");
+    }
+
+    /**
+     * Counts how many members are in the alliance
+     *
+     * @return int
+     */
+    public function countMembers() : int
+    {
+        return $this->nations->count();
+    }
 }
