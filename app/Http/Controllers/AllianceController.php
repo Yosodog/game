@@ -39,7 +39,7 @@ class AllianceController extends Controller
 
         $flags = Flags::all();
 
-        return view("alliances.create", [
+        return view("alliance.create", [
             "flags" => $flags
         ]);
     }
