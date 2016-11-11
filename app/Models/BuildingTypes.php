@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class BuildingTypes extends Model
 {
+    /**
+     * Properties that can be filled
+     *
+     * @var array
+     */
     public $fillable = ["name", "category", "description", "energy", "baseCost", "resources"];
 
     /**
@@ -19,6 +24,11 @@ class BuildingTypes extends Model
         return $this->hasMany('\App\Models\Nation\Building', 'building_id');
     }
 
+    /**
+     * Relationship between the building_type and the effects
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function effects()
     {
         return $this->hasMany('\App\Models\Effects', "relation");

@@ -21,6 +21,11 @@ class NationController extends Controller
      */
     protected $request;
 
+    /**
+     * NationController constructor.
+     *
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -82,7 +87,6 @@ class NationController extends Controller
     /**
      * Create a nation
      *
-     * @param Request $request
      * @return mixed
      */
     public function createPOST()
@@ -123,6 +127,11 @@ class NationController extends Controller
         return redirect("/nation/view");
     }
 
+    /**
+     * Display all nations page with some info about them
+     *
+     * @return View
+     */
     public function allNations()
     {
         $nations = Nations::paginate(25);

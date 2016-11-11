@@ -10,7 +10,18 @@ use Auth;
 
 class Cities extends Model
 {
+    /**
+     * Array to store all the properties and their values for the city
+     *
+     * @var array
+     */
     public $properties = [];
+
+    /**
+     * Add properties to $appends so that Laravel will return this
+     *
+     * @var array
+     */
     protected $appends = ['properties'];
 
     /**
@@ -62,18 +73,25 @@ class Cities extends Model
        return Auth::user()->nation->id === $this->nation_id;
     }
 
+    /**
+     * Checks if there are any open slots for building
+     *
+     * @return bool
+     */
     public function checkIfOpenBuildingSlots() : bool
     {
         // TODO implement more than one building slots
 
         $activeSlots = $this->countActiveJobs();
 
-        if ($activeSlots > 0)
-            return false;
-        else
-            return true;
+        return $activeSlots == 0;
     }
 
+    /**
+     * Count how many jobs are currently active
+     *
+     * @return int
+     */
     public function countActiveJobs() : int
     {
         return $this->jobs()->where("status", "active")->count();
@@ -127,6 +145,11 @@ class Cities extends Model
         }
     }
 
+    /**
+     * Returns the properties array
+     *
+     * @return array
+     */
     public function getPropertiesAttribute()
     {
         return $this->properties;

@@ -44,6 +44,13 @@ class AllianceController extends Controller
         ]);
     }
 
+    /**
+     * POST: /alliance/create
+     *
+     * Creates an alliance
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function createPOST()
     {
         if (Auth::user()->nation->hasAlliance()) // Checking to make sure they don't already have an alliance
@@ -72,6 +79,14 @@ class AllianceController extends Controller
         return redirect("/alliance/$alliance->id");
     }
 
+    /**
+     * GET: /alliance/{$alliance}
+     *
+     * Gets the alliance and displays the alliance page
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function view(Alliance $alliance)
     {
         // We could get the members by eager loading, but we want to paginate so gotta do it special
