@@ -41,7 +41,8 @@ class CityController extends Controller
     /**
      * Displays a city's page
      *
-     * @param int
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function view(int $id)
     {
@@ -92,6 +93,12 @@ class CityController extends Controller
         return redirect("/cities/");
     }
 
+    /**
+     * Buys land for a city
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function buyLand(int $id)
     {
         // Get the city
@@ -114,6 +121,13 @@ class CityController extends Controller
         return redirect("/cities/view/$id");
     }
 
+    /**
+     * Sets up the job to construct a building for a city
+     *
+     * @param Cities $cities
+     * @param BuildingTypes $buildingtypes
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function buyBuilding(Cities $cities, BuildingTypes $buildingtypes)
     {
         // Check if they own the city
@@ -144,6 +158,13 @@ class CityController extends Controller
         return redirect("/cities/view/$cities->id");
     }
 
+    /**
+     * Destroys a building
+     *
+     * @param Cities $cities
+     * @param BuildingTypes $buildingtypes
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function sellBuilding(Cities $cities, BuildingTypes $buildingtypes)
     {
         // Check if they own the city
@@ -183,7 +204,13 @@ class CityController extends Controller
 
 		return redirect("/cities/view/$cities->id");
     }
-    
+
+    /**
+     * Will rename a city
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function renameCity(int $id)
     {
     	// Get the city

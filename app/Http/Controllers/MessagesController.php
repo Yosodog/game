@@ -15,13 +15,28 @@ use App\Http\Requests;
 
 class MessagesController extends Controller
 {
+    /**
+     * Store the request for future use here
+     *
+     * @var Request
+     */
     protected $request;
 
+    /**
+     * MessagesController constructor.
+     *
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
 
+    /**
+     * Displays the user's inbox
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function inbox()
     {
         $threads = Thread::forUser(Auth::user()->id)->get();
@@ -32,11 +47,21 @@ class MessagesController extends Controller
         ]);
     }
 
+    /**
+     * Returns the view to compose a message
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function createView()
     {
         return view("messenger.create");
     }
 
+    /**
+     * Post route to create and send the message
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function create()
     {
         $thread = Thread::create([
@@ -62,7 +87,13 @@ class MessagesController extends Controller
 
         return redirect("/account/inbox");
     }
-    
+
+    /**
+     * View a message
+     *
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function view(int $id)
     {
         try
@@ -83,6 +114,12 @@ class MessagesController extends Controller
         ]);
     }
 
+    /**
+     * When responding to a message
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function update(int $id)
     {
         try
@@ -104,8 +141,6 @@ class MessagesController extends Controller
             'body' => $this->request->message,
         ]);
 
-        /* This is done in the documentation but I don't think it needs to be done
-            So I'll leave it commented out here while I figure out if it's needed*/
         // Add replier as a participant
         $participant = Participant::firstOrCreate([
                 'thread_id' => $thread->id,

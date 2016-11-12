@@ -5,8 +5,20 @@ namespace App\Models;
 use App\Models\Nation\Building;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Jobs class. Used to build things, research things, and whatever else needs to take time.
+ *
+ * Not to be confused with Laravel "jobs". That's in the "queue" table/model
+ *
+ * @package App\Models
+ */
 class Jobs extends Model
 {
+    /**
+     * Properties that can be filled by the ::create method
+     *
+     * @var array
+     */
     public $fillable = ["type", "status", "nation_id", "city_id", "item_id", "totalTurns", "turnsLeft", "runsAfter"];
 
     /**
@@ -166,6 +178,9 @@ class Jobs extends Model
         }
     }
 
+    /**
+     * Subtracts a turn from the job
+     */
     public function subtractTurn()
     {
         $this->turnsLeft -= 1;

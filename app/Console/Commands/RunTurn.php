@@ -8,6 +8,8 @@ use App\Models\Properties;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
+ini_set('memory_limit','512M'); // TODO this is a temporary hack. Fix this later
+
 class RunTurn extends Command
 {
     /**
