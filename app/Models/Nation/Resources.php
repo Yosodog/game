@@ -8,6 +8,8 @@ class Resources extends Model
 {
     public $timestamps = false;
 
+    protected $guarded = [];
+
     /**
      * Nation/resources relationship
      *

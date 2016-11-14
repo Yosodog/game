@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Flags;
 use App\Models\Nation\Cities;
 use App\Models\Nation\Nations;
+use App\Models\Nation\Resources;
 use App\Models\Properties;
 use Illuminate\Http\Request;
 
@@ -103,18 +104,7 @@ class NationController extends Controller
         ]);
 
         // If it's valid, create the nation
-        $nation = Nations::create([
-            'user_id' => Auth::user()->id,
-            'name' => $this->request->name,
-            'flagID' => $this->request->flag
-        ]);
-
-        // Create their capital city
-        Cities::create([
-            'nation_id' => $nation->id,
-            'name' => $this->request->capital,
-        	'land' => 20
-        ]);
+        $this->createNation();
 
         // TODO display errors on the page if something is invalid
 
@@ -125,6 +115,36 @@ class NationController extends Controller
         $this->request->session()->flash("alert-success", ["Congrats, you've created your nation!"]);
 
         return redirect("/nation/view");
+    }
+
+    /**
+     * Creates a nation
+     */
+    protected function createNation()
+    {
+        $nation = Nations::create([
+            'user_id' => Auth::user()->id,
+            'name' => $this->request->name,
+            'flagID' => $this->request->flag
+        ]);
+
+        // Create their capital city
+        Cities::create([
+            'nation_id' => $nation->id,
+            'name' => $this->request->capital,
+            'land' => 20
+        ]);
+
+        Resources::create([
+            "nationID" => $nation->id,
+            "coal" => 100,
+            "iron" => 100,
+            "clay" => 100,
+            "cement" => 100,
+            "timber" => 100,
+            "wheat" => 100,
+            "water" => 100
+        ]);
     }
 
     /**
