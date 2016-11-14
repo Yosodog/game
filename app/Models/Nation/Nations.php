@@ -102,7 +102,7 @@ class Nations extends Model
      */
     public function resources() : HasOne
     {
-        return $this->hasOne('App\Models\Nation\Resources');
+        return $this->hasOne('App\Models\Nation\Resources', "nationID");
     }
 
     /**
@@ -131,7 +131,7 @@ class Nations extends Model
      */
     public function loadFullNation()
     {
-        $this->load("cities.buildings.buildingType.effects.property");
+        $this->load("cities.buildings.buildingType.effects.property", "resources");
     }
 
     /**
