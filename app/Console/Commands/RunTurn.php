@@ -163,7 +163,7 @@ class RunTurn extends Command
     {
         // TODO optimise the shit out of this eventually
         $resources = $this->nation->resources;
-        $resources->money += $city->properties["Avg Income"]["value"] * $city->population;
+        $resources->money += ($city->properties["Avg Income"]["value"] * $city->population) / 24;
 
         $this->nation->resources()->save($resources);
     }
