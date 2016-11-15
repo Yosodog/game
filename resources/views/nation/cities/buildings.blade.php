@@ -13,7 +13,7 @@
             <td>{{ $building->name }}</td>
             <td>{{ $building->description }}</td>
             <td>{{ $building->energy }} MW</td>
-            <td>${{ number_format($building->cost) }}</td>
+            <td>${{ number_format($building->baseCost) }}</td>
             <td>{{ $building->buildingTime }} Turns</td>
             <td>{{ $quantity[$building->id] ?? 0 }}</td>
             @if ($isOwner)
