@@ -21,7 +21,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'services',
             "description" => 'A School',
             "energy" => 5,
-            "baseCost" => 1000,
+            "baseCost" => 5000000,
             "buildingTime" => 1,
         ]);
 
@@ -48,7 +48,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'services',
             "description" => 'A university',
             "energy" => 10,
-            "baseCost" => 10000,
+            "baseCost" => 20000000,
             "buildingTime" => 1,
         ]);
 
@@ -75,7 +75,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'services',
             "description" => 'A fire station',
             "energy" => 5,
-            "baseCost" => 2000,
+            "baseCost" => 5000000,
             "buildingTime" => 1,
         ]);
 
@@ -101,7 +101,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'services',
             "description" => 'A Police Station',
             "energy" => 5,
-            "baseCost" => 1000,
+            "baseCost" => 5000000,
             "buildingTime" => 1,
         ]);
 
@@ -128,7 +128,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'services',
             "description" => 'A clinic',
             "energy" => 5,
-            "baseCost" => 1000,
+            "baseCost" => 5000000,
             "buildingTime" => 1,
         ]);
 
@@ -164,7 +164,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'services',
             "description" => 'A hospital',
             "energy" => 10,
-            "baseCost" => 10000,
+            "baseCost" => 25000000,
             "buildingTime" => 3,
         ]);
 
@@ -200,7 +200,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'services',
             "description" => 'A cemetery',
             "energy" => 1,
-            "baseCost" => 1000,
+            "baseCost" => 5000000,
             "buildingTime" => 1,
         ]);
 
@@ -227,7 +227,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'transportation',
             "description" => 'An airport',
             "energy" => 10,
-            "baseCost" => 10000,
+            "baseCost" => 30000000,
             "buildingTime" => 1,
         ]);
 
@@ -245,7 +245,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'transportation',
             "description" => 'An International Airport',
             "energy" => 100,
-            "baseCost" => 1000000,
+            "baseCost" => 100000000,
             "buildingTime" => 1,
         ]);
 
@@ -263,7 +263,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'transportation',
             "description" => 'A bus depot',
             "energy" => 10,
-            "baseCost" => 10000,
+            "baseCost" => 5000000,
             "buildingTime" => 1,
         ]);
 
@@ -281,7 +281,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'transportation',
             "description" => 'A harbor',
             "energy" => 10,
-            "baseCost" => 10000,
+            "baseCost" => 50000000,
             "buildingTime" => 10,
         ]);
 
@@ -299,7 +299,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'services',
             "description" => 'A landfill',
             "energy" => 2,
-            "baseCost" => 1000,
+            "baseCost" => 10000000,
             "buildingTime" => 1,
         ]);
 
@@ -326,7 +326,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'transportation',
             "description" => 'A metro',
             "energy" => 50,
-            "baseCost" => 50000,
+            "baseCost" => 60000000,
             "buildingTime" => 1,
         ]);
 
@@ -344,7 +344,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'services',
             "description" => 'A prison',
             "energy" => 10,
-            "baseCost" => 20000,
+            "baseCost" => 25000000,
             "buildingTime" => 1,
         ]);
 
@@ -371,7 +371,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'transportation',
             "description" => 'Railway',
             "energy" => 50,
-            "baseCost" => 100000,
+            "baseCost" => 100000000,
             "buildingTime" => 1,
         ]);
 
@@ -389,7 +389,7 @@ class BuildingTypesSeeder extends Seeder
             "category" => 'transportation',
             "description" => 'Road',
             "energy" => 50,
-            "baseCost" => 100000,
+            "baseCost" => 70000000,
             "buildingTime" => 1,
         ]);
 

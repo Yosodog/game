@@ -96,6 +96,16 @@ class Nations extends Model
     }
 
     /**
+     * The nation/resource relationship
+     *
+     * @return HasOne
+     */
+    public function resources() : HasOne
+    {
+        return $this->hasOne('App\Models\Nation\Resources', "nationID");
+    }
+
+    /**
      * Get and return an instance of this model by the Nation ID
      *
      * @param int $id
@@ -121,7 +131,7 @@ class Nations extends Model
      */
     public function loadFullNation()
     {
-        $this->load("cities.buildings.buildingType.effects.property");
+        $this->load("cities.buildings.buildingType.effects.property", "resources");
     }
 
     /**

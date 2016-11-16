@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Jobs;
+use App\Models\Nation\Cities;
 use App\Models\Nation\Nations;
 use App\Models\Properties;
 use Illuminate\Console\Command;
@@ -62,6 +63,13 @@ class RunTurn extends Command
     protected $cIDs = [];
 
     /**
+     * A place to temp store a nation's new resource values
+     *
+     * @var array
+     */
+    protected $resources = [];
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -83,6 +91,7 @@ class RunTurn extends Command
 
         foreach ($nations as $nation) // Run through every nation in the game
         {
+            $this->resources = [];
             $this->nation = $nation;
             $this->nation->loadFullNation();
             // Right now all we have to do is process their queue
@@ -134,6 +143,7 @@ class RunTurn extends Command
         {
             $city->setupProperties($this->properties);
             $city->calcStats();
+            $this->addResources($city);
 
             $pop = $city->population + ($city->properties["Growth Rate"]["value"] / 12); // Calculate the new population
 
@@ -143,6 +153,21 @@ class RunTurn extends Command
             array_push($this->cIDs, $city->id); // Add the city ID to an array so we can add that to the query later
         }
     }
+
+    /**
+     * Adds resources to the nation
+     *
+     * @param Cities $city
+     */
+    protected function addResources(Cities $city)
+    {
+        // TODO optimise the shit out of this eventually
+        $resources = $this->nation->resources;
+        $resources->money += ($city->properties["Avg Income"]["value"] * $city->population) / 24;
+
+        $this->nation->resources()->save($resources);
+    }
+
 
     /**
      * Sets up and executes one query to update all nations

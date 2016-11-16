@@ -134,7 +134,17 @@ class CityController extends Controller
         if (!$cities->isOwner())
             abort(403);
 
-        // TODO charge the user the amount needed
+        // Verify that the nation has the correct amount of money
+        $resources = Auth::user()->nation->resources;
+        if ($resources->money < $buildingtypes->baseCost)
+        {
+            $this->request->session()->flash("alert-danger", ["You don't have enough money to buy a $buildingtypes->name"]);
+            return redirect("/cities/view/$cities->id");
+        }
+
+        // Now subtract the money from the nation
+        $resources->money -= $buildingtypes->baseCost;
+        Auth::user()->nation->resources()->save($resources);
 
         // Determine if the request should be active or queued
         if ($cities->checkIfOpenBuildingSlots())
