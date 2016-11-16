@@ -41,6 +41,7 @@
 
         <ul class="dropdown-menu" role="menu">
             <li><a href="#">Rubber: <span class="pull-right">{{ number_format(Auth::user()->nation->resources->rubber) }}</span></a></li>
+            <li><a href="#">Iron: <span class="pull-right">{{ number_format(Auth::user()->nation->resources->iron) }}</span></a></li>
             <li><a href="#">Steel: <span class="pull-right">{{ number_format(Auth::user()->nation->resources->steel) }}</span></a></li>
             <li><a href="#">Bauxite: <span class="pull-right">{{ number_format(Auth::user()->nation->resources->bauxite) }}</span></a></li>
             <li><a href="#">Aluminum: <span class="pull-right">{{ number_format(Auth::user()->nation->resources->aluminum) }}</span></a></li>
