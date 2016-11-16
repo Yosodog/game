@@ -30,14 +30,16 @@
     <div class="btn-group btn-group-justified"> {{-- Button group for non-alliance members --}}
         <a href="{{ url("/alliance/".$alliance->id) }}" class="btn btn-default">View</a>
         <a href="{{ $alliance->forumURL }}" class="btn btn-default" target="_blank">Forums</a>
-        <a href="#" class="btn btn-default">IRC</a> {{-- TODO add link to go to their IRC channel --}}
+        <a href="https://widget01.mibbit.com/?settings=0c9c2174544a34bb7bd3d56129a27a01&server=irc.coldfront.net&channel={{ urlencode($alliance->IRCChan) }}" class="btn btn-default">IRC</a>
         <a href="{{ $alliance->discord ?? "#" }}" class="btn btn-default">Discord</a>
         <a href="#" class="btn btn-default">Wars</a>
-        <a href="#" class="btn btn-default">Join</a> {{-- TODO make this a join/leave button --}}
-        @if (Auth::user()->nation->allianceID == $alliance->id)
+        @if (Auth::user()->nation->allianceID != $alliance->id)
+       		<a href="#" class="btn btn-default">Join</a> {{-- TODO make this a join/leave button --}}
+        @else (Auth::user()->nation->allianceID == $alliance->id)
+            <a href="#" class="btn btn-default">Leave</a>
             <a href="#" class="btn btn-default">Edit</a> {{-- TODO make it so this button only shows to people with the proper permissions --}}
-            <a href="#" class="btn btn-default" target="_blank">Announcements</a>
             <a href="#" class="btn btn-default">Bank</a>
+            <a href="#" class="btn btn-default">Announcements</a>
         @endif
     </div>
     {{-- TODO make this look better --}}
