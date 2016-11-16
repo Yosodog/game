@@ -127,6 +127,8 @@
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#services">Services</a> </li>
         <li><a data-toggle="tab" href="#transportation">Transportation</a> </li>
+        <li><a data-toggle="tab" href="#raw">Extractors</a> </li>
+        <li><a data-toggle="tab" href="#manufactories">Manufactories</a> </li>
     </ul>
 
     <div class="tab-content">
@@ -135,6 +137,12 @@
         </div>
         <div id="transportation" class="tab-pane fade">
             @include('nation.cities.buildings', ['category' => "transportation"])
+        </div>
+        <div id="raw" class="tab-pane fade">
+            @include('nation.cities.buildings', ['category' => "raw"])
+        </div>
+        <div id="manufactories" class="tab-pane fade">
+            @include('nation.cities.buildings', ['category' => "manufactory"])
         </div>
     </div>
 
