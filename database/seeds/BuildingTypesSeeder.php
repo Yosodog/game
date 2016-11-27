@@ -401,5 +401,195 @@ class BuildingTypesSeeder extends Seeder
             "relation" => $building->id,
             "affect" => 3,
         ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Coal mine',
+            "category" => 'raw',
+            "description" => 'A Coal mine',
+            "energy" => 10,
+            "baseCost" => 25000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Oil Well',
+            "category" => 'raw',
+            "description" => 'An Oil Well',
+            "energy" => 10,
+            "baseCost" => 25000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Oil Refinery',
+            "category" => 'manufactory',
+            "description" => 'An Oil Refinery',
+            "energy" => 20,
+            "baseCost" => 100000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Wheat Farm',
+            "category" => 'raw',
+            "description" => 'A Wheat Farm',
+            "energy" => 10,
+            "baseCost" => 25000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Ranch',
+            "category" => 'raw',
+            "description" => 'A ranch',
+            "energy" => 10,
+            "baseCost" => 25000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Wheat Refinery',
+            "category" => 'manufactory',
+            "description" => 'A Wheat Refinery',
+            "energy" => 20,
+            "baseCost" => 100000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Meat Processor',
+            "category" => 'manufactory',
+            "description" => 'A Meat Processor',
+            "energy" => 20,
+            "baseCost" => 100000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Water Tower',
+            "category" => 'raw',
+            "description" => 'A Water Tower',
+            "energy" => 1,
+            "baseCost" => 10000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Clay Mine',
+            "category" => 'raw',
+            "description" => 'A Clay Mine',
+            "energy" => 10,
+            "baseCost" => 25000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Cement Kiln',
+            "category" => 'raw',
+            "description" => 'A Cement Kiln',
+            "energy" => 10,
+            "baseCost" => 25000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Timber Mill',
+            "category" => 'raw',
+            "description" => 'A Timber Mill',
+            "energy" => 10,
+            "baseCost" => 25000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Brick House',
+            "category" => 'manufactory',
+            "description" => 'A Brick house',
+            "energy" => 20,
+            "baseCost" => 100000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Concrete Mixer',
+            "category" => 'manufactory',
+            "description" => 'A Concrete Mixer',
+            "energy" => 20,
+            "baseCost" => 100000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Lumber Refinery',
+            "category" => 'manufactory',
+            "description" => 'A Lumber Refinery',
+            "energy" => 20,
+            "baseCost" => 100000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Rubber Processor',
+            "category" => 'raw',
+            "description" => 'A Rubber Processor',
+            "energy" => 10,
+            "baseCost" => 25000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Iron Mine',
+            "category" => 'raw',
+            "description" => 'An Iron Mine',
+            "energy" => 10,
+            "baseCost" => 25000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Bauxite Mill',
+            "category" => 'raw',
+            "description" => 'A Bauxite Mill',
+            "energy" => 10,
+            "baseCost" => 25000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Lead Mine',
+            "category" => 'raw',
+            "description" => 'A Lead Mine',
+            "energy" => 10,
+            "baseCost" => 25000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Steel Mill',
+            "category" => 'manufactory',
+            "description" => 'A Steel Mill',
+            "energy" => 20,
+            "baseCost" => 100000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Aluminum Factory',
+            "category" => 'manufactory',
+            "description" => 'An Aluminum Factory',
+            "energy" => 20,
+            "baseCost" => 100000,
+            "buildingTime" => 1,
+        ]);
+
+        $building = BuildingTypes::create([
+            "name" => 'Ammo Factory',
+            "category" => 'manufactory',
+            "description" => 'An Ammo Factory',
+            "energy" => 20,
+            "baseCost" => 100000,
+            "buildingTime" => 1,
+        ]);
+
     }
 }
