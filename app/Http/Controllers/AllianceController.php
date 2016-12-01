@@ -115,4 +115,72 @@ class AllianceController extends Controller
             "alliances" => $alliances
         ]);
     }
+    
+    /**
+     * PATCH: /alliance/{$alliance}/leave
+     *
+     * Allows the user to leave an alliance.
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function leaveAlliance(Alliance $alliance)
+    {
+    	if (!Auth::user()->hasNation)
+    		abort(403);
+    	
+    	$nation = Auth::user()->nation;
+    	
+    	if ($alliance->id == $nation->allianceID)
+    	{
+    		$nation->allianceID = null;
+    		$nation->save();
+    		$name = $alliance->name;
+    		
+    		if ($alliance->countMembers() == 0) $alliance->delete();
+			
+    		$this->request->session()->flash("alert-success", ["You have left your alliance, ".$name."!"]);
+    		 
+    		return redirect("/alliances");
+    	}
+    	else
+    	{
+    		$this->request->session()->flash("alert-warning", ["You are not a member of this alliance!"]);
+    		return redirect("/alliances");
+    	}
+    	
+    }
+    
+    /**
+     * PATCH: /alliance/{$alliance}/join
+     *
+     * Allows the user to leave an alliance.
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function joinAlliance(Alliance $alliance)
+    {
+    	if (!Auth::user()->hasNation)
+    		abort(403);
+    		 
+    		$nation = Auth::user()->nation;
+    		
+    		if ($nation->allianceID == $alliance->id)
+    		{
+    		 	$this->request->session()->flash("alert-warning", ["You are already a member of this alliance!"]);
+    		}
+    		elseif ($nation->allianceID != null)
+    		{
+    			$this->request->session()->flash("alert-warning", ["You are already a member of an alliance! Leave that one before joining this one!"]);
+    		}
+    		else
+    		{
+    			$nation->allianceID = $alliance->id;
+    			$nation->save();
+    			$this->request->session()->flash("alert-success", ["You have successfully joined ".$alliance->name."!"]);
+    		}
+    		
+    		return redirect("/alliance/".$alliance->id);
+    }
 }

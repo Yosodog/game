@@ -34,9 +34,17 @@
         <a href="{{ $alliance->discord ?? "#" }}" class="btn btn-default">Discord</a>
         <a href="#" class="btn btn-default">Wars</a>
         @if (Auth::user()->nation->allianceID != $alliance->id)
-       		<a href="#" class="btn btn-default">Join</a> {{-- TODO make this a join/leave button --}}
+       		<form method="post" action="{{ url("/alliance/".$alliance->id."/join") }}" class="btn btn-default">
+            {{ csrf_field() }}
+            {{ method_field("PATCH") }}
+            <input type="submit" value="Join">
+            </form> {{-- TODO make this a join/leave button --}}
         @else (Auth::user()->nation->allianceID == $alliance->id)
-            <a href="#" class="btn btn-default">Leave</a>
+        	<form method="post" action="{{ url("/alliance/".$alliance->id."/leave") }}" class="btn btn-default">
+            {{ csrf_field() }}
+            {{ method_field("PATCH") }}
+            <input type="submit" value="Leave">
+            </form>
             <a href="#" class="btn btn-default">Edit</a> {{-- TODO make it so this button only shows to people with the proper permissions --}}
             <a href="#" class="btn btn-default">Bank</a>
             <a href="#" class="btn btn-default">Announcements</a>
