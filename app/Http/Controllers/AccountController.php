@@ -124,6 +124,9 @@ class AccountController extends Controller
         if (!Hash::check($this->request->password, Auth::user()->password)) // Passwords don't match, redirect with an error
             return redirect("/account")->with("alert-danger", ["That password is incorrect"]);
 
+        if (Auth::user()->nation->allianceID != null) // Nation is still in an alliance, redirect with error
+            return redirect("/account")->with("alert-warning", ["You are still in an alliance. Leave that alliance to continue!"]);
+        
         // Go through and delete everything associated with the account
         foreach (Auth::user()->nation->cities as $city)
         {
@@ -138,7 +141,8 @@ class AccountController extends Controller
             // Now actually delete the city
             $city->delete();
         }
-
+        
+        Auth::user()->nation->resources()->delete();
         // Delete the nation
         Auth::user()->nation()->delete();
         // Delete the account
