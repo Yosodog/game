@@ -142,6 +142,7 @@ class AccountController extends Controller
             $city->delete();
         }
         
+        // Deletes all resources for the nation
         Auth::user()->nation->resources()->delete();
         // Delete the nation
         Auth::user()->nation()->delete();
