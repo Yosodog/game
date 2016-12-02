@@ -40,6 +40,8 @@ Route::group(["middleware" => ["auth", "NoNation"]], function() { // Pages that 
     Route::post("/alliance/create", "AllianceController@createPOST");
     Route::get("/alliance/{alliance}", "AllianceController@view");
     Route::get("/alliances", "AllianceController@viewAll");
+    Route::patch("/alliance/{alliance}/leave", "AllianceController@leaveAlliance");
+    Route::patch("/alliance/{alliance}/join", "AllianceController@joinAlliance");
 
     // Account related pages
     Route::get("/account", "AccountController@view");
