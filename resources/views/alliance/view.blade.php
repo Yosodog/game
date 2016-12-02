@@ -38,7 +38,7 @@
             {{ csrf_field() }}
             {{ method_field("PATCH") }}
             <input type="submit" value="Join">
-            </form> {{-- TODO make this a join/leave button --}}
+            </form>
         @else (Auth::user()->nation->allianceID == $alliance->id)
         	<form method="post" action="{{ url("/alliance/".$alliance->id."/leave") }}" class="btn btn-default">
             {{ csrf_field() }}
