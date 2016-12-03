@@ -25,6 +25,10 @@
                                 <input type="text" class="form-control" id="irc" name="irc" maxlength="15">
                             </div>
                             <div class="form-group">
+                                <label for="discord">Alliance Discord</label>
+                                <input type="url" class="form-control" id="discord" name="discord">
+                            </div>
+                            <div class="form-group">
                                 <label for="description">Alliance Description</label>
                                 <textarea class="form-control" id="description" name="description" rows="5"></textarea>
                             </div>

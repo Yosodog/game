@@ -69,7 +69,8 @@ class AllianceController extends Controller
             "description" => $this->request->description,
             "forumURL" => $this->request->forumURL,
             "IRCChan" => $this->request->irc,
-            "flagID" => $this->request->flag
+            "flagID" => $this->request->flag,
+        	"discord" => $this->request->discord
         ]);
 
         // Set the user's alliance to this newly created one
@@ -182,5 +183,209 @@ class AllianceController extends Controller
     		}
     		
     		return redirect("/alliance/".$alliance->id);
+    }
+    
+    /**
+     * GET: /alliance/{$alliance}/edit
+     *
+     * Shows the edit page of an alliance
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit (Alliance $alliance)
+    {
+    	$nations = Nations::where("allianceID", $alliance->id)->paginate(15);
+    	$nations->load("user");
+    	$flags = Flags::all();
+    	
+    	return view("alliance.edit", [
+    			"alliance" => $alliance,
+    			"nations" => $nations,
+    			"flags" => $flags
+    	]);
+    }
+    
+    /**
+     * POST: /alliance/{$alliance}/edit/renameAlliance
+     *
+     * Changes the name of an alliance
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    
+    public function renameAlliance (Alliance $alliance)
+    {
+    	// validate alliance name change, make sure it is unique
+    	$this->validate($this->request, [
+    			"name" => "required|unique:alliances,name|max:255"
+    	]);
+    	
+    	// actually change the name
+    	$alliance->name = $this->request->name;
+    	$alliance->save();
+    	
+    	return redirect("/alliance/".$alliance->id."/edit")->with("alert-success", ["Alliance name changed successfully!"]);
+    }
+    
+    /**
+     * POST: /alliance/{$alliance}/edit/changeForumURL
+     *
+     * Changes the forumURL of an alliance
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    
+    public function changeForum (Alliance $alliance)
+    { 
+    	// No verification needed, so just save the new forum URL.
+    	$alliance->forumURL = $this->request->forumURL;
+    	$alliance->save();
+    	 
+    	return redirect("/alliance/".$alliance->id."/edit")->with("alert-success", ["Alliance forum changed successfully!"]);
+    }
+    
+    /**
+     * POST: /alliance/{$alliance}/edit/changeIRCChannel
+     *
+     * Changes the IRC Channel of an alliance
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    
+    public function changeIRC (Alliance $alliance)
+    {
+    	// No verification needed, so just save the new IRC Channel.
+    	$alliance->IRCChan = $this->request->IRCChan;
+    	$alliance->save();
+    
+    	return redirect("/alliance/".$alliance->id."/edit")->with("alert-success", ["IRC channel changed successfully!"]);
+    }
+    
+    /**
+     * POST: /alliance/{$alliance}/edit/changeDiscordServer
+     *
+     * Changes the Discord Server of an alliance
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    
+    public function changeDiscord (Alliance $alliance)
+    {
+    	// No verification needed, so just save the new discord server.
+    	$alliance->discord = $this->request->discord;
+    	$alliance->save();
+    
+    	return redirect("/alliance/".$alliance->id."/edit")->with("alert-success", ["Discord changed successfully!"]);
+    }
+    
+    /**
+     * POST: /alliance/{$alliance}/edit/changeAllianceDescription
+     *
+     * Changes the description of an alliance
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    
+    public function changeDescription (Alliance $alliance)
+    {
+    	// No verification needed, so just save the new description.
+    	$alliance->description = $this->request->description;
+    	$alliance->save();
+    
+    	return redirect("/alliance/".$alliance->id."/edit")->with("alert-success", ["Description changed successfully!"]);
+    }
+    
+    /**
+     * POST: /alliance/{$alliance}/edit/changeAllianceFlag
+     *
+     * Changes the flag of an alliance
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    
+    public function changeFlag (Alliance $alliance)
+    {
+    	// verify the flag exists
+    	$this->validate($this->request, [
+    			'flag' => 'required|integer|exists:flags,id'
+    	]);
+    	
+    	// Save the new flag.
+    	$alliance->flagID = $this->request->flag;
+    	$alliance->save();
+    
+    	return redirect("/alliance/".$alliance->id."/edit")->with("alert-success", ["Flag changed successfully!"]);
+    }
+    
+    /**
+     * PATCH: /alliance/{$alliance}/edit/removeMember
+     *
+     * Removes a member from the alliance
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    
+    public function removeMember (Alliance $alliance)
+    {	 
+    	// Store nation as a variable
+    	$nationID = $this->request->nation;
+    	$userNation = Auth::user()->nation;
+    	
+    	// The person using the method can't remove themselves, so check if they are trying to remove themself.
+    	if ($userNation->id == $nationID)
+    	{
+    		return redirect("/alliance/".$alliance->id."/edit")->with("alert-warning", ["You cannot remove yourself using this method! Leave the alliance instead!"]);
+    	}
+    	
+    	// get nation from nation ID
+    	$nation = Nations::find($nationID);
+    	
+    	// Check to see if the two are in the same alliance
+    	if (Auth::user()->nation->aID != $nation->aID) return redirect("/alliance/".$alliance->id."/edit")->with("alert-danger", ["Either the person has been removed already or you do not have the proper permissions."]);
+    	
+    	// Remove them from the alliance
+    	$nation->allianceID = null;
+    	$nation->save();
+    	$name = $nation->user->name;
+    	
+    	return redirect("/alliance/".$alliance->id."/edit")->with("alert-success", [$name." has been removed from the alliance!"]);
+    }
+    
+    /**
+     * DELETE: /alliance/{$alliance}/edit/disband
+     *
+     * Disbands an alliance and removes it from the game
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    
+    public function disband (Alliance $alliance)
+    {
+    	// load all the nations in the alliance
+    	$nations = Nations::where("allianceID", $alliance->id)->paginate(15);
+    	$nations->load("user");
+    	
+    	// removes everyone
+    	foreach ($nations as $nation)
+    	{
+    		$nation->allianceID = null;
+    		$nation->save();
+    	} 	
+
+    	$name = $alliance->name;
+    	
+    	// deletes the alliance
+    	$alliance->delete();
+    	 
+    	return redirect("/alliances")->with("alert-info", [$name." has been disbanded. :("]);
     }
 }
