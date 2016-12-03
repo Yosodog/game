@@ -178,7 +178,7 @@
                 <div class="panel-body">
                     <p>Disbanding this alliance is <strong>permanent</strong>. The alliance will be completely removed from the game and all members set to None. It will NOT be restored.</p>
                     <div class="col-md-6">
-                        <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/disband") }}" onsubmit="confirm('Are you sure you want to disband this alliance? This cannot be undone.')">
+                        <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/disband") }}" onsubmit="return confirm('Are you sure you want to disband this alliance? This cannot be undone.')">
 
                             <div class="form-group">
                                 {{ csrf_field() }}

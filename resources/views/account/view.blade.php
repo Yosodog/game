@@ -82,7 +82,7 @@
                 <div class="panel-body">
                     <p>Deleting your account is <strong>permanent</strong>. Your nation will be completely deleted and cannot be recovered. Make sure you want to do this.</p>
                     <div class="col-md-6">
-                        <form method="post" action="{{ url("/account/delete") }}" onsubmit="confirm('Are you sure you want to delete your account? This cannot be undone.')">
+                        <form method="post" action="{{ url("/account/delete") }}" onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.')">
                             <div class="form-group"><label for="passwordDel">Password</label>
                                 <input type="password" id="passwordDel" name="password" placeholder="Password" class="form-control" required>
                             </div>
