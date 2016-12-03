@@ -294,7 +294,7 @@ class AllianceController extends Controller
     
     public function changeDescription (Alliance $alliance)
     {
-    	// No verification needed, so just save the new discord server.
+    	// No verification needed, so just save the new description.
     	$alliance->description = $this->request->description;
     	$alliance->save();
     
