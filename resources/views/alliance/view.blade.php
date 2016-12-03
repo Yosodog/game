@@ -45,7 +45,7 @@
             {{ method_field("PATCH") }}
             <input type="submit" value="Leave">
             </form>
-            <a href="#" class="btn btn-default">Edit</a> {{-- TODO make it so this button only shows to people with the proper permissions --}}
+            <a href="{{ url("/alliance/".$alliance->id."/edit") }}" class="btn btn-default">Edit</a> {{-- TODO make it so this button only shows to people with the proper permissions --}}
             <a href="#" class="btn btn-default">Bank</a>
             <a href="#" class="btn btn-default">Announcements</a>
         @endif
