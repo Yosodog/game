@@ -370,27 +370,16 @@ class AllianceController extends Controller
     
     public function disband (Alliance $alliance)
     {
-    	// load all the nations of the game
+    	// load all the nations in the alliance
     	$nations = Nations::where("allianceID", $alliance->id)->paginate(15);
     	$nations->load("user");
     	
-    	// load user's nation
-    	$userNation = Auth::user()->nation;
-    	
-    	// removes everyone except the user
+    	// removes everyone
     	foreach ($nations as $nation)
     	{
-    		if ($userNation->id != $nation->id)
-    		{
-    			$nation->allianceID = null;
-    			$nation->save();
-    		}
-    	}
-    	
-    	// removes the user
-    	$userNation->allianceID = null;
-    	$userNation->save();
-    	
+    		$nation->allianceID = null;
+    		$nation->save();
+    	} 	
 
     	$name = $alliance->name;
     	
