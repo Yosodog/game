@@ -9,7 +9,7 @@
             </div>
             <div class="col-md-8">
                 <h1 class="text-center">{{ $nation->name }}</h1>
-                <p class="text-center"><em>"Some Nice Motto"</em></p>
+                <p class="text-center"><em>"{{ $nation->motto }}"</em></p>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
         <a href="#" class="btn btn-default">Button</a>
         <a href="#" class="btn btn-default">Button</a>
         <a href="#" class="btn btn-default">Button</a>
-        <a href="#" class="btn btn-default">Button</a>
+        @if($nation->id == Auth::user()->nation->id)<a href="/nation/edit" class="btn btn-default">Edit</a>@endif
     </div>
     <hr>
     <div class="row">
