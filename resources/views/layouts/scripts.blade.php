@@ -15,4 +15,18 @@
         // activate touch mode permanently
     });
 </script>
+@if (!Auth::guest() && Auth::user()->hasNation) {{-- We only want to update the user's resources if they have a nation and are logged in --}}
+    <script>
+        function addCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        // Visually update user's resources
+        setInterval(function() {
+            $("#money").text(function() {
+                var value = parseFloat($(this).text().replace(/,/g,''));
+                return addCommas(parseFloat(value + {{ session("moneyPerSec") }}).toFixed(2));
+            });
+        }, 1000)
+    </script>
+@endif
 @yield("scripts") {{-- For loading custom scripts on pages --}}

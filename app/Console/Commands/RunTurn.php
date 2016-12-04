@@ -143,7 +143,6 @@ class RunTurn extends Command
         {
             $city->setupProperties($this->properties);
             $city->calcStats();
-            $this->addResources($city);
 
             $pop = $city->population + ($city->properties["Growth Rate"]["value"] / 12); // Calculate the new population
 
@@ -153,21 +152,6 @@ class RunTurn extends Command
             array_push($this->cIDs, $city->id); // Add the city ID to an array so we can add that to the query later
         }
     }
-
-    /**
-     * Adds resources to the nation
-     *
-     * @param Cities $city
-     */
-    protected function addResources(Cities $city)
-    {
-        // TODO optimise the shit out of this eventually
-        $resources = $this->nation->resources;
-        $resources->money += ($city->properties["Avg Income"]["value"] * $city->population) / 24;
-
-        $this->nation->resources()->save($resources);
-    }
-
 
     /**
      * Sets up and executes one query to update all nations
