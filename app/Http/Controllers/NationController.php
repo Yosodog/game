@@ -164,4 +164,89 @@ class NationController extends Controller
             "nations" => $nations
         ]);
     }
+    
+    /**
+     * Display edit nation page
+     *
+     * @return View
+     */
+    public function edit()
+    {
+    	$nation = Auth::user()->nation;
+    	$flags = Flags::all();
+    
+    	return view ("nation.edit", [
+    			"nation" => $nation,
+    			"flags" => $flags
+    	]);
+    }
+    
+    /**
+     * PATCH: /nation/edit/renameNation
+     *
+     * Changes the name of a nation
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    
+    public function renameNation ()
+    {
+    	// get user nation
+    	$nation = Auth::user()->nation;
+    	// validate nation name change, make sure it is unique
+    	$this->validate($this->request, [
+    			"name" => "required|unique:nations,name|max:255"
+    	]);
+    	 
+    	// actually change the name
+    	$nation->name = $this->request->name;
+    	$nation->save();
+    	 
+    	return redirect("/nation/edit")->with("alert-success", ["Nation name changed successfully!"]);
+    }
+    
+    /**
+     * PATCH: /nation/edit/changeMotto
+     *
+     * Changes the motto of a nation
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    
+    public function changeMotto ()
+    {
+    	// get user nation
+    	$nation = Auth::user()->nation;
+    
+    	// actually change the motto
+    	$nation->motto = $this->request->motto;
+    	$nation->save();
+    
+    	return redirect("/nation/edit")->with("alert-success", ["Nation motto changed successfully!"]);
+    }
+    
+    /**
+     * PATCH: /nation/edit/changeFlag
+     *
+     * Changes the flag of a nation
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    
+    public function changeFlag ()
+    {
+    	// get user nation
+    	$nation = Auth::user()->nation;
+    	
+    	// confirm the flag exists
+    	$this->validate($this->request, [
+    			'flag' => 'required|integer|exists:flags,id'
+    	]);
+    
+    	// actually change the motto
+    	$nation->flagID = $this->request->flag;
+    	$nation->save();
+    
+    	return redirect("/nation/edit")->with("alert-success", ["Nation flag changed successfully!"]);
+    }
 }

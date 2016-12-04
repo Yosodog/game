@@ -25,6 +25,10 @@ Route::group(["middleware" => ["auth", "NoNation"]], function() { // Pages that 
     // Nation Related Pages
     Route::get("/nation/view/{id?}", "NationController@View");
     Route::get("/nations", "NationController@allNations");
+    Route::get("/nation/edit", "NationController@edit");
+    Route::patch("/nation/edit/renameNation", "NationController@renameNation");
+    Route::patch("/nation/edit/changeMotto", "NationController@changeMotto");
+    Route::patch("/nation/edit/changeFlag", "NationController@changeFlag");
 
     // City related Pages
     Route::get("/cities", "CityController@overview");
