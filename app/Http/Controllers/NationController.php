@@ -189,7 +189,7 @@ class NationController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     
-    public function renameNation ()
+    public function renameNation()
     {
     	// get user nation
     	$nation = Auth::user()->nation;
@@ -213,7 +213,7 @@ class NationController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     
-    public function changeMotto ()
+    public function changeMotto()
     {
     	// get user nation
     	$nation = Auth::user()->nation;
@@ -233,7 +233,7 @@ class NationController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     
-    public function changeFlag ()
+    public function changeFlag()
     {
     	// get user nation
     	$nation = Auth::user()->nation;
