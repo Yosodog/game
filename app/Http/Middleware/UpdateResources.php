@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Nation\Cities;
 use App\Models\Properties;
 use Closure;
 use Auth;
@@ -30,6 +31,52 @@ class UpdateResources
     protected $diff;
 
     /**
+     * All resources are per second
+     *
+     * @var int $money
+     * @var int $coal
+     * @var int $oil
+     * @var int $gas
+     * @var int $wheat
+     * @var int $livestock
+     */
+    protected $money = 0, $coal = 0, $oil = 0, $gas = 0, $wheat = 0, $livestock = 0;
+
+    /**
+     * All are per second
+     *
+     * @var int $bread
+     * @var int $meat
+     * @var int $water
+     * @var int $clay
+     * @var int $cement
+     * @var int $timber
+     */
+    protected $bread = 0, $meat = 0, $water = 0, $clay = 0, $cement = 0, $timber = 0;
+
+    /**
+     * All are per second
+     *
+     * @var int $brick
+     * @var int $concrete
+     * @var int $lumber
+     * @var int $rubber
+     * @var int $iron
+     */
+    protected $brick = 0, $concrete = 0, $lumber = 0, $rubber = 0, $iron = 0;
+
+    /**
+     * All are per second
+     *
+     * @var int $steel
+     * @var int $bauxite
+     * @var int $aluminum
+     * @var int $lead
+     * @var int $ammo
+     */
+    protected $steel = 0, $bauxite = 0, $aluminum = 0, $lead = 0, $ammo = 0;
+
+    /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -55,6 +102,10 @@ class UpdateResources
 
         $this->calcStats();
         $this->calcAddedResources();
+
+        $this->updateResouces(); // Update the resources table
+        $this->updateReq(); // Update the last request stuff
+        $this->updateSession();
 
         return $next($request);
     }
@@ -89,34 +140,64 @@ class UpdateResources
      */
     protected function calcAddedResources()
     {
-        $totalIncome = 0;
-
         foreach ($this->user->nation->cities as $city)
         {
-            // Calculate how much money they make per day
-            $totalIncome += round($city->properties["Avg Income"]["value"] * $city->population, 2);
+            $this->calcMoney($city);
+            $this->calcResources($city);
         }
+    }
 
-        // Calculate how much they make per second
-        $moneyPerSec = round($totalIncome / 86400, 2);
+    /**
+     * Calculates how much money they make per second
+     *
+     * @param Cities $city
+     */
+    protected function calcMoney(Cities $city)
+    {
+        // Calculate how much money they make per day
+        $income = $city->properties["Avg Income"]["value"] * $city->population;
+        $this->money += round($income / 86400, 2);
+    }
 
-        // Add the per second things to the session so we don't have to calculate them later
-        session([
-            "moneyPerSec" => $moneyPerSec
-        ]);
+    /**
+     * Calculates how much of each resource is produced per second
+     *
+     * @param Cities $city
+     */
+    protected function calcResources(Cities $city)
+    {
 
-        // TODO implement adding resources here
+    }
 
-        // Now update resources
-        $this->user->nation->resources->money += $moneyPerSec * $this->diff;
+    /**
+     * Updates the resources table with the new resources
+     */
+    protected function updateResouces()
+    {
+        $resources = $this->user->nation->resources;
 
-        // Update last request
+        $resources->money += $this->money * $this->diff;
+
+        $resources->save();
+    }
+
+    /**
+     * Updates the last request in the users table
+     */
+    protected function updateReq()
+    {
         $this->user->lastRequest = $this->now;
 
-        // Save Resources and user
-        $resouces = $this->user->nation->resources;
-
         $this->user->save();
-        $resouces->save();
+    }
+
+    /**
+     * Updates the session with the proper perSec variables so in the view we can display it easier
+     */
+    protected function updateSession()
+    {
+        session([
+            "moneyPerSec" => $this->money,
+        ]);
     }
 }
