@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class BuildingTypes extends Model
 {
     /**
-     * Properties that can be filled
+     * Allow all properties to be mass assignable
      *
      * @var array
      */
-    public $fillable = ["name", "category", "description", "energy", "baseCost", "resources"];
+    protected $guarded = [];
 
     /**
      * BuildingType/Building relationship

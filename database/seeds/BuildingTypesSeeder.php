@@ -409,6 +409,9 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 10,
             "baseCost" => 25000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "coal",
+            "producedAmount" => 10,
         ]);
 
         $building = BuildingTypes::create([
@@ -418,6 +421,9 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 10,
             "baseCost" => 25000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "oil",
+            "producedAmount" => 10,
         ]);
 
         $building = BuildingTypes::create([
@@ -427,6 +433,12 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 20,
             "baseCost" => 100000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "gas",
+            "producedAmount" => 10,
+            "requires" => 1,
+            "requiredResource" => "coal",
+            "requiredAmount" => 5,
         ]);
 
         $building = BuildingTypes::create([
@@ -436,6 +448,9 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 10,
             "baseCost" => 25000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "wheat",
+            "producedAmount" => 10,
         ]);
 
         $building = BuildingTypes::create([
@@ -445,6 +460,9 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 10,
             "baseCost" => 25000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "livestock",
+            "producedAmount" => 10,
         ]);
 
         $building = BuildingTypes::create([
@@ -454,6 +472,12 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 20,
             "baseCost" => 100000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "bread",
+            "producedAmount" => 5,
+            "requires" => 1,
+            "requiredResource" => "wheat",
+            "requiredAmount" => 5,
         ]);
 
         $building = BuildingTypes::create([
@@ -463,6 +487,12 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 20,
             "baseCost" => 100000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "meat",
+            "producedAmount" => 5,
+            "requires" => 1,
+            "requiredResource" => "livestock",
+            "requiredAmount" => 5,
         ]);
 
         $building = BuildingTypes::create([
@@ -472,6 +502,9 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 1,
             "baseCost" => 10000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "water",
+            "producedAmount" => 10,
         ]);
 
         $building = BuildingTypes::create([
@@ -481,6 +514,9 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 10,
             "baseCost" => 25000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "clay",
+            "producedAmount" => 10,
         ]);
 
         $building = BuildingTypes::create([
@@ -490,6 +526,9 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 10,
             "baseCost" => 25000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "cement",
+            "producedAmount" => 10,
         ]);
 
         $building = BuildingTypes::create([
@@ -499,6 +538,9 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 10,
             "baseCost" => 25000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "timber",
+            "producedAmount" => 10,
         ]);
 
         $building = BuildingTypes::create([
@@ -508,6 +550,12 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 20,
             "baseCost" => 100000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "brick",
+            "producedAmount" => 5,
+            "requires" => 1,
+            "requiredResource" => "clay",
+            "requiredAmount" => 5,
         ]);
 
         $building = BuildingTypes::create([
@@ -517,6 +565,12 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 20,
             "baseCost" => 100000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "concrete",
+            "producedAmount" => 5,
+            "requires" => 1,
+            "requiredResource" => "cement",
+            "requiredAmount" => 5,
         ]);
 
         $building = BuildingTypes::create([
@@ -526,6 +580,12 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 20,
             "baseCost" => 100000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "lumber",
+            "producedAmount" => 5,
+            "requires" => 1,
+            "requiredResource" => "timber",
+            "requiredAmount" => 5,
         ]);
 
         $building = BuildingTypes::create([
@@ -535,6 +595,9 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 10,
             "baseCost" => 25000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "rubber",
+            "producedAmount" => 10,
         ]);
 
         $building = BuildingTypes::create([
@@ -544,6 +607,9 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 10,
             "baseCost" => 25000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "iron",
+            "producedAmount" => 10,
         ]);
 
         $building = BuildingTypes::create([
@@ -553,6 +619,9 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 10,
             "baseCost" => 25000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "bauxite",
+            "producedAmount" => 10,
         ]);
 
         $building = BuildingTypes::create([
@@ -562,6 +631,9 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 10,
             "baseCost" => 25000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "lead",
+            "producedAmount" => 10,
         ]);
 
         $building = BuildingTypes::create([
@@ -571,6 +643,12 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 20,
             "baseCost" => 100000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "steel",
+            "producedAmount" => 5,
+            "requires" => 1,
+            "requiredResource" => "iron",
+            "requiredAmount" => 5,
         ]);
 
         $building = BuildingTypes::create([
@@ -580,6 +658,12 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 20,
             "baseCost" => 100000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "bauxite",
+            "producedAmount" => 5,
+            "requires" => 1,
+            "requiredResource" => "aluminum",
+            "requiredAmount" => 5,
         ]);
 
         $building = BuildingTypes::create([
@@ -589,6 +673,12 @@ class BuildingTypesSeeder extends Seeder
             "energy" => 20,
             "baseCost" => 100000,
             "buildingTime" => 1,
+            "produces" => 1,
+            "producedResource" => "ammo",
+            "producedAmount" => 5,
+            "requires" => 1,
+            "requiredResource" => "lead",
+            "requiredAmount" => 5,
         ]);
 
     }
