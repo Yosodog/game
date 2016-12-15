@@ -10,7 +10,7 @@
         <ul class="dropdown-menu" role="menu">
             <li><a href="#">Coal: <span class="pull-right" id="coal">{{ number_format(Auth::user()->nation->resources->coal, 2) }}</span></a></li>
             <li><a href="#">Oil: <span class="pull-right" id="oil">{{ number_format(Auth::user()->nation->resources->oil, 2) }}</span></a></li>
-            <li><a href="#">Gas: <span class="pull-right" ud="gas">{{ number_format(Auth::user()->nation->resources->gas, 2) }}</span></a></li>
+            <li><a href="#">Gas: <span class="pull-right" id="gas">{{ number_format(Auth::user()->nation->resources->gas, 2) }}</span></a></li>
         </ul>
     </li>
     <li class="dropdown">
