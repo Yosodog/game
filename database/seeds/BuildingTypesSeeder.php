@@ -437,7 +437,7 @@ class BuildingTypesSeeder extends Seeder
             "producedResource" => "gas",
             "producedAmount" => 10,
             "requires" => 1,
-            "requiredResource" => "coal",
+            "requiredResource" => "oil",
             "requiredAmount" => 5,
         ]);
 
