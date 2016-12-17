@@ -659,10 +659,10 @@ class BuildingTypesSeeder extends Seeder
             "baseCost" => 100000,
             "buildingTime" => 1,
             "produces" => 1,
-            "producedResource" => "bauxite",
+            "producedResource" => "aluminum",
             "producedAmount" => 5,
             "requires" => 1,
-            "requiredResource" => "aluminum",
+            "requiredResource" => "bauxite",
             "requiredAmount" => 5,
         ]);
 
