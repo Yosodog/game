@@ -2,100 +2,118 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Nation\Building;
-use App\Models\Nation\Cities;
-use App\Models\Properties;
-use Closure;
 use Auth;
+use Closure;
+use App\Models\Properties;
+use App\Models\Nation\Cities;
+use App\Models\Nation\Building;
 
 class UpdateResources
 {
     /**
-     * Unix timestamp of now
+     * Unix timestamp of now.
      *
      * @var int
      */
     protected $now;
 
     /**
-     * Holds the user with all the nation and city info
+     * Holds the user with all the nation and city info.
      *
      * @var \App\Models\User
      */
     protected $user;
 
     /**
-     * The difference in seconds between the last request and now
+     * The difference in seconds between the last request and now.
      *
      * @var int
      */
     protected $diff;
 
     /**
-     * All resources are per second
+     * All resources are per second.
      *
-     * @var int $money
+     * @var int
      * @var int $coal
      * @var int $oil
      * @var int $gas
      * @var int $wheat
      * @var int $livestock
      */
-    protected $money = 0, $coal = 0, $oil = 0, $gas = 0, $wheat = 0, $livestock = 0;
+    protected $money = 0;
+    protected $coal = 0;
+    protected $oil = 0;
+    protected $gas = 0;
+    protected $wheat = 0;
+    protected $livestock = 0;
 
     /**
-     * All are per second
+     * All are per second.
      *
-     * @var int $bread
+     * @var int
      * @var int $meat
      * @var int $water
      * @var int $clay
      * @var int $cement
      * @var int $timber
      */
-    protected $bread = 0, $meat = 0, $water = 0, $clay = 0, $cement = 0, $timber = 0;
+    protected $bread = 0;
+    protected $meat = 0;
+    protected $water = 0;
+    protected $clay = 0;
+    protected $cement = 0;
+    protected $timber = 0;
 
     /**
-     * All are per second
+     * All are per second.
      *
-     * @var int $brick
+     * @var int
      * @var int $concrete
      * @var int $lumber
      * @var int $rubber
      * @var int $iron
      */
-    protected $brick = 0, $concrete = 0, $lumber = 0, $rubber = 0, $iron = 0;
+    protected $brick = 0;
+    protected $concrete = 0;
+    protected $lumber = 0;
+    protected $rubber = 0;
+    protected $iron = 0;
 
     /**
-     * All are per second
+     * All are per second.
      *
-     * @var int $steel
+     * @var int
      * @var int $bauxite
      * @var int $aluminum
      * @var int $lead
      * @var int $ammo
      */
-    protected $steel = 0, $bauxite = 0, $aluminum = 0, $lead = 0, $ammo = 0;
+    protected $steel = 0;
+    protected $bauxite = 0;
+    protected $aluminum = 0;
+    protected $lead = 0;
+    protected $ammo = 0;
 
     /**
-     * Holds the strings of the resources we want to update so later it makes updating things easier. You'll see
+     * Holds the strings of the resources we want to update so later it makes updating things easier. You'll see.
      *
      * @var array
      */
     protected $updates = [
-            "money", "coal", "oil", "gas", "rubber", "steel", "iron", "bauxite", "aluminum", "lead", "ammo",
-            "clay", "cement", "timber", "brick", "concrete", "lumber", "wheat", "livestock", "bread", "meat", "water"
+            'money', 'coal', 'oil', 'gas', 'rubber', 'steel', 'iron', 'bauxite', 'aluminum', 'lead', 'ammo',
+            'clay', 'cement', 'timber', 'brick', 'concrete', 'lumber', 'wheat', 'livestock', 'bread', 'meat', 'water',
     ];
 
     /**
-     * Holds the request for us
+     * Holds the request for us.
      *
      * @var \App\Http\Requests\
      */
     protected $request;
 
     /**
-     * Used when the nation can only produce a % of a resource
+     * Used when the nation can only produce a % of a resource.
      *
      * @var int|null
      */
@@ -113,15 +131,14 @@ class UpdateResources
         $this->request = $request;
 
         // Check if the user has a nation or not. If not, just go to the next thing
-        if (Auth::guest() || !Auth::user()->hasNation)
+        if (Auth::guest() || ! Auth::user()->hasNation)
             return $next($request);
-
 
         // First calculate the unix timestamp right now
         $this->now = time(); // TODO There might be a problem with this method of updating resources because of daylight savings
 
         // Load everything
-        $this->user = Auth::user()->load("nation.resources", "nation.cities.buildings.buildingType.effects.property");
+        $this->user = Auth::user()->load('nation.resources', 'nation.cities.buildings.buildingType.effects.property');
 
         $this->calcDiff();
         if ($this->diff < 1)
@@ -138,7 +155,7 @@ class UpdateResources
     }
 
     /**
-     * Calculates the difference between the user's last request and now in seconds
+     * Calculates the difference between the user's last request and now in seconds.
      *
      * If their last request is null for some reason, just default it to whatever now is
      */
@@ -148,7 +165,7 @@ class UpdateResources
     }
 
     /**
-     * Calculate the stats of all the user's cities
+     * Calculate the stats of all the user's cities.
      */
     protected function calcStats()
     {
@@ -163,7 +180,7 @@ class UpdateResources
     }
 
     /**
-     * Calculate the added money/resources per second for the nation and update
+     * Calculate the added money/resources per second for the nation and update.
      */
     protected function calcAddedResources()
     {
@@ -175,19 +192,19 @@ class UpdateResources
     }
 
     /**
-     * Calculates how much money they make per second
+     * Calculates how much money they make per second.
      *
      * @param Cities $city
      */
     protected function calcMoney(Cities $city)
     {
         // Calculate how much money they make per day
-        $income = $city->properties["Avg Income"]["value"] * $city->population;
+        $income = $city->properties['Avg Income']['value'] * $city->population;
         $this->money += $income / 86400;
     }
 
     /**
-     * Calculates how much of each resource is produced per second
+     * Calculates how much of each resource is produced per second.
      *
      * @param Cities $city
      */
@@ -197,11 +214,11 @@ class UpdateResources
         {
             $this->percOfResource = null; // Always make sure this was reset
 
-            if (!$building->buildingType->produces && !$building->buildingType->requires)
+            if (! $building->buildingType->produces && ! $building->buildingType->requires)
                 continue; // If the building does not produce or require resources, just go to the next iteration
 
             if ($building->buildingType->requires)
-                if (!$this->calcRequired($building))
+                if (! $this->calcRequired($building))
                     continue; // If the building does not have the required resource, move to next iteration
 
             // Now that the required resources has been taken, produce the produced resources
@@ -211,7 +228,7 @@ class UpdateResources
     }
 
     /**
-     * Verify that the nation has the required resources and if so, subtract those resources
+     * Verify that the nation has the required resources and if so, subtract those resources.
      *
      * @param Building $building
      * @return bool
@@ -250,7 +267,7 @@ class UpdateResources
     }
 
     /**
-     * Calculates the amount this building should produce
+     * Calculates the amount this building should produce.
      *
      * @param Building $building
      */
@@ -273,7 +290,7 @@ class UpdateResources
     }
 
     /**
-     * Updates the resources table with the new resources
+     * Updates the resources table with the new resources.
      */
     protected function updateResouces()
     {
@@ -286,7 +303,7 @@ class UpdateResources
     }
 
     /**
-     * Updates the last request in the users table
+     * Updates the last request in the users table.
      */
     protected function updateReq()
     {
@@ -296,11 +313,11 @@ class UpdateResources
     }
 
     /**
-     * Updates the session with the proper perSec variables so in the view we can display it easier
+     * Updates the session with the proper perSec variables so in the view we can display it easier.
      */
     protected function updateSession()
     {
         foreach ($this->updates as $update)
-            $this->request->session()->put($update."PerSec", $this->{$update});
+            $this->request->session()->put($update.'PerSec', $this->{$update});
     }
 }

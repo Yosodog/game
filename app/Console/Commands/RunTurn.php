@@ -3,13 +3,13 @@
 namespace App\Console\Commands;
 
 use App\Models\Jobs;
+use App\Models\Properties;
 use App\Models\Nation\Cities;
 use App\Models\Nation\Nations;
-use App\Models\Properties;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-ini_set('memory_limit','512M'); // TODO this is a temporary hack. Fix this later
+ini_set('memory_limit', '512M'); // TODO this is a temporary hack. Fix this later
 
 class RunTurn extends Command
 {
@@ -28,42 +28,42 @@ class RunTurn extends Command
     protected $description = 'Run the turn';
 
     /**
-     * Store the nation that is being worked
+     * Store the nation that is being worked.
      *
      * @var Nations
      */
     protected $nation;
 
     /**
-     * Holds the job that we're currently working on
+     * Holds the job that we're currently working on.
      *
      * @var Jobs
      */
     protected $job;
 
     /**
-     * Holds the properties of the cities
+     * Holds the properties of the cities.
      *
      * @var \Illuminate\Database\Eloquent\Collection
      */
     protected $properties;
 
     /**
-     * Holds the when $id then $pop statement for every city
+     * Holds the when $id then $pop statement for every city.
      *
      * @var array
      */
     protected $queries = [];
 
     /**
-     * Holds an array of all city IDs
+     * Holds an array of all city IDs.
      *
      * @var array
      */
     protected $cIDs = [];
 
     /**
-     * A place to temp store a nation's new resource values
+     * A place to temp store a nation's new resource values.
      *
      * @var array
      */
@@ -103,7 +103,7 @@ class RunTurn extends Command
     }
 
     /**
-     * Processes the job queue for the nation
+     * Processes the job queue for the nation.
      */
     protected function processQueue()
     {
@@ -129,13 +129,13 @@ class RunTurn extends Command
      */
     protected function selectActiveJobs()
     {
-        $job = $this->nation->jobs->where("status", "active");
+        $job = $this->nation->jobs->where('status', 'active');
 
         return $job->all();
     }
 
     /**
-     * Method to update the nation's cities with all their shit
+     * Method to update the nation's cities with all their shit.
      */
     protected function updateCities()
     {
@@ -144,9 +144,9 @@ class RunTurn extends Command
             $city->setupProperties($this->properties);
             $city->calcStats();
 
-            $pop = $city->population + ($city->properties["Growth Rate"]["value"] / 12); // Calculate the new population
+            $pop = $city->population + ($city->properties['Growth Rate']['value'] / 12); // Calculate the new population
 
-            $sql = "when $city->id then ". intval($pop); // Setup whatever needs to be added to the sql query
+            $sql = "when $city->id then ".intval($pop); // Setup whatever needs to be added to the sql query
 
             array_push($this->queries, $sql); // Push it to an array so we can setup the query later
             array_push($this->cIDs, $city->id); // Add the city ID to an array so we can add that to the query later
@@ -154,15 +154,15 @@ class RunTurn extends Command
     }
 
     /**
-     * Sets up and executes one query to update all nations
+     * Sets up and executes one query to update all nations.
      */
     protected function setupQuery()
     {
         $query = "UPDATE cities SET population = CASE id\n"; // Setup the query
         foreach ($this->queries as $qu) // Add each when $id then $pop to the query for every city
-            $query .= $qu . "\n";
+            $query .= $qu."\n";
 
-        $IDs = implode(",", $this->cIDs); // Separate the city IDs with commas
+        $IDs = implode(',', $this->cIDs); // Separate the city IDs with commas
 
         $query .= "END WHERE id IN ($IDs)"; // Add the comma separated IDs to the query
 

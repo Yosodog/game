@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BuildingTypes;
-use App\Models\Nation\Building;
 use App\Models\Jobs;
-use App\Models\Nation\Cities;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use App\Models\BuildingTypes;
+use App\Models\Nation\Cities;
+use App\Models\Nation\Building;
 use Illuminate\Support\Facades\Auth;
 
 class CityController extends Controller
 {
     /**
-     * Store the request for later use
+     * Store the request for later use.
      *
      * @var \Illuminate\Http\Request
      */
@@ -31,15 +29,15 @@ class CityController extends Controller
     }
 
     /**
-     * Displays a user's city overview page
+     * Displays a user's city overview page.
      */
     public function overview()
     {
-        return view("nation.cities.overview");
+        return view('nation.cities.overview');
     }
 
     /**
-     * Displays a city's page
+     * Displays a city's page.
      *
      * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -65,36 +63,36 @@ class CityController extends Controller
         foreach ($city->buildings as $building)
             $quantity[$building->building_id] = $building->quantity;
 
-        return view("nation.cities.view", [
-            "city" => $city,
-            "buildingTypes" => $buildingTypes,
-            "isOwner" => $isOwner,
-            "quantity" => $quantity
+        return view('nation.cities.view', [
+            'city' => $city,
+            'buildingTypes' => $buildingTypes,
+            'isOwner' => $isOwner,
+            'quantity' => $quantity,
         ]);
     }
 
     /**
-     * Creates a city
+     * Creates a city.
      */
     public function create()
     {
         $this->validate($this->request, [
-            'name' => 'required|max:25'
+            'name' => 'required|max:25',
         ]);
 
         Cities::create([
             'nation_id' => Auth::user()->nation->id,
             'name' => $this->request->name,
-        	'land' => 20
+            'land' => 20,
         ]);
 
-        $this->request->session()->flash("alert-success", ["{$this->request->name} has been created!"]);
+        $this->request->session()->flash('alert-success', ["{$this->request->name} has been created!"]);
 
-        return redirect("/cities/");
+        return redirect('/cities/');
     }
 
     /**
-     * Buys land for a city
+     * Buys land for a city.
      *
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -104,7 +102,7 @@ class CityController extends Controller
         // Get the city
         $city = Cities::find($id);
         // Check if the user owns the city
-        if (!$city->isOwner())
+        if (! $city->isOwner())
             abort(403);
 
         // TODO calculate the cost of land
@@ -116,13 +114,13 @@ class CityController extends Controller
         $city->land += $this->request->amount;
         $city->save();
 
-        $this->request->session()->flash("alert-success", ["You've bought {$this->request->amount} sq mi of land!"]);
+        $this->request->session()->flash('alert-success', ["You've bought {$this->request->amount} sq mi of land!"]);
 
         return redirect("/cities/view/$id");
     }
 
     /**
-     * Sets up the job to construct a building for a city
+     * Sets up the job to construct a building for a city.
      *
      * @param Cities $cities
      * @param BuildingTypes $buildingtypes
@@ -131,14 +129,15 @@ class CityController extends Controller
     public function buyBuilding(Cities $cities, BuildingTypes $buildingtypes)
     {
         // Check if they own the city
-        if (!$cities->isOwner())
+        if (! $cities->isOwner())
             abort(403);
 
         // Verify that the nation has the correct amount of money
         $resources = Auth::user()->nation->resources;
         if ($resources->money < $buildingtypes->baseCost)
         {
-            $this->request->session()->flash("alert-danger", ["You don't have enough money to buy a $buildingtypes->name"]);
+            $this->request->session()->flash('alert-danger', ["You don't have enough money to buy a $buildingtypes->name"]);
+
             return redirect("/cities/view/$cities->id");
         }
 
@@ -148,28 +147,28 @@ class CityController extends Controller
 
         // Determine if the request should be active or queued
         if ($cities->checkIfOpenBuildingSlots())
-            $status = "active";
+            $status = 'active';
         else
-            $status = "queued";
+            $status = 'queued';
 
         // Add building to queue
         $job = Jobs::addJob([
-            "type" => "building",
-            "status" => $status,
-            "nation_id" => $cities->nation->id,
-            "city_id" => $cities->id,
-            "item_id" => $buildingtypes->id,
-            "totalTurns" => $buildingtypes->buildingTime,
-            "turnsLeft" => $buildingtypes->buildingTime,
+            'type' => 'building',
+            'status' => $status,
+            'nation_id' => $cities->nation->id,
+            'city_id' => $cities->id,
+            'item_id' => $buildingtypes->id,
+            'totalTurns' => $buildingtypes->buildingTime,
+            'turnsLeft' => $buildingtypes->buildingTime,
         ]);
 
-        $this->request->session()->flash("alert-success", ["You've added a $buildingtypes->name to your queue"]);
+        $this->request->session()->flash('alert-success', ["You've added a $buildingtypes->name to your queue"]);
 
         return redirect("/cities/view/$cities->id");
     }
 
     /**
-     * Destroys a building
+     * Destroys a building.
      *
      * @param Cities $cities
      * @param BuildingTypes $buildingtypes
@@ -178,62 +177,62 @@ class CityController extends Controller
     public function sellBuilding(Cities $cities, BuildingTypes $buildingtypes)
     {
         // Check if they own the city
-        if (!$cities->isOwner())
+        if (! $cities->isOwner())
             abort(403);
 
         // TODO refund the user some amount of cash
-	
-		// Sell a building
-		try
-		{
-			$building = Building::where([
-                ["city_id", $cities->id],
-                ["building_id", $buildingtypes->id]
+
+        // Sell a building
+        try
+        {
+            $building = Building::where([
+                ['city_id', $cities->id],
+                ['building_id', $buildingtypes->id],
             ])->firstOrFail();
-		
-			// if the building is the last one in the city, it will be caught here and the row deleted
-			if ($building->quantity == 1)
-			{
-				$building->delete();
-				$this->request->session()->flash("alert-success", ["You've sold a $buildingtypes->name!"]);
-			}
 
-			else
-			{
-				$building->quantity -= 1;
-				$building->save();
-				$this->request->session()->flash("alert-success", ["You've sold a $buildingtypes->name!"]);
-			}
-		}
-		
-		// If an exception is thrown, the row doesn't exist meaning the building does not exist in the city
-		catch (\Exception $e)
-		{
-			$this->request->session()->flash("alert-danger", ["You don't have a $buildingtypes->name!"]);
-		}
+            // if the building is the last one in the city, it will be caught here and the row deleted
+            if ($building->quantity == 1)
+            {
+                $building->delete();
+                $this->request->session()->flash('alert-success', ["You've sold a $buildingtypes->name!"]);
+            }
 
-		return redirect("/cities/view/$cities->id");
+            else
+            {
+                $building->quantity -= 1;
+                $building->save();
+                $this->request->session()->flash('alert-success', ["You've sold a $buildingtypes->name!"]);
+            }
+        }
+
+        // If an exception is thrown, the row doesn't exist meaning the building does not exist in the city
+        catch (\Exception $e)
+        {
+            $this->request->session()->flash('alert-danger', ["You don't have a $buildingtypes->name!"]);
+        }
+
+        return redirect("/cities/view/$cities->id");
     }
 
     /**
-     * Will rename a city
+     * Will rename a city.
      *
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function renameCity(int $id)
     {
-    	// Get the city
-    	$city = Cities::find($id);
-    	// Check if the user owns the city
-    	if (!$city->isOwner())
-    		abort(403);
-    
-    	$city->name = $this->request->name;
-    	$city->save();
-    
-    	$this->request->session()->flash("alert-success", ["You've renamed this city!"]);
-    
-    	return redirect("/cities/view/$id");
+        // Get the city
+        $city = Cities::find($id);
+        // Check if the user owns the city
+        if (! $city->isOwner())
+            abort(403);
+
+        $city->name = $this->request->name;
+        $city->save();
+
+        $this->request->session()->flash('alert-success', ["You've renamed this city!"]);
+
+        return redirect("/cities/view/$id");
     }
 }

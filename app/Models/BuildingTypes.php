@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
 class BuildingTypes extends Model
 {
     /**
-     * Allow all properties to be mass assignable
+     * Allow all properties to be mass assignable.
      *
      * @var array
      */
     protected $guarded = [];
 
     /**
-     * BuildingType/Building relationship
+     * BuildingType/Building relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -25,25 +25,25 @@ class BuildingTypes extends Model
     }
 
     /**
-     * Relationship between the building_type and the effects
+     * Relationship between the building_type and the effects.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function effects()
     {
-        return $this->hasMany('\App\Models\Effects', "relation");
+        return $this->hasMany('\App\Models\Effects', 'relation');
     }
 
     /**
-     * Returns collection of buildings of a certain category
+     * Returns collection of buildings of a certain category.
      *
      * @param Collection $collection
      * @param string $category
      * @return array
      */
-    public static function getByCategory(Collection $collection, string $category) : array 
+    public static function getByCategory(Collection $collection, string $category) : array
     {
-        $filtered = $collection->where("category", $category);
+        $filtered = $collection->where('category', $category);
 
         return $filtered->all();
     }

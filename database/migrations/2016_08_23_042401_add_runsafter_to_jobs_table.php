@@ -12,8 +12,8 @@ class AddRunsafterToJobsTable extends Migration
      */
     public function up()
     {
-        Schema::table("jobs", function(Blueprint $table) {
-           $table->integer("runsAfter")->unsigned()->comment("The ID of the job that this job will run after")->nullable();
+        Schema::table('jobs', function (Blueprint $table) {
+           $table->integer('runsAfter')->unsigned()->comment('The ID of the job that this job will run after')->nullable();
         });
     }
 
@@ -24,8 +24,8 @@ class AddRunsafterToJobsTable extends Migration
      */
     public function down()
     {
-        Schema::table("jobs", function(Blueprint $table) {
-            $table->dropColumn("runsAfter");
+        Schema::table('jobs', function (Blueprint $table) {
+            $table->dropColumn('runsAfter');
         });
     }
 }

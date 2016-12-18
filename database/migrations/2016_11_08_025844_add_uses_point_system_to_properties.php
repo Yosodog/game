@@ -13,8 +13,8 @@ class AddUsesPointSystemToProperties extends Migration
      */
     public function up()
     {
-        Schema::table("properties", function(Blueprint $table) {
-            $table->boolean("usesPointSystem")->default(0)->comment("Is this property calculated using the point system?");
+        Schema::table('properties', function (Blueprint $table) {
+            $table->boolean('usesPointSystem')->default(0)->comment('Is this property calculated using the point system?');
         });
     }
 
@@ -25,8 +25,8 @@ class AddUsesPointSystemToProperties extends Migration
      */
     public function down()
     {
-        Schema::table("properties", function(Blueprint $table) {
-            $table->dropColumn("usesPointSystem");
+        Schema::table('properties', function (Blueprint $table) {
+            $table->dropColumn('usesPointSystem');
         });
     }
 }

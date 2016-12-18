@@ -13,13 +13,13 @@ class EffectsTable extends Migration
      */
     public function up()
     {
-        Schema::create("effects", function(Blueprint $table) {
-            $table->increments("id");
-            $table->integer("property")->unsigned()->comment("The ID of the property this effect affects");
-            $table->integer("relation")->unsigned()->comment("The ID of the building, law, or whatever that this effect belongs to");
-            $table->decimal("affect", 10, 2)->comment("The percentage this increases/decreases. The % should be multiplied by 100 before storing");
+        Schema::create('effects', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('property')->unsigned()->comment('The ID of the property this effect affects');
+            $table->integer('relation')->unsigned()->comment('The ID of the building, law, or whatever that this effect belongs to');
+            $table->decimal('affect', 10, 2)->comment('The percentage this increases/decreases. The % should be multiplied by 100 before storing');
 
-            $table->foreign("property")->references('id')->on('properties');
+            $table->foreign('property')->references('id')->on('properties');
         });
     }
 
@@ -30,6 +30,6 @@ class EffectsTable extends Migration
      */
     public function down()
     {
-        Schema::drop("effects");
+        Schema::drop('effects');
     }
 }
