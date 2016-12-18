@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Cmgmyr\Messenger\Traits\Messagable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -29,8 +29,8 @@ class User extends Authenticatable
     ];
 
     /**
-     * Returns the nation that belongs to this uer
-     * 
+     * Returns the nation that belongs to this uer.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function nation()

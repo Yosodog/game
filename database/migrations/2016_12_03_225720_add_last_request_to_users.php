@@ -13,8 +13,8 @@ class AddLastRequestToUsers extends Migration
      */
     public function up()
     {
-        Schema::table("users", function(Blueprint $table) {
-            $table->integer("lastRequest")->unsigned()->nullable();
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('lastRequest')->unsigned()->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddLastRequestToUsers extends Migration
      */
     public function down()
     {
-        Schema::table("users", function(Blueprint $table) {
-            $table->dropColumn("lastRequest");
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('lastRequest');
         });
     }
 }

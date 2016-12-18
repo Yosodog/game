@@ -17,10 +17,10 @@ class BaseNationsTable extends Migration
         Schema::create('nations', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->timestamps();
-            $table->integer("user_id")->unsigned();
-            $table->string("name")->index();
+            $table->integer('user_id')->unsigned();
+            $table->string('name')->index();
 
-            $table->foreign("user_id")->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -31,6 +31,6 @@ class BaseNationsTable extends Migration
      */
     public function down()
     {
-        Schema::drop("nations");
+        Schema::drop('nations');
     }
 }

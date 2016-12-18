@@ -12,15 +12,15 @@ class AddBuildingsTable extends Migration
      */
     public function up()
     {
-        Schema::create("buildings", function(Blueprint $table) {
-            $table->increments("id");
+        Schema::create('buildings', function (Blueprint $table) {
+            $table->increments('id');
             $table->timestamps();
-            $table->integer("city_id")->unsigned();
-            $table->integer("building_id")->unsigned();
-            $table->smallInteger("quantity")->unsigned();
+            $table->integer('city_id')->unsigned();
+            $table->integer('building_id')->unsigned();
+            $table->smallInteger('quantity')->unsigned();
 
-            $table->foreign("city_id")->references('id')->on('cities');
-            $table->foreign("building_id")->references('id')->on('building_types');
+            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('building_id')->references('id')->on('building_types');
         });
     }
 
@@ -31,6 +31,6 @@ class AddBuildingsTable extends Migration
      */
     public function down()
     {
-        Schema::drop("buildings");
+        Schema::drop('buildings');
     }
 }

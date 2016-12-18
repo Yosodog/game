@@ -14,7 +14,7 @@ class CreateMottoColumn extends Migration
     public function up()
     {
         Schema::table('nations', function (Blueprint $table) {
-            $table->string("motto");
+            $table->string('motto');
         });
     }
 
@@ -26,7 +26,7 @@ class CreateMottoColumn extends Migration
     public function down()
     {
         Schema::table('nations', function (Blueprint $table) {
-            $table->drop("motto");
+            $table->drop('motto');
         });
     }
 }

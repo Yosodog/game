@@ -31,7 +31,7 @@ class FakeNationsSeeder extends Seeder
             $nation = \App\Models\Nation\Nations::create([
                 'user_id' => $user->id,
                 'name' => $faker->company,
-                'flagID' => $flagID
+                'flagID' => $flagID,
             ]);
 
             // Create it's cities

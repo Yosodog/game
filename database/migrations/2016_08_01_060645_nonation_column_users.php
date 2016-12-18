@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NonationColumnUsers extends Migration
@@ -13,7 +12,7 @@ class NonationColumnUsers extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
-            $table->boolean("hasNation")->default(false);
+            $table->boolean('hasNation')->default(false);
         });
     }
 

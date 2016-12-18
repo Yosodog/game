@@ -3,9 +3,9 @@
 namespace App\Models\Nation;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Nations extends Model
 {
@@ -15,16 +15,16 @@ class Nations extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'user_id', 'flagID'
+        'name', 'user_id', 'flagID',
     ];
 
     protected $appends = [
-        "population", "land", "pollution", "growth_rate", "birth_rate", "death_rate", "immigration", "crime",
-        "disease", "satisfaction", "income", "avg_income", "unemployment", "literacy"
+        'population', 'land', 'pollution', 'growth_rate', 'birth_rate', 'death_rate', 'immigration', 'crime',
+        'disease', 'satisfaction', 'income', 'avg_income', 'unemployment', 'literacy',
     ];
 
     /**
-     * @var int $population
+     * @var int
      * @var int $land
      * @var int $pollution
      * @var int $growth_rate
@@ -33,20 +33,32 @@ class Nations extends Model
      * @var int $immigration
      * @var int $crime
      */
-    public $population, $land, $pollution, $growth_rate, $birth_rate, $death_rate, $immigration, $crime;
+    public $population;
+    public $land;
+    public $pollution;
+    public $growth_rate;
+    public $birth_rate;
+    public $death_rate;
+    public $immigration;
+    public $crime;
 
     /**
-     * @var int $disease
+     * @var int
      * @var int $satisfaction
      * @var int $income
      * @var int $avg_income
      * @var int $unemployment
      * @var int $literacy
      */
-    public $disease, $satisfaction, $income, $avg_income, $unemployment, $literacy;
+    public $disease;
+    public $satisfaction;
+    public $income;
+    public $avg_income;
+    public $unemployment;
+    public $literacy;
 
     /**
-     * Returns the user that this nation belongs to
+     * Returns the user that this nation belongs to.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -56,17 +68,17 @@ class Nations extends Model
     }
 
     /**
-     * Relationship between the Nation and its Cities
+     * Relationship between the Nation and its Cities.
      *
      * @return HasMany
      */
     public function cities() : HasMany
     {
-        return $this->hasMany('App\Models\Nation\Cities', "nation_id");
+        return $this->hasMany('App\Models\Nation\Cities', 'nation_id');
     }
 
     /**
-     * Nation/Jobs relationship
+     * Nation/Jobs relationship.
      *
      * @return HasMany
      */
@@ -76,37 +88,37 @@ class Nations extends Model
     }
 
     /**
-     * Relationship between the nation and it's flag
+     * Relationship between the nation and it's flag.
      *
      * @return BelongsTo
      */
     public function flag() : BelongsTo
     {
-        return $this->belongsTo('App\Models\Flags', "flagID");
+        return $this->belongsTo('App\Models\Flags', 'flagID');
     }
 
     /**
-     * Relationship between the nation and its alliance
+     * Relationship between the nation and its alliance.
      *
      * @return BelongsTo
      */
     public function alliance() : BelongsTo
     {
-        return $this->belongsTo('App\Models\Alliance', "allianceID");
+        return $this->belongsTo('App\Models\Alliance', 'allianceID');
     }
 
     /**
-     * The nation/resource relationship
+     * The nation/resource relationship.
      *
      * @return HasOne
      */
     public function resources() : HasOne
     {
-        return $this->hasOne('App\Models\Nation\Resources', "nationID");
+        return $this->hasOne('App\Models\Nation\Resources', 'nationID');
     }
 
     /**
-     * Get and return an instance of this model by the Nation ID
+     * Get and return an instance of this model by the Nation ID.
      *
      * @param int $id
      * @return Nations
@@ -117,7 +129,7 @@ class Nations extends Model
     }
 
     /**
-     * Checks if the nation has an alliance
+     * Checks if the nation has an alliance.
      *
      * @return bool
      */
@@ -127,11 +139,11 @@ class Nations extends Model
     }
 
     /**
-     * Loads EVERYTHING to do with this nation
+     * Loads EVERYTHING to do with this nation.
      */
     public function loadFullNation()
     {
-        $this->load("cities.buildings.buildingType.effects.property", "resources");
+        $this->load('cities.buildings.buildingType.effects.property', 'resources');
     }
 
     /**
@@ -139,9 +151,9 @@ class Nations extends Model
      */
     public function calcStats()
     {
-        $this->population = $this->cities->sum("population");
-        $this->land = $this->cities->sum("land");
-        $this->pollution = $this->cities->sum("pollution");
+        $this->population = $this->cities->sum('population');
+        $this->land = $this->cities->sum('land');
+        $this->pollution = $this->cities->sum('pollution');
         $totalCities = $this->cities->count(); // Need this later for calculating averages
 
         // Okay, this is going to suck. Properties are stored as arrays, not collections. So I can't easily
@@ -150,17 +162,17 @@ class Nations extends Model
 
         foreach ($this->cities as $city)
         {
-            $this->growth_rate += $city->properties["Growth Rate"]["value"];
-            $this->birth_rate += $city->properties["Birth Rate"]["value"];
-            $this->death_rate += $city->properties["Death Rate"]["value"];
-            $this->immigration += $city->properties["Immigration"]["value"];
-            $this->income += $city->properties["Avg Income"]["value"] * $city->population;
-            $this->crime += $city->properties["Crime"]["value"]; // Avg
-            $this->disease += $city->properties["Disease"]["value"]; // Avg
-            $this->satisfaction += $city->properties["Govt Satisfaction"]["value"]; // Avg
-            $this->avg_income += $city->properties["Avg Income"]["value"]; // Avg
-            $this->unemployment += $city->properties["Unemployment"]["value"]; // Avg
-            $this->literacy += $city->properties["Literacy"]["value"]; // Avg
+            $this->growth_rate += $city->properties['Growth Rate']['value'];
+            $this->birth_rate += $city->properties['Birth Rate']['value'];
+            $this->death_rate += $city->properties['Death Rate']['value'];
+            $this->immigration += $city->properties['Immigration']['value'];
+            $this->income += $city->properties['Avg Income']['value'] * $city->population;
+            $this->crime += $city->properties['Crime']['value']; // Avg
+            $this->disease += $city->properties['Disease']['value']; // Avg
+            $this->satisfaction += $city->properties['Govt Satisfaction']['value']; // Avg
+            $this->avg_income += $city->properties['Avg Income']['value']; // Avg
+            $this->unemployment += $city->properties['Unemployment']['value']; // Avg
+            $this->literacy += $city->properties['Literacy']['value']; // Avg
         }
 
         $this->crime = $this->crime / $totalCities;

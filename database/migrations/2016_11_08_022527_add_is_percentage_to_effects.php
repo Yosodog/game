@@ -13,8 +13,8 @@ class AddIsPercentageToEffects extends Migration
      */
     public function up()
     {
-        Schema::table("effects", function(Blueprint $table) {
-            $table->boolean("isPercentage")->default(0)->comment("Does this effect increase/decrease something by a percentage?");
+        Schema::table('effects', function (Blueprint $table) {
+            $table->boolean('isPercentage')->default(0)->comment('Does this effect increase/decrease something by a percentage?');
         });
     }
 
@@ -25,8 +25,8 @@ class AddIsPercentageToEffects extends Migration
      */
     public function down()
     {
-        Schema::table("effects", function(Blueprint $table) {
-            $table->dropColumn("isPercentage");
+        Schema::table('effects', function (Blueprint $table) {
+            $table->dropColumn('isPercentage');
         });
     }
 }

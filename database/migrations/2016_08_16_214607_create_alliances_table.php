@@ -13,15 +13,15 @@ class CreateAlliancesTable extends Migration
     public function up()
     {
         Schema::create('alliances', function (Blueprint $table) {
-            $table->increments("id");
+            $table->increments('id');
             $table->timestamps();
-            $table->string("name");
-            $table->integer("flagID")->unsigned();
-            $table->text("description")->nullable();
-            $table->string("forumURL")->nullable();
-            $table->string("IRCChan", 20)->nullable();
+            $table->string('name');
+            $table->integer('flagID')->unsigned();
+            $table->text('description')->nullable();
+            $table->string('forumURL')->nullable();
+            $table->string('IRCChan', 20)->nullable();
 
-            $table->foreign("flagID")->references('id')->on('flags');
+            $table->foreign('flagID')->references('id')->on('flags');
         });
     }
 

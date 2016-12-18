@@ -15,11 +15,11 @@ class BaseCityTable extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->timestamps();
-            $table->integer("nation_id")->unsigned();
-            $table->string("name");
-            $table->integer("population")->unsigned()->default(500000);
+            $table->integer('nation_id')->unsigned();
+            $table->string('name');
+            $table->integer('population')->unsigned()->default(500000);
 
-            $table->foreign("nation_id")->references('id')->on('nations');
+            $table->foreign('nation_id')->references('id')->on('nations');
         });
     }
 
@@ -30,6 +30,6 @@ class BaseCityTable extends Migration
      */
     public function down()
     {
-        Schema::drop("cities");
+        Schema::drop('cities');
     }
 }
