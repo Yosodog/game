@@ -13,10 +13,10 @@ class PropertiesTable extends Migration
      */
     public function up()
     {
-        Schema::create("properties", function(Blueprint $table) {
-            $table->increments("id");
-            $table->string("name");
-            $table->smallInteger("baseValue");
+        Schema::create('properties', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->smallInteger('baseValue');
         });
     }
 
@@ -27,6 +27,6 @@ class PropertiesTable extends Migration
      */
     public function down()
     {
-        Schema::drop("properties");
+        Schema::drop('properties');
     }
 }

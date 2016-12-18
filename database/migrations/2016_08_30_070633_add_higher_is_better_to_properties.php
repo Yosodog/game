@@ -13,9 +13,9 @@ class AddHigherIsBetterToProperties extends Migration
      */
     public function up()
     {
-        Schema::table("properties", function(Blueprint $table) {
-           $table->boolean("higherIsBetter")->comment("Is a higher score better? Things like literacy is better high, whereas crime should be lower");
-            $table->boolean("isOutOf100")->comment("If the property is out of 100. Things like avg income shouldn't be capped");
+        Schema::table('properties', function (Blueprint $table) {
+           $table->boolean('higherIsBetter')->comment('Is a higher score better? Things like literacy is better high, whereas crime should be lower');
+            $table->boolean('isOutOf100')->comment("If the property is out of 100. Things like avg income shouldn't be capped");
         });
     }
 
@@ -26,9 +26,9 @@ class AddHigherIsBetterToProperties extends Migration
      */
     public function down()
     {
-        Schema::table("properties", function(Blueprint $table) {
-            $table->dropColumn("higherIsBetter");
-            $table->dropColumn("isOutOf100");
+        Schema::table('properties', function (Blueprint $table) {
+            $table->dropColumn('higherIsBetter');
+            $table->dropColumn('isOutOf100');
         });
     }
 }

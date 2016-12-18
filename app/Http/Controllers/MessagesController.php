@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use Auth;
 use Carbon\Carbon;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Cmgmyr\Messenger\Models\Thread;
 use Cmgmyr\Messenger\Models\Message;
 use Cmgmyr\Messenger\Models\Participant;
-use Cmgmyr\Messenger\Models\Thread;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
-use Auth;
-
-use App\Http\Requests;
 
 class MessagesController extends Controller
 {
     /**
-     * Store the request for future use here
+     * Store the request for future use here.
      *
      * @var Request
      */
@@ -33,7 +31,7 @@ class MessagesController extends Controller
     }
 
     /**
-     * Displays the user's inbox
+     * Displays the user's inbox.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -41,24 +39,24 @@ class MessagesController extends Controller
     {
         $threads = Thread::forUser(Auth::user()->id)->get();
 
-        return view("messenger.inbox", [
-            "threads" => $threads,
-            "currentUserId" => Auth::user()->id,
+        return view('messenger.inbox', [
+            'threads' => $threads,
+            'currentUserId' => Auth::user()->id,
         ]);
     }
 
     /**
-     * Returns the view to compose a message
+     * Returns the view to compose a message.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function createView()
     {
-        return view("messenger.create");
+        return view('messenger.create');
     }
 
     /**
-     * Post route to create and send the message
+     * Post route to create and send the message.
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -71,25 +69,25 @@ class MessagesController extends Controller
         Message::create([
             'thread_id' => $thread->id,
             'user_id' => Auth::user()->id,
-            'body' => $this->request->message
+            'body' => $this->request->message,
         ]);
 
         Participant::create([
            'thread_id' => $thread->id,
             'user_id' => Auth::user()->id,
-            'last_read' => new Carbon()
+            'last_read' => new Carbon(),
         ]);
 
         // Get participant ID
-        $to = User::where("name", $this->request->to)->firstOrFail();
+        $to = User::where('name', $this->request->to)->firstOrFail();
 
         $thread->addParticipant([$to->id]);
 
-        return redirect("/account/inbox");
+        return redirect('/account/inbox');
     }
 
     /**
-     * View a message
+     * View a message.
      *
      * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
@@ -102,20 +100,20 @@ class MessagesController extends Controller
         }
         catch (ModelNotFoundException $e)
         {
-            $this->request->session()->flash("alert-danger", ["That message does not exist"]);
+            $this->request->session()->flash('alert-danger', ['That message does not exist']);
 
-            return redirect("/account/inbox");
+            return redirect('/account/inbox');
         }
 
         $thread->markAsRead(Auth::user()->id);
 
-        return view("messenger.view", [
-            "thread" => $thread
+        return view('messenger.view', [
+            'thread' => $thread,
         ]);
     }
 
     /**
-     * When responding to a message
+     * When responding to a message.
      *
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -128,9 +126,9 @@ class MessagesController extends Controller
         }
         catch (ModelNotFoundException $e)
         {
-            $this->request->session()->flash("alert-danger", ["That message does not exist"]);
+            $this->request->session()->flash('alert-danger', ['That message does not exist']);
 
-            return redirect("/account/inbox");
+            return redirect('/account/inbox');
         }
 
         $thread->activateAllParticipants();
@@ -148,7 +146,6 @@ class MessagesController extends Controller
         ]);
         $participant->last_read = new Carbon;
         $participant->save();
-
 
         return redirect("account/messages/$id");
     }

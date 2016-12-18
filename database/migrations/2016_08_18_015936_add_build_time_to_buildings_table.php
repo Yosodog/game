@@ -13,7 +13,7 @@ class AddBuildTimeToBuildingsTable extends Migration
     public function up()
     {
         Schema::table('building_types', function (Blueprint $table) {
-            $table->smallInteger("buildingTime")->unsigned();
+            $table->smallInteger('buildingTime')->unsigned();
         });
     }
 
@@ -25,7 +25,7 @@ class AddBuildTimeToBuildingsTable extends Migration
     public function down()
     {
         Schema::table('building_types', function (Blueprint $table) {
-            $table->dropColumn("buildingTime");
+            $table->dropColumn('buildingTime');
         });
     }
 }

@@ -14,8 +14,8 @@ class AddPropertyPoints extends Migration
     public function up()
     {
         Schema::table('properties', function (Blueprint $table) {
-            $table->decimal("pointsPerPerson", 8, 4)->comment("How many property points are required per person");
-            $table->dropColumn("baseValue");
+            $table->decimal('pointsPerPerson', 8, 4)->comment('How many property points are required per person');
+            $table->dropColumn('baseValue');
         });
     }
 
@@ -27,8 +27,8 @@ class AddPropertyPoints extends Migration
     public function down()
     {
         Schema::table('properties', function (Blueprint $table) {
-            $table->dropColumn("pointsPerPerson");
-            $table->smallInteger("baseValue");
+            $table->dropColumn('pointsPerPerson');
+            $table->smallInteger('baseValue');
         });
     }
 }

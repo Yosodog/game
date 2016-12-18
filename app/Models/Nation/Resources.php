@@ -11,12 +11,12 @@ class Resources extends Model
     protected $guarded = [];
 
     /**
-     * Nation/resources relationship
+     * Nation/resources relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function nation() : \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo('App\Models\Nation\Nations', "nationID");
+        return $this->belongsTo('App\Models\Nation\Nations', 'nationID');
     }
 }

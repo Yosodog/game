@@ -14,7 +14,7 @@ class FlagTableSeeder extends Seeder
     public function run()
     {
         try {
-            $flags = scandir(__DIR__."/../../public/img/flags/countries");
+            $flags = scandir(__DIR__.'/../../public/img/flags/countries');
         } catch (\Exception $e) {
             // If the directory doesn't exist just... don't run this shit
             return;
@@ -22,10 +22,10 @@ class FlagTableSeeder extends Seeder
 
         foreach ($flags as $flag)
         {
-            if ($flag === "." || $flag === "..")
+            if ($flag === '.' || $flag === '..')
                 continue;
 
-            $url = "img/flags/countries/".$flag;
+            $url = 'img/flags/countries/'.$flag;
             $name = str_replace('_', ' ', preg_replace('/\\.[^.\\s]{3,4}$/', '', $flag));
 
             \App\Models\Flags::create([
@@ -33,7 +33,6 @@ class FlagTableSeeder extends Seeder
                 'name' => $name,
             ]);
         }
-
 
     }
 }
