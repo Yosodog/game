@@ -24,7 +24,6 @@ class CreateRolesTable extends Migration
             $table->boolean('canCreateRoles');
             $table->boolean('canEditRoles');
             $table->boolean('canRemoveRoles');
-            
             $table->foreign('alliance_id')->references('id')->on('alliances');
         });
     }
