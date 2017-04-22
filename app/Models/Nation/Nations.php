@@ -139,16 +139,6 @@ class Nations extends Model
     }
 
     /**
-     * The nation/role relationship.
-     *
-     * @return HasOne
-     */
-    public function role() : HasOne
-    {
-        return $this->HasOne('App\Models\Role', 'id', 'role_id');
-    }
-
-    /**
      * Checks if the nation has an alliance.
      *
      * @return bool
