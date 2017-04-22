@@ -8,7 +8,6 @@ use App\Models\Flags;
 use App\Models\Alliance;
 use Illuminate\Http\Request;
 use App\Models\Nation\Nations;
-use App\Models\Role;
 
 class AllianceController extends Controller
 {
