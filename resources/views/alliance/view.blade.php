@@ -47,7 +47,7 @@
             </form>
             <a href="{{ url("/alliance/".$alliance->id."/edit") }}" class="btn btn-default">Edit</a> {{-- TODO make it so this button only shows to people with the proper permissions --}}
             <a href="#" class="btn btn-default">Bank</a>
-            <a href="#" class="btn btn-default">Announcements</a>
+             @if (Auth::user()->nation->role->canReadAnnouncements) <a href="#" class="btn btn-default">Announcements</a>@endif
         @endif
     </div>
     {{-- TODO make this look better --}}

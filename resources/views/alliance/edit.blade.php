@@ -3,6 +3,7 @@
 @section('content')
 
 @include("alerts") {{-- Include the template for alerts. This checks if there's something needed to display --}}
+    @if (Auth::user()->nation->role->canChangeName)
     <div class="row">
        <div class="col-md-9">
            <div class="panel panel-default">
@@ -27,6 +28,8 @@
                </div>
              </div>
            </div>
+     @endif
+   	 @if (Auth::user()->nation->role->canChangeCosmetics)
      <div class="row">
        <div class="col-md-9">
            <div class="panel panel-default">
@@ -146,6 +149,8 @@
                </div>
              </div>
            </div>
+    @endif
+    @if (Auth::user()->nation->role->canRemoveMember)
 	<div class="row">
        <div class="col-md-9">
            <div class="panel panel-default">
@@ -171,6 +176,8 @@
                </div>
              </div>
            </div>
+    @endif
+    @if (Auth::user()->nation->role->canDisbandAlliance)
 	<div class="row">
     	<div class="col-md-9">
 			<div class="panel panel-danger">
@@ -191,6 +198,7 @@
             </div>
          </div>
       </div>
+      @endif
             <br>
             <a href="{{ url("/alliance/".$alliance->id) }}" class="btn btn-default">Go Back</a>
 @endsection
