@@ -14,9 +14,9 @@ class AddRolesToNationsTable extends Migration
     public function up()
     {
         Schema::table('nations', function (Blueprint $table) {
-        	$table->engine = 'InnoDB';
-        	$table->integer('role_id')->unsigned()->nullable();
-        	$table->foreign('role_id')->references('id')->on('roles');
+            $table->engine = 'InnoDB';
+            $table->integer('role_id')->unsigned()->nullable();
+            $table->foreign('role_id')->references('id')->on('roles');
         });
     }
 
@@ -28,7 +28,7 @@ class AddRolesToNationsTable extends Migration
     public function down()
     {
         Schema::table('nations', function (Blueprint $table) {
-        	$table->dropForeign(['role_id']);
+            $table->dropForeign(['role_id']);
             $table->dropColumn('role_id');
         });
     }
