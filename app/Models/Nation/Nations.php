@@ -15,7 +15,7 @@ class Nations extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'user_id', 'flagID',
+        'name', 'user_id', 'flagID', 'role_id'
     ];
 
     protected $appends = [
@@ -126,6 +126,16 @@ class Nations extends Model
     public static function getNationByID(int $id) : self
     {
         return self::find($id);
+    }
+    
+    /**
+     * The nation/role relationship.
+     *
+     * @return HasOne
+     */
+    public function role() : HasOne
+    {
+    	return $this->HasOne('App\Models\Role', 'id', 'role_id');
     }
 
     /**
