@@ -289,7 +289,7 @@ class AllianceController extends Controller
     public function renameAlliance(Alliance $alliance)
     {
     	// if the user doesn't have permission to change the name, stop them from actually doing so
-    	if (!Auth::user()->nation->role->canChangeName) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
+    	if (! Auth::user()->nation->role->canChangeName) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
     	
         // validate alliance name change, make sure it is unique
         $this->validate($this->request, [
@@ -315,7 +315,7 @@ class AllianceController extends Controller
     {
 
     	// if the user doesn't have permission to change the forum, stop them from actually doing so
-    	if (!Auth::user()->nation->role->canChangeCosmetics) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
+    	if (! Auth::user()->nation->role->canChangeCosmetics) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
 
         // No verification needed, so just save the new forum URL.
         $alliance->forumURL = $this->request->forumURL;
@@ -335,7 +335,7 @@ class AllianceController extends Controller
     public function changeIRC(Alliance $alliance)
     {
     	// if the user doesn't have permission to change the IRC channel, stop them from actually doing so
-    	if (!Auth::user()->nation->role->canChangeCosmetics) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
+    	if (! Auth::user()->nation->role->canChangeCosmetics) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
     	
         // No verification needed, so just save the new IRC Channel.
         $alliance->IRCChan = $this->request->IRCChan;
@@ -355,7 +355,7 @@ class AllianceController extends Controller
     public function changeDiscord(Alliance $alliance)
     {
     	// if the user doesn't have permission to change the Discord, stop them from actually doing so
-    	if (!Auth::user()->nation->role->canChangeCosmetics) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
+    	if (! Auth::user()->nation->role->canChangeCosmetics) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
 
         // No verification needed, so just save the new discord server.
         $alliance->discord = $this->request->discord;
@@ -375,7 +375,7 @@ class AllianceController extends Controller
     public function changeDescription(Alliance $alliance)
     {
     	// if the user doesn't have permission to change the description, stop them from actually doing so
-    	if (!Auth::user()->nation->role->canChangeCosmetics) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
+    	if (! Auth::user()->nation->role->canChangeCosmetics) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
     	
         // No verification needed, so just save the new description.
         $alliance->description = $this->request->description;
@@ -395,7 +395,7 @@ class AllianceController extends Controller
     public function changeFlag(Alliance $alliance)
     {
     	// if the user doesn't have permission to change the flag, stop them from actually doing so
-    	if (!Auth::user()->nation->role->canChangeCosmetics) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
+    	if (! Auth::user()->nation->role->canChangeCosmetics) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
     	
         // verify the flag exists
         $this->validate($this->request, [
@@ -420,7 +420,7 @@ class AllianceController extends Controller
     public function removeMember(Alliance $alliance)
     {
     	// if the user doesn't have permission to kick people, stop them from actually doing so
-    	if (!Auth::user()->nation->role->canRemoveMember) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
+    	if (! Auth::user()->nation->role->canRemoveMember) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
 
         // Store nation as a variable
         $nationID = $this->request->nation;
@@ -458,7 +458,7 @@ class AllianceController extends Controller
     public function disband(Alliance $alliance)
     {
     	// if the user doesn't have permission to disband, stop them from actually doing so
-    	if (!Auth::user()->nation->role->canDisbandAlliance) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
+    	if (! Auth::user()->nation->role->canDisbandAlliance) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
     	
         // load all the nations in the alliance
         $nations = Nations::where('allianceID', $alliance->id)->paginate(15);
