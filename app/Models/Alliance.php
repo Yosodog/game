@@ -20,7 +20,7 @@ class Alliance extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'forumURL', 'IRCChan', 'flagID', 'discord', 'default_role_id'
+        'name', 'description', 'forumURL', 'IRCChan', 'flagID', 'discord', 'default_role_id',
     ];
 
     /**
@@ -52,14 +52,14 @@ class Alliance extends Model
     {
         return $this->nations->count();
     }
-    
+
     /**
-     * Role/Alliance relationship
+     * Role/Alliance relationship.
      *
      * @return HasMany
      */
     public function role() : HasMany
     {
-    	return $this->hasMany('App\Models\Role', 'alliance_id');
+        return $this->hasMany('App\Models\Role', 'alliance_id');
     }
 }

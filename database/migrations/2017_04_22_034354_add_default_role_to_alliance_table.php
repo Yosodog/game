@@ -14,9 +14,9 @@ class AddDefaultRoleToAllianceTable extends Migration
     public function up()
     {
         Schema::table('alliances', function (Blueprint $table) {
-        	$table->integer('default_role_id')->unsigned()->nullable();
-        	
-        	$table->foreign('default_role_id')->references('id')->on('roles');
+            $table->integer('default_role_id')->unsigned()->nullable();
+
+            $table->foreign('default_role_id')->references('id')->on('roles');
         });
     }
 
@@ -28,8 +28,8 @@ class AddDefaultRoleToAllianceTable extends Migration
     public function down()
     {
         Schema::table('alliances', function (Blueprint $table) {
-        	$table->dropForeign(['default_role_id']);
-        	$table->dropColumn('default_role_id');
+            $table->dropForeign(['default_role_id']);
+            $table->dropColumn('default_role_id');
         });
     }
 }
