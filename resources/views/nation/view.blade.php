@@ -9,7 +9,7 @@
             </div>
             <div class="col-md-8">
                 <h1 class="text-center">{{ $nation->name }}</h1>
-                <p class="text-center"><em>"{{ $nation->motto }}"</em></p>
+                <p class="text-center"><em>{{ $nation->motto }}</em></p>
             </div>
         </div>
     </div>
