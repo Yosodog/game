@@ -127,7 +127,7 @@ class Nations extends Model
     {
         return self::find($id);
     }
-
+    
     /**
      * The nation/role relationship.
      *
@@ -135,7 +135,7 @@ class Nations extends Model
      */
     public function role() : HasOne
     {
-        return $this->HasOne('App\Models\Role', 'id', 'role_id');
+    	return $this->HasOne('App\Models\Role', 'id', 'role_id');
     }
 
     /**

@@ -215,7 +215,7 @@ class NationController extends Controller
         $nation = Auth::user()->nation;
 
         // actually change the motto
-        $nation->motto = $this->request->motto;
+        $nation->motto = '"'.$this->request->motto.'"';
         $nation->save();
 
         return redirect('/nation/edit')->with('alert-success', ['Nation motto changed successfully!']);
