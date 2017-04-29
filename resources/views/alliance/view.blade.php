@@ -34,21 +34,58 @@
         <a href="{{ $alliance->discord ?? "#" }}" class="btn btn-default">Discord</a>
         <a href="#" class="btn btn-default">Wars</a>
         @if (Auth::user()->nation->allianceID != $alliance->id)
-       		<form method="post" action="{{ url("/alliance/".$alliance->id."/join") }}" class="btn btn-default">
-            {{ csrf_field() }}
-            {{ method_field("PATCH") }}
-            <input type="submit" value="Join">
-            </form>
-        @else (Auth::user()->nation->allianceID == $alliance->id)
-        	<form method="post" action="{{ url("/alliance/".$alliance->id."/leave") }}" class="btn btn-default">
-            {{ csrf_field() }}
-            {{ method_field("PATCH") }}
-            <input type="submit" value="Leave">
-            </form>
+            <a href="#" class="btn btn-default" data-toggle="modal" data-target="#joinModal">Join</a>
+        @else (Auth::user()->nation->allianceID == $alliance->id) {{-- Is this supposed to be an else if? --}}
+            <a href="#" class="btn btn-default" data-toggle="modal" data-target="#leaveModal">Leave</a>
             <a href="{{ url("/alliance/".$alliance->id."/edit") }}" class="btn btn-default">Edit</a> {{-- TODO make it so this button only shows to people with the proper permissions --}}
             <a href="#" class="btn btn-default">Bank</a>
              @if (Auth::user()->nation->role->canReadAnnouncements) <a href="#" class="btn btn-default">Announcements</a>@endif
         @endif
+    </div>
+
+    @if (Auth::user()->nation->allianceID == $alliance->id)
+        <div id="leaveModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Leave {{ $alliance->name }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to leave {{ $alliance->name }}?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <form method="post" action="{{ url("/alliance/".$alliance->id."/leave") }}" class="" style="display:inline-block">
+                            {{ csrf_field() }}
+                            {{ method_field("PATCH") }}
+                            <input type="submit" value="Leave" class="btn btn-danger">
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            @else
+                <div id="joinModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Join {{ $alliance->name }}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to join {{ $alliance->name }}?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <form method="post" action="{{ url("/alliance/".$alliance->id."/join") }}">
+                                    {{ csrf_field() }}
+                                    {{ method_field("PATCH") }}
+                                    <input type="submit" value="Join" class="btn btn-success">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
     </div>
     {{-- TODO make this look better --}}
     <div class="row">
