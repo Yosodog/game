@@ -54,6 +54,10 @@ Route::group(['middleware' => ['auth', 'NoNation']], function () { // Pages that
     Route::post('/alliance/{alliance}/edit/changeAllianceDescription', 'AllianceController@changeDescription');
     Route::post('/alliance/{alliance}/edit/changeAllianceFlag', 'AllianceController@changeFlag');
     Route::patch('alliance/{alliance}/edit/removeMember', 'AllianceController@removeMember');
+    Route::patch('alliance/{alliance}/edit/createRole', 'AllianceController@createRole');
+    Route::patch('alliance/{alliance}/edit/editRole', 'AllianceController@editRole');
+    Route::patch('alliance/{alliance}/edit/removeRole', 'AllianceController@removeRole');
+    Route::patch('alliance/{alliance}/edit/assignRole', 'AllianceController@assignRole');
     Route::delete('alliance/{alliance}/edit/disband', 'AllianceController@disband');
 
     // Account related pages

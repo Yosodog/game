@@ -71,36 +71,6 @@ class AllianceController extends Controller
             'flagID' => $this->request->flag,
             'discord' => $this->request->discord,
         ]);
-        
-        $leader = Role::create([
-        		'name' => "Leader",
-        		'alliance_id' => $alliance->id, 
-        		'canChangeName' => true, 
-        		'canRemoveMember' => true, 
-        		'canDisbandAlliance' => true, 
-        		'canChangeCosmetics' => true, 
-        		'canCreateRoles' => true, 
-        		'canEditRoles' => true, 
-        		'canRemoveRoles' => true, 
-        		'canReadAnnouncements' => true, 
-        		'isDefaultRole' => false,
-        ]);
-        $leader->save();
-        
-        $applicant = Role::create([
-        		'name' => "Applicant",
-        		'alliance_id' => $alliance->id,
-        		'canChangeName' => false,
-        		'canRemoveMember' => false,
-        		'canDisbandAlliance' => false,
-        		'canChangeCosmetics' => false,
-        		'canCreateRoles' => false,
-        		'canEditRoles' => false,
-        		'canRemoveRoles' => false,
-        		'canReadAnnouncements' => false,
-        		'isDefaultRole' => true,
-        ]);
-        $applicant->save();
 
         $leader = Role::create([
                 'name' => 'Leader',
@@ -114,6 +84,7 @@ class AllianceController extends Controller
                 'canRemoveRoles' => true,
                 'canReadAnnouncements' => true,
                 'isDefaultRole' => false,
+        		'canAssignRoles' => true,
         ]);
         $leader->save();
 
@@ -129,6 +100,7 @@ class AllianceController extends Controller
                 'canRemoveRoles' => false,
                 'canReadAnnouncements' => false,
                 'isDefaultRole' => true,
+        		'canAssignRoles' => false,
         ]);
         $applicant->save();
 
@@ -160,7 +132,7 @@ class AllianceController extends Controller
     {
         // We could get the members by eager loading, but we want to paginate so gotta do it special
         $nations = Nations::where('allianceID', $alliance->id)->paginate(15);
-        $nations->load('user');
+        $nations->load('user', 'role');
 
         return view('alliance.view', [
             'alliance' => $alliance,
@@ -269,11 +241,13 @@ class AllianceController extends Controller
         $nations = Nations::where('allianceID', $alliance->id)->paginate(15);
         $nations->load('user');
         $flags = Flags::all();
+        $roles = $alliance->role;
 
         return view('alliance.edit', [
                 'alliance' => $alliance,
                 'nations' => $nations,
                 'flags' => $flags,
+        		'roles' => $roles,
         ]);
     }
 
@@ -487,19 +461,197 @@ class AllianceController extends Controller
         $alliance->default_role_id = null;
         $alliance->save();
 
-        $roles = $alliance->role;
-
-        // deletes roles for this alliance
-        foreach ($roles as $role)
-        {
-            $role->delete();
-        }
-
         $name = $alliance->name;
 
         // deletes the alliance
         $alliance->delete();
 
         return redirect('/alliances')->with('alert-info', [$name.' has been disbanded. :(']);
+    }
+    
+    /**
+     * PATCH: /alliance/{$alliance}/edit/removeRole.
+     *
+     * Removes role from the alliance.
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function removeRole(Alliance $alliance)
+    {
+    	// if the user doesn't have permission to remove roles, stop them from actually doing so
+    	if (! Auth::user()->nation->role->canRemoveRoles) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
+    
+    	// store role to be deleted
+    	$role = Role::find($this->request->role);
+    	
+    	// If this role is the default, do not remove
+    	if ($role->isDefaultRole)
+    	{
+    		return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-warning', ['This is the default role for this alliance, and cannot be removed.']);
+    	}
+    
+    	// get users with this role
+    	$nations = Nations::where('role_id', $role->id)->paginate(15);
+    	
+    	// If this role is the default, do not remove
+    	if (count($nations) > 0)
+    	{
+    		return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-warning', ['This role currently has people masked to it, and cannot be removed.']);
+    	}
+    
+    	// delete the role from the alliance
+    	$role->delete();
+    
+    	return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-success', [$role->name.' has been deleted from the alliance!']);
+    }
+    
+    /**
+     * PATCH: /alliance/{$alliance}/edit/assignRole.
+     *
+     * Assigns role to member
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function assignRole(Alliance $alliance)
+    {
+    	// if the user doesn't have permission to assign roles, stop them from actually doing so
+    	if (! Auth::user()->nation->role->canAssignRoles) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
+    
+    	// store nation and role
+    	$nation = Nations::find($this->request->nation);
+    	$role = $this->request->role;
+    	$name = Role::find($role)->name;
+    
+		$nation->role_id = $role;
+		$nation->save();
+    
+    	return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-success', [$nation->user->name.' has been moved to '.$name]);
+    }
+    
+    /**
+     * PATCH: /alliance/{$alliance}/edit/createRole.
+     *
+     * Creates role for alliance
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function createRole(Alliance $alliance)
+    {
+    	// if the user doesn't have permission to create roles, stop them from actually doing so
+    	if (! Auth::user()->nation->role->canCreateRoles) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
+    
+    	// set the booleans manually, because fuck checkboxes
+    	if (strlen($this->request->nameChange) != 2) $this->request->nameChange = false;
+    	else $this->request->nameChange = true;
+    	
+    	if (strlen($this->request->userRemove) != 2) $this->request->userRemove = false;
+    	else $this->request->userRemove = true;
+    	 
+    	if (strlen($this->request->disband) != 2) $this->request->disband = false;
+    	else $this->request->disband = true;
+    	 
+    	if (strlen($this->request->cosmetics) != 2) $this->request->cosmetics = false;
+    	else $this->request->cosmetics = true;
+    	 
+    	if (strlen($this->request->roleCreate) != 2) $this->request->roleCreate = false;
+    	else $this->request->roleCreate = true;
+    	 
+    	if (strlen($this->request->roleEdit) != 2) $this->request->roleEdit = false;
+    	else $this->request->roleEdit = true;
+    	 
+    	if (strlen($this->request->roleRemove) != 2) $this->request->roleRemove = false;
+    	else $this->request->roleRemove = true;
+    	 
+    	if (strlen($this->request->announcements) != 2) $this->request->announcements = false;
+    	else $this->request->announcements = true;
+    	 
+    	if (strlen($this->request->roleAssign) != 2) $this->request->roleAssign = false;
+    	else $this->request->roleAssign = true;
+    	 
+    	// create new role
+    	$role = Role::create([
+    			'name' => $this->request->name,
+    			'alliance_id' => $alliance->id,
+    			'canChangeName' => $this->request->nameChange,
+    			'canRemoveMember' => $this->request->userRemove,
+    			'canDisbandAlliance' => $this->request->disband,
+    			'canChangeCosmetics' => $this->request->cosmetics,
+    			'canCreateRoles' => $this->request->roleCreate,
+    			'canEditRoles' => $this->request->roleEdit,
+    			'canRemoveRoles' => $this->request->roleRemove,
+    			'canReadAnnouncements' => $this->request->announcements,
+    			'isDefaultRole' => false,
+    			'canAssignRoles' => $this->request->roleAssign,
+    	]);
+    
+    	return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-success', [$this->request->name.' has been created!']);
+    }
+    
+    /**
+     * PATCH: /alliance/{$alliance}/edit/editRole.
+     *
+     * Edits role for alliance
+     *
+     * @param Alliance $alliance
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function editRole(Alliance $alliance)
+    {
+    	// if the user doesn't have permission to edit roles, stop them from actually doing so
+    	if (! Auth::user()->nation->role->canEditRoles) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
+    	
+    	// get role from role ID
+    	$role = Role::find($this->request->role);
+    	
+    	// stop them from editing the default Applicant role
+    	if ($role->isDefaultRole) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-warning', ['This is the default Applicant role, and cannot be edited.']);
+    
+    	// set the booleans manually, because fuck checkboxes
+    	if (strlen($this->request->nameChange) != 2) $this->request->nameChange = false;
+    	else $this->request->nameChange = true;
+    	 
+    	if (strlen($this->request->userRemove) != 2) $this->request->userRemove = false;
+    	else $this->request->userRemove = true;
+    	
+    	if (strlen($this->request->disband) != 2) $this->request->disband = false;
+    	else $this->request->disband = true;
+    	
+    	if (strlen($this->request->cosmetics) != 2) $this->request->cosmetics = false;
+    	else $this->request->cosmetics = true;
+    	
+    	if (strlen($this->request->roleCreate) != 2) $this->request->roleCreate = false;
+    	else $this->request->roleCreate = true;
+    	
+    	if (strlen($this->request->roleEdit) != 2) $this->request->roleEdit = false;
+    	else $this->request->roleEdit = true;
+    	
+    	if (strlen($this->request->roleRemove) != 2) $this->request->roleRemove = false;
+    	else $this->request->roleRemove = true;
+    	
+    	if (strlen($this->request->announcements) != 2) $this->request->announcements = false;
+    	else $this->request->announcements = true;
+    	
+    	if (strlen($this->request->roleAssign) != 2) $this->request->roleAssign = false;
+    	else $this->request->roleAssign = true;
+		
+		// set all the roles manually
+		$role->name = $this->request->name;
+		$role->canChangeName = $this->request->nameChange;
+		$role->canRemoveMember = $this->request->userRemove;
+		$role->canDisbandAlliance = $this->request->disband;
+		$role->canChangeCosmetics = $this->request->cosmetics;
+		$role->canCreateRoles = $this->request->roleCreate;
+		$role->canEditRoles = $this->request->roleEdit;
+		$role->canRemoveRoles = $this->request->roleRemove;
+		$role->canReadAnnouncements = $this->request->announcements;
+		$role->canAssignRoles = $this->request->roleAssign;
+		
+		// save the edited role
+		$role->save();
+    
+    	return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-success', [$role->name.' has been edited!']);
     }
 }
