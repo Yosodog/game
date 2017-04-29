@@ -161,7 +161,10 @@ class UpdateResources
      */
     protected function calcDiff()
     {
-        $this->diff = $this->now - ($this->user->lastRequest ?? $this->now);
+        if ($this->user->lastRequest === null)
+            $this->diff = 1;
+        else
+            $this->diff = $this->now - ($this->user->lastRequest ?? $this->now - 1);
     }
 
     /**
