@@ -210,15 +210,15 @@
                         <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/createRole") }}">
             				<div class="form-group">
             				 <input type="name" id="name" name="name" class="form-control" placeholder="" required><br>
-								<input type="checkbox"	id="nameChange" name="nameChange" class="form-control">Change Alliance Name<br>
-								<input type="checkbox" id="userRemove" name="userRemove" class="form-control">Remove Members<br>
-								<input type="checkbox" id="disband" name="disband" class="form-control">Disband Alliance<br>
-								<input type="checkbox" id="cosmetics" name="cosmetics" class="form-control">Change Cosmetics<br>
-								<input type="checkbox" id="roleCreate" name="roleCreate" class="form-control">Create Roles<br>
-								<input type="checkbox" id="roleEdit" name="roleEdit" class="form-control">Edit Roles<br>
-								<input type="checkbox" id="roleRemove" name="roleRemove" class="form-control">Remove Roles<br>
-								<input type="checkbox" id="announcements" name="announcements" class="form-control">Read Announcements<br>
-								<input type="checkbox" id="roleAssign" name="roleAssign" class="form-control">Assign Roles<br>
+								<input type="checkbox"	id="nameChange" name="nameChange">Change Alliance Name<br>
+								<input type="checkbox" id="userRemove" name="userRemove">Remove Members<br>
+								<input type="checkbox" id="disband" name="disband">Disband Alliance<br>
+								<input type="checkbox" id="cosmetics" name="cosmetics">Change Cosmetics<br>
+								<input type="checkbox" id="roleCreate" name="roleCreate">Create Roles<br>
+								<input type="checkbox" id="roleEdit" name="roleEdit">Edit Roles<br>
+								<input type="checkbox" id="roleRemove" name="roleRemove">Remove Roles<br>
+								<input type="checkbox" id="announcements" name="announcements">Read Announcements<br>
+								<input type="checkbox" id="roleAssign" name="roleAssign">Assign Roles<br>
 								
 								<div class="form-group">
 								{{ csrf_field() }}
@@ -249,15 +249,15 @@
                            		 </div>
 								 
 								 <input type="name" id="name" name="name" class="form-control" placeholder="" required><br>
-								<input type="checkbox"	id="nameChange" name="nameChange" class="form-control">Change Alliance Name<br>
-								<input type="checkbox" id="userRemove" name="userRemove" class="form-control">Remove Members<br>
-								<input type="checkbox" id="disband" name="disband" class="form-control">Disband Alliance<br>
-								<input type="checkbox" id="cosmetics" name="cosmetics" class="form-control">Change Cosmetics<br>
-								<input type="checkbox" id="roleCreate" name="roleCreate" class="form-control">Create Roles<br>
-								<input type="checkbox" id="roleEdit" name="roleEdit" class="form-control">Edit Roles<br>
-								<input type="checkbox" id="roleRemove" name="roleRemove" class="form-control">Remove Roles<br>
-								<input type="checkbox" id="announcements" name="announcements" class="form-control">Read Announcements<br>
-								<input type="checkbox" id="roleAssign" name="roleAssign" class="form-control">Assign Roles<br>
+								<input type="checkbox"	id="nameChange" name="nameChange">Change Alliance Name<br>
+								<input type="checkbox" id="userRemove" name="userRemove">Remove Members<br>
+								<input type="checkbox" id="disband" name="disband">Disband Alliance<br>
+								<input type="checkbox" id="cosmetics" name="cosmetics">Change Cosmetics<br>
+								<input type="checkbox" id="roleCreate" name="roleCreate">Create Roles<br>
+								<input type="checkbox" id="roleEdit" name="roleEdit">Edit Roles<br>
+								<input type="checkbox" id="roleRemove" name="roleRemove">Remove Roles<br>
+								<input type="checkbox" id="announcements" name="announcements">Read Announcements<br>
+								<input type="checkbox" id="roleAssign" name="roleAssign">Assign Roles<br>
 
 								<div class="form-group">
 								{{ csrf_field() }}
