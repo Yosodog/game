@@ -209,7 +209,7 @@
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/createRole") }}">
             				<div class="form-group">
-            				 <input type="name" id="name" name="name" class="form-control" placeholder="" required><br>
+            				 <input type="name" id="name" name="name" class="form-control" placeholder="Role Name" required><br>
 								<input type="checkbox"	id="nameChange" name="nameChange">Change Alliance Name<br>
 								<input type="checkbox" id="userRemove" name="userRemove">Remove Members<br>
 								<input type="checkbox" id="disband" name="disband">Disband Alliance<br>
@@ -250,7 +250,7 @@
                            		 </div>
                            		 
 								 <div class="form-group"> 
-								<input type="name" id="name" name="name" class="form-control" placeholder="" required><br>
+								<input type="name" id="name" name="name" class="form-control" placeholder="Role Name" required><br>
 								<input type="checkbox"	id="nameChange" name="nameChange">Change Alliance Name<br>
 								<input type="checkbox" id="userRemove" name="userRemove">Remove Members<br>
 								<input type="checkbox" id="disband" name="disband">Disband Alliance<br>
