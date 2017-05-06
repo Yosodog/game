@@ -219,6 +219,7 @@
 								<input type="checkbox" id="roleRemove" name="roleRemove">Remove Roles<br>
 								<input type="checkbox" id="announcements" name="announcements">Read Announcements<br>
 								<input type="checkbox" id="roleAssign" name="roleAssign">Assign Roles<br>
+								</div>
 								
 								<div class="form-group">
 								{{ csrf_field() }}
@@ -247,8 +248,9 @@
            							@endforeach
            							</select>
                            		 </div>
-								 
-								 <input type="name" id="name" name="name" class="form-control" placeholder="" required><br>
+                           		 
+								 <div class="form-group"> 
+								<input type="name" id="name" name="name" class="form-control" placeholder="" required><br>
 								<input type="checkbox"	id="nameChange" name="nameChange">Change Alliance Name<br>
 								<input type="checkbox" id="userRemove" name="userRemove">Remove Members<br>
 								<input type="checkbox" id="disband" name="disband">Disband Alliance<br>
@@ -258,6 +260,7 @@
 								<input type="checkbox" id="roleRemove" name="roleRemove">Remove Roles<br>
 								<input type="checkbox" id="announcements" name="announcements">Read Announcements<br>
 								<input type="checkbox" id="roleAssign" name="roleAssign">Assign Roles<br>
+								</div>
 
 								<div class="form-group">
 								{{ csrf_field() }}
