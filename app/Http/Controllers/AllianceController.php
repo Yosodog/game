@@ -532,7 +532,12 @@ class AllianceController extends Controller
     {
     	// if the user doesn't have permission to create roles, stop them from actually doing so
     	if (! Auth::user()->nation->role->canCreateRoles) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
-    	 
+    	
+    	// verify that the name exists
+    	$this->validate($this->request, [
+    			'name' => 'required|string',
+    	]);
+    	
     	// create new role
     	$role = Role::create([
     			'name' => $this->request->name,
@@ -566,6 +571,11 @@ class AllianceController extends Controller
     	
     	// get role from role ID
     	$role = Role::find($this->request->role);
+    	
+    	// verify that the name exists
+    	$this->validate($this->request, [
+    			'name' => 'required|string',
+    	]);
     	
     	// stop them from editing the default Applicant role
     	if ($role->isDefaultRole) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-warning', ['This is the default Applicant role, and cannot be edited.']);
