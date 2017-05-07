@@ -163,6 +163,7 @@
                                 	@foreach ($nations as $nation)
             						<option value=" {{$nation->id}} ">{{$nation->user->name}}</option>
            							@endforeach
+           							</select>
                            		 </div>
                            		 
 								<div class="form-group">
@@ -198,6 +199,144 @@
             </div>
          </div>
       </div>
+      @endif
+      @if (Auth::user()->nation->role->canCreateRoles)
+	<div class="row">
+       <div class="col-md-9">
+           <div class="panel panel-default">
+              <div class="panel-heading">Create Role</div>
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/createRole") }}">
+            				<div class="form-group">
+            				 <input type="name" id="name" name="name" class="form-control" placeholder="Role Name" required><br>
+								<input type="checkbox"	id="nameChange" name="nameChange">Change Alliance Name<br>
+								<input type="checkbox" id="userRemove" name="userRemove">Remove Members<br>
+								<input type="checkbox" id="disband" name="disband">Disband Alliance<br>
+								<input type="checkbox" id="cosmetics" name="cosmetics">Change Cosmetics<br>
+								<input type="checkbox" id="roleCreate" name="roleCreate">Create Roles<br>
+								<input type="checkbox" id="roleEdit" name="roleEdit">Edit Roles<br>
+								<input type="checkbox" id="roleRemove" name="roleRemove">Remove Roles<br>
+								<input type="checkbox" id="announcements" name="announcements">Read Announcements<br>
+								<input type="checkbox" id="roleAssign" name="roleAssign">Assign Roles<br>
+								</div>
+								
+								<div class="form-group">
+								{{ csrf_field() }}
+                                {{ method_field("PATCH") }}
+                                <input type="submit" value="Create" class="btn btn-default">
+                            	</div>
+                         </form>
+                    </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+      @endif
+      @if (Auth::user()->nation->role->canEditRoles)
+	<div class="row">
+       <div class="col-md-9">
+           <div class="panel panel-default">
+              <div class="panel-heading">Edit Role</div>
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/editRole") }}">
+            				<div class="form-group">
+                                <select name="role" id="role" class="form-control">
+                                	@foreach ($roles as $role)
+            						<option value="{{$role->id}}">{{$role->name}}</option>
+           							@endforeach
+           							</select>
+                           		 </div>
+                           		 
+								 <div class="form-group"> 
+								<input type="name" id="name" name="name" class="form-control" placeholder="Role Name" required><br>
+								<input type="checkbox"	id="nameChange" name="nameChange">Change Alliance Name<br>
+								<input type="checkbox" id="userRemove" name="userRemove">Remove Members<br>
+								<input type="checkbox" id="disband" name="disband">Disband Alliance<br>
+								<input type="checkbox" id="cosmetics" name="cosmetics">Change Cosmetics<br>
+								<input type="checkbox" id="roleCreate" name="roleCreate">Create Roles<br>
+								<input type="checkbox" id="roleEdit" name="roleEdit">Edit Roles<br>
+								<input type="checkbox" id="roleRemove" name="roleRemove">Remove Roles<br>
+								<input type="checkbox" id="announcements" name="announcements">Read Announcements<br>
+								<input type="checkbox" id="roleAssign" name="roleAssign">Assign Roles<br>
+								</div>
+
+								<div class="form-group">
+								{{ csrf_field() }}
+                                {{ method_field("PATCH") }}
+                                <input type="submit" value="Edit" class="btn btn-default">
+                            	</div>
+                         </form>
+                    </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+      @endif
+      @if (Auth::user()->nation->role->canRemoveRoles)
+	<div class="row">
+       <div class="col-md-9">
+           <div class="panel panel-default">
+              <div class="panel-heading">Delete Role</div>
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/removeRole/") }}">
+            				<div class="form-group">
+                                <select name="role" id="role" class="form-control">
+                                	@foreach ($roles as $role)
+            						<option value=" {{$role->id}} ">{{$role->name}}</option>
+           							@endforeach
+           						</select>
+                           		 </div>
+                           		 
+								<div class="form-group">
+								{{ csrf_field() }}
+                                {{ method_field("PATCH") }}
+                                <input type="submit" value="Delete" class="btn btn-default">
+                            	</div>
+                         </form>
+                    </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+      @endif
+      @if (Auth::user()->nation->role->canAssignRoles)
+	<div class="row">
+       <div class="col-md-9">
+           <div class="panel panel-default">
+              <div class="panel-heading">Assign Role</div>
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/assignRole") }}">
+            				<div class="form-group">
+                                <select name="nation" id="nation" class="form-control">
+                                	@foreach ($nations as $nation)
+            						<option value=" {{$nation->id}} ">{{$nation->user->name}}</option>
+           							@endforeach
+           						</select>
+                           		 </div>
+                           		 
+                           	<div class="form-group">
+                                <select name="role" id="role" class="form-control">
+                                	@foreach ($roles as $role)
+            						<option value=" {{$role->id}} ">{{$role->name}}</option>
+           							@endforeach
+           						</select>
+                           		 </div>
+                           		 
+								<div class="form-group">
+								{{ csrf_field() }}
+                                {{ method_field("PATCH") }}
+                                <input type="submit" value="Assign" class="btn btn-default">
+                            	</div>
+                         </form>
+                    </div>
+                 </div>
+               </div>
+             </div>
+           </div>
       @endif
             <br>
             <a href="{{ url("/alliance/".$alliance->id) }}" class="btn btn-default">Go Back</a>

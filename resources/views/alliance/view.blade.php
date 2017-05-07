@@ -115,7 +115,7 @@
                 <tr>
                     <td><a href="{{ url("/nation/view/".$nation->id) }}">{{ $nation->user->name }}</a></td>
                     <td>420</td>
-                    <td>Member</td>
+                    <td>{{ $nation->role->name }}</td>
                 </tr>
             @endforeach
         </table>
