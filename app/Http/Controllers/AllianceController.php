@@ -168,8 +168,20 @@ class AllianceController extends Controller
             $nation->role_id = null;
             $nation->save();
             $name = $alliance->name;
+            $roles = $alliance->role;
 
-            if ($alliance->countMembers() == 0) $alliance->delete();
+            if ($alliance->countMembers() == 0)
+            {
+            	$roles = $alliance->role; // get the alliance's roles
+            	
+            	// set the alliance default role to null, to avoid errors
+            	$alliance->default_role_id = null;
+            	$alliance->save();
+            	
+            	// delete all the roles, before deleting the alliance
+            	foreach ($roles as $role)  $role->delete();
+            	$alliance->delete();
+            }
 
             $this->request->session()->flash('alert-success', ['You have left your alliance, '.$name.'!']);
 
