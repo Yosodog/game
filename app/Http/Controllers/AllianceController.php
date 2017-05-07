@@ -168,7 +168,6 @@ class AllianceController extends Controller
             $nation->role_id = null;
             $nation->save();
             $name = $alliance->name;
-            $roles = $alliance->role;
 
             if ($alliance->countMembers() == 0)
             {
