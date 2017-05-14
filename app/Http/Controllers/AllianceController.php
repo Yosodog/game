@@ -239,6 +239,9 @@ class AllianceController extends Controller
      */
     public function edit(Alliance $alliance)
     {
+    	if (Auth::user()->nation->allianceID != $alliance->id) // If the user is not in this alliance, redirect
+    		return redirect('/alliances/')->with('alert-warning', ['You do not have permission to access this page']);
+    	
         $nations = Nations::where('allianceID', $alliance->id)->paginate(15);
         $nations->load('user');
         $flags = Flags::all();
