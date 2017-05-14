@@ -42,7 +42,16 @@ class NationController extends Controller
         $nID = $id ?? Auth::user()->nation->id;
 
         // Get the nation model
-        $nation = Nations::getNationByID($nID);
+        try
+        {
+            $nation = Nations::getNationByID($nID);
+        }
+        catch (\Exception $e)
+        {
+            return view("errors.general")
+                ->with('error', 'That nation doesn\'t exist');
+        }
+
         $nation->loadFullNation();
         // Get properties so we don't have to query it for every city
         $properties = Properties::all();

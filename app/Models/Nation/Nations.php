@@ -125,7 +125,7 @@ class Nations extends Model
      */
     public static function getNationByID(int $id) : self
     {
-        return self::find($id);
+        return self::findOrFail($id);
     }
     
     /**
