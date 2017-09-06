@@ -66,6 +66,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('dev-code') ? ' has-error' : '' }}">
+                            <label for="dev-code" class="col-md-4 control-label">Dev Code</label>
+
+                            <div class="col-md-6">
+                                <input id="dev-code" type="text" class="form-control" name="dev-code" min="6" required>
+                                <span class="help-block">Contact Yosodog if you want a dev code.</span>
+                                @if ($errors->has('dev-code'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('dev-code') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
