@@ -14,7 +14,7 @@
 
                             <div class="form-group">
                                 <label for="name">Alliance Name</label>
-                                <input type="name" id="name" name="name" class="form-control" placeholder="{{ $alliance->name }}" required>
+                                <input type="name" id="name" name="name" class="form-control" value="{{ $alliance->name }}" required>
                             </div>
 
                             <div class="form-group">
@@ -40,7 +40,7 @@
 
                             <div class="form-group">
                                 <label for="forumURL">Forum URL</label>
-                                <input type="url" id="forumURL" name="forumURL" class="form-control" placeholder="{{ $alliance->forumURL }}" required>
+                                <input type="url" id="forumURL" name="forumURL" class="form-control" value="{{ $alliance->forumURL }}" required>
                             </div>
 
                             <div class="form-group">
@@ -64,7 +64,7 @@
 
                             <div class="form-group">
                                 <label for="IRCChan">IRC Channel</label>
-                                <input type="name" id="IRCChan" name="IRCChan" class="form-control" placeholder="{{ $alliance->IRCChan }}" required>
+                                <input type="name" id="IRCChan" name="IRCChan" class="form-control" value="{{ $alliance->IRCChan }}" required>
                             </div>
 
                             <div class="form-group">
@@ -88,7 +88,7 @@
 
                             <div class="form-group">
                                 <label for="discord">Discord Server</label>
-                                <input type="url" id="discord" name="discord" class="form-control" placeholder="{{ $alliance->discord }}">
+                                <input type="url" id="discord" name="discord" class="form-control" value="{{ $alliance->discord }}">
                             </div>
 
                             <div class="form-group">
@@ -112,7 +112,7 @@
 
                             <div class="form-group">
                                 <label for="description">Alliance Description</label>
-                                <textarea class="form-control" id="description" name="description" class="form-control" rows="5" placeholder="{{ $alliance->description }}" required></textarea>
+                                <textarea class="form-control" id="description" name="description" class="form-control" rows="5" required>{{ $alliance->description }}</textarea>
                             </div>
 
                             <div class="form-group">
@@ -250,7 +250,7 @@
                            		 </div>
                            		 
 								 <div class="form-group"> 
-								<input type="name" id="name" name="name" class="form-control" placeholder="Role Name" required><br>
+								<input type="name" id="name" name="name" class="form-control" placeholder="Role Name" required><br> {{-- TODO throw in role name here when editing--}}
 								<input type="checkbox"	id="nameChange" name="nameChange">Change Alliance Name<br>
 								<input type="checkbox" id="userRemove" name="userRemove">Remove Members<br>
 								<input type="checkbox" id="disband" name="disband">Disband Alliance<br>
