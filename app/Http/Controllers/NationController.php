@@ -144,7 +144,7 @@ class NationController extends Controller
 
         Resources::create([
             'nationID' => $nation->id,
-            'money' => 10000,
+            'money' => 50000000,
             'coal' => 100,
             'iron' => 100,
             'clay' => 100,
