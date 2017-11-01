@@ -14,7 +14,7 @@
         </div>
         <div class="form-group">
             <label for="message">Message</label>
-            <textarea name="message" id="message" class="form-control" required>{{ old("message") }}</textarea>
+            <textarea name="message" id="message" class="form-control" rows="10" required>{{ old("message") }}</textarea>
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Send">
