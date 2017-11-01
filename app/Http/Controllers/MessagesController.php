@@ -37,7 +37,7 @@ class MessagesController extends Controller
      */
     public function inbox()
     {
-        $threads = Thread::forUser(Auth::user()->id)->get();
+        $threads = Thread::forUser(Auth::user()->id)->orderBy("updated_at", "desc")->get();
 
         return view('messenger.inbox', [
             'threads' => $threads,
