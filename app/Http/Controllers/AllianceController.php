@@ -115,11 +115,20 @@ class AllianceController extends Controller
      *
      * Gets the alliance and displays the alliance page
      *
-     * @param Alliance $alliance
+     * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function view(Alliance $alliance)
+    public function view($id)
     {
+        try
+        {
+            $alliance = Alliance::findOrFail($id);
+        }
+        catch (\Exception $e)
+        {
+            return view("errors.general")
+                ->with('error', 'That alliance doesn\'t exist');
+        }
         // We could get the members by eager loading, but we want to paginate so gotta do it special
         $nations = Nations::where('allianceID', $alliance->id)->paginate(15);
         $nations->load('user', 'role');
