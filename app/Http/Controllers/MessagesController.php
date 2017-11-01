@@ -105,11 +105,29 @@ class MessagesController extends Controller
             return redirect('/account/inbox');
         }
 
+        // Verify that this person is a participant of the message
+        if (! $this->checkIfParticipant($id))
+            return redirect('/account/inbox')->with('alert-danger', ['You are not a participant in that message!']);
+
         $thread->markAsRead(Auth::user()->id);
 
         return view('messenger.view', [
             'thread' => $thread,
         ]);
+    }
+
+    /**
+     * Will check if the user trying to view a message is a participant
+     *
+     * @param int $id
+     * @return bool
+     */
+    protected function checkIfParticipant(int $id) : bool
+    {
+        $participants = Participant::where("thread_id", $id)->get(); // Grab all participants of a thread
+
+        // Check and see if the current user's ID is in that collection
+        return $participants->contains("user_id", Auth::user()->id);
     }
 
     /**
