@@ -19,7 +19,7 @@
         <a href="#" class="btn btn-default">Button</a>
         <a href="#" class="btn btn-default">Button</a>
         <a href="#" class="btn btn-default">Button</a>
-        <a href="#" class="btn btn-default">Button</a>
+        <a href="{{ url("/account/inbox/create/".$nation->user->name) }}" class="btn btn-default">Message</a>
         @if($nation->id == Auth::user()->nation->id)<a href="/nation/edit" class="btn btn-default">Edit</a>@endif
     </div>
     <hr>

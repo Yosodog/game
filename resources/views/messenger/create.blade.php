@@ -10,7 +10,7 @@
         </div>
         <div class="form-group">
             <label for="to">To</label>
-            <input type="text" class="form-control" name="to" id="to" value="{{ old("to") }}" required>
+            <input type="text" class="form-control" name="to" id="to" value="{{ old("to") ?? app("request")->user }}" required>
         </div>
         <div class="form-group">
             <label for="message">Message</label>
