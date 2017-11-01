@@ -147,6 +147,30 @@ class AllianceController extends Controller
         ]);
     }
 
+    public function postSearch(Request $request)
+    {
+        return redirect("/alliances/$request->category/$request->search");
+    }
+
+    public function search($category, $search)
+    {
+        switch ($category)
+        {
+            case 'aName':
+                $alliances = Alliance::where('name', 'like', '%'.$search.'%')->paginate(25);
+                break;
+            default:
+                $alliances = Alliance::where('name', 'like', '%'.$search.'%')->paginate(25);
+                break;
+        }
+        $alliances->load('nations');
+
+        return view('alliance.all', [
+            'alliances' => $alliances,
+            'search' => $search,
+        ]);
+    }
+
     /**
      * PATCH: /alliance/{$alliance}/leave.
      *

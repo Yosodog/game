@@ -25,6 +25,9 @@ Route::group(['middleware' => ['auth', 'NoNation']], function () { // Pages that
     // Nation Related Pages
     Route::get('/nation/view/{id?}', 'NationController@View');
     Route::get('/nations', 'NationController@allNations');
+    Route::post('/nations', 'NationController@postSearch');
+    Route::get('/nations/{category}/{search}', 'NationController@search');
+    Route::post('/nations/{category}/{search}', 'NationController@postSearch');
     Route::get('/nation/edit', 'NationController@edit');
     Route::patch('/nation/edit/renameNation', 'NationController@renameNation');
     Route::patch('/nation/edit/changeMotto', 'NationController@changeMotto');
@@ -44,6 +47,9 @@ Route::group(['middleware' => ['auth', 'NoNation']], function () { // Pages that
     Route::post('/alliance/create', 'AllianceController@createPOST');
     Route::get('/alliance/{alliance}', 'AllianceController@view');
     Route::get('/alliances', 'AllianceController@viewAll');
+    Route::post('/alliances', 'AllianceController@postSearch');
+    Route::get('/alliances/{category}/{search}', 'AllianceController@search');
+    Route::post('/alliances/{category}/{search}', 'AllianceController@postSearch');
     Route::patch('/alliance/{alliance}/leave', 'AllianceController@leaveAlliance');
     Route::patch('/alliance/{alliance}/join', 'AllianceController@joinAlliance');
     Route::get('/alliance/{alliance}/edit', 'AllianceController@edit');

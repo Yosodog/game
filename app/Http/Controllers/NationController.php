@@ -172,6 +172,68 @@ class NationController extends Controller
         ]);
     }
 
+    public function postSearch(Request $request)
+    {
+        return redirect("/nations/$request->category/$request->search");
+    }
+
+    public function search($category, $search)
+    {
+        switch ($category)
+        {
+            case 'nName':
+                $nations = Nations::where('name', 'like', '%'.$search.'%')->paginate(25);
+                break;
+            case 'nLeader':
+                //search users with search term, add to array, do WhereIn array to get nations
+                $userIDs = [];
+                $users = User::where('name', 'like', '%'.$search.'%')->get();
+                foreach ($users as $user)
+                {
+                    array_push($userIDs, $user->id);
+                }
+                $nations = Nations::whereIn('user_id', $userIDs)->paginate(25);
+                break;
+            case 'aName':
+                //search alliances with search term, add to array, do WhereIn array to get nations
+                $allianceIDs = [];
+                $alliances = Alliance::where('name', 'like', '%'.$search.'%')->get();
+                foreach ($alliances as $alliance)
+                {
+                    array_push($userIDs, $alliance->id);
+                }
+                $nations = Nations::whereIn('allianceID', $allianceIDs)->paginate(25);
+                break;
+            default:
+                //combine every form of search
+                $allianceIDs = [];
+                $userIDs = [];
+
+                $alliances = Alliance::where('name', 'like', '%'.$search.'%')->get();
+                $users = User::where('name', 'like', '%'.$search.'%')->get();
+
+                foreach ($alliances as $alliance)
+                {
+                    array_push($allianceIDs, $alliance->id);
+                }
+                foreach ($users as $user)
+                {
+                    array_push($userIDs, $user->id);
+                }
+
+                $nations = Nations::whereIn('allianceID', $allianceIDs)
+                    ->orWhereIn('user_id', $userIDs)
+                    ->orWhere('name', 'like', '%'.$search.'%')->paginate(25);
+        }
+        $nations->load('user'); // Load user info here so we don't have to query a billion times in the view
+        $nations->load('alliance'); // Load alliance info here so we don't have to query a billion times in the view
+
+        return view('nation.all', [
+            'nations' => $nations,
+            'search' => $search,
+        ]);
+    }
+
     /**
      * Display edit nation page.
      *
