@@ -62,6 +62,14 @@ class MessagesController extends Controller
      */
     public function create()
     {
+        $this->validate($this->request, [
+            "subject" => "required|max:75",
+            "to" => "required|exists:users,name",
+            "message" => "required|max:3000"
+        ], [
+            "to.exists" => "The person you're trying to send a message to doesn't exist"
+        ]);
+
         $thread = Thread::create([
             'subject' => $this->request->subject,
         ]);
@@ -80,7 +88,6 @@ class MessagesController extends Controller
 
         // Get participant ID
         $to = User::where('name', $this->request->to)->firstOrFail();
-
         $thread->addParticipant([$to->id]);
 
         return redirect('/account/inbox');
