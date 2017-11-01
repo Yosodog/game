@@ -6,15 +6,15 @@
     <form method="post">
         <div class="form-group">
             <label for="subject">Subject</label>
-            <input type="text" class="form-control" name="subject" id="subject" required>
+            <input type="text" class="form-control" name="subject" id="subject" value="{{ old("subject") }}" required>
         </div>
         <div class="form-group">
             <label for="to">To</label>
-            <input type="text" class="form-control" name="to" id="to" required>
+            <input type="text" class="form-control" name="to" id="to" value="{{ old("to") }}" required>
         </div>
         <div class="form-group">
             <label for="message">Message</label>
-            <textarea name="message" id="message" class="form-control" required></textarea>
+            <textarea name="message" id="message" class="form-control" required>{{ old("message") }}</textarea>
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Send">
