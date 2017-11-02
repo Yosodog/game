@@ -57,7 +57,7 @@ class AllianceController extends Controller
 
         $this->validate($this->request, [
             'name' => 'required|unique:alliances|max:25',
-            'forumURL' => 'required|url|active_url',
+            'forumURL' => 'url|active_url',
             'description' => 'required',
             'flag' => 'required|integer|exists:flags,id',
         ]);
