@@ -30,7 +30,6 @@
     <div class="btn-group btn-group-justified"> {{-- Button group for non-alliance members --}}
         <a href="{{ url("/alliance/".$alliance->id) }}" class="btn btn-default">View</a>
         <a href="{{ $alliance->forumURL }}" class="btn btn-default" target="_blank">Forums</a>
-        <a href="https://widget01.mibbit.com/?settings=0c9c2174544a34bb7bd3d56129a27a01&server=irc.coldfront.net&channel={{ urlencode($alliance->IRCChan) }}" class="btn btn-default">IRC</a>
         <a href="{{ $alliance->discord ?? "#" }}" class="btn btn-default">Discord</a>
         <a href="#" class="btn btn-default">Wars</a>
         @if (Auth::user()->nation->allianceID != $alliance->id)

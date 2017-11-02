@@ -20,7 +20,7 @@ class Alliance extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'forumURL', 'IRCChan', 'flagID', 'discord', 'default_role_id',
+        'name', 'description', 'forumURL', 'flagID', 'discord', 'default_role_id',
     ];
 
     /**

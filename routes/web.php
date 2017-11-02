@@ -49,7 +49,6 @@ Route::group(['middleware' => ['auth', 'NoNation']], function () { // Pages that
     Route::get('/alliance/{alliance}/edit', 'AllianceController@edit');
     Route::post('/alliance/{alliance}/edit/renameAlliance', 'AllianceController@renameAlliance');
     Route::post('/alliance/{alliance}/edit/changeForumURL', 'AllianceController@changeForum');
-    Route::post('/alliance/{alliance}/edit/changeIRCChannel', 'AllianceController@changeIRC');
     Route::post('/alliance/{alliance}/edit/changeDiscordServer', 'AllianceController@changeDiscord');
     Route::post('/alliance/{alliance}/edit/changeAllianceDescription', 'AllianceController@changeDescription');
     Route::post('/alliance/{alliance}/edit/changeAllianceFlag', 'AllianceController@changeFlag');

@@ -58,7 +58,6 @@ class AllianceController extends Controller
         $this->validate($this->request, [
             'name' => 'required|unique:alliances|max:25',
             'forumURL' => 'required|url|active_url',
-            'irc' => 'required',
             'description' => 'required',
             'flag' => 'required|integer|exists:flags,id',
         ]);
@@ -67,7 +66,6 @@ class AllianceController extends Controller
             'name' => $this->request->name,
             'description' => $this->request->description,
             'forumURL' => $this->request->forumURL,
-            'IRCChan' => $this->request->irc,
             'flagID' => $this->request->flag,
             'discord' => $this->request->discord,
         ]);
@@ -309,27 +307,7 @@ class AllianceController extends Controller
 
         return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-success', ['Alliance forum changed successfully!']);
     }
-
-    /**
-     * POST: /alliance/{$alliance}/edit/changeIRCChannel.
-     *
-     * Changes the IRC Channel of an alliance
-     *
-     * @param Alliance $alliance
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function changeIRC(Alliance $alliance)
-    {
-    	// if the user doesn't have permission to change the IRC channel, stop them from actually doing so
-    	if (! Auth::user()->nation->role->canChangeCosmetics) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You do not have permission to do that.']);
-    	
-        // No verification needed, so just save the new IRC Channel.
-        $alliance->IRCChan = $this->request->IRCChan;
-        $alliance->save();
-
-        return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-success', ['IRC channel changed successfully!']);
-    }
-
+    
     /**
      * POST: /alliance/{$alliance}/edit/changeDiscordServer.
      *

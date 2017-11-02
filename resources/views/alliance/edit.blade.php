@@ -50,34 +50,10 @@
                             </div>
                         </form>
                     </div>
-                 </div>
-               </div>
-             </div>
+                </div>
            </div>
-      <div class="row">
-       <div class="col-md-9">
-           <div class="panel panel-default">
-              <div class="panel-heading">Change IRC Channel</div>
-                <div class="panel-body">
-                    <div class="col-md-6">
-                        <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/changeIRCChannel") }}">
-
-                            <div class="form-group">
-                                <label for="IRCChan">IRC Channel</label>
-                                <input type="name" id="IRCChan" name="IRCChan" class="form-control" value="{{ $alliance->IRCChan }}" required>
-                            </div>
-
-                            <div class="form-group">
-                                {{ csrf_field() }}
-                                {{ method_field("POST") }}
-                                <input type="submit" value="Edit" class="btn btn-default">
-                            </div>
-                        </form>
-                    </div>
-                 </div>
-               </div>
-             </div>
-           </div>
+       </div>
+     </div>
 	<div class="row">
        <div class="col-md-9">
            <div class="panel panel-default">
