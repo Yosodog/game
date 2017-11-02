@@ -62,7 +62,7 @@
                         <form method="post" action="{{ url("/nation/edit/changeFlag") }}">
             				<div class="form-group">
                                 <label for="flag">Flag</label>
-                                	@include("templates.flagPreview")
+                                	@include("templates.flagPreview", ["default" => $nation->flagID])
                            		 </div>
                            		 
 								<div class="form-group">

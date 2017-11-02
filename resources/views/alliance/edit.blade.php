@@ -111,7 +111,7 @@
                         <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/changeAllianceFlag") }}">
             				<div class="form-group">
                                 <label for="flag">Flag</label>
-                                	@include("templates.flagPreview")
+                                	@include("templates.flagPreview", ["default" => $alliance->flagID])
                            		 </div>
                            		 
 								<div class="form-group">
