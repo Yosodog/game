@@ -14,7 +14,7 @@
                 <th>Recipient</th>
             </tr>
             @foreach ($threads as $thread)
-                <tr>
+                <tr {{ $thread->isUnread(Auth::id()) > 0 ? "class=info" : ""}}>
                     <td>{{ $thread->updated_at }}</td>
                     <td><a href="{{ url("/account/messages"."/$thread->id") }}">{{ $thread->subject }}</a> </td>
                     <td>{{ $thread->participantsString(Auth::id()) }}</td>
