@@ -175,8 +175,9 @@ class AllianceController extends Controller
             $isLeaderRole = $nation->role->isLeaderRole;
             $isOnlyLeader = count(Nations::where('role_id', $nation->role->id)) <= 1;
             
-            if ($isLeaderRole && $isOnlyLeader) $this->request->session()->flash('alert-danger', ['You are the only leader, and cannot leave! Make someone else leader first!']);
-            
+            if ($isLeaderRole && $isOnlyLeader) return redirect('/alliance/'.$alliance->id)->with('alert-danger', ['You are the only leader, and cannot leave! Make someone else leader first!']);
+            else 
+            {
             $nation->allianceID = null;
             $nation->role_id = null;
             $nation->save();
@@ -198,6 +199,7 @@ class AllianceController extends Controller
             $this->request->session()->flash('alert-success', ['You have left your alliance, '.$name.'!']);
 
             return redirect('/alliances');
+            }
         }
         else
         {
