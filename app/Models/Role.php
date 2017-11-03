@@ -27,7 +27,7 @@ class Role extends Model
      * @var array
      */
     protected $fillable = [
-            'alliance_id', 'name', 'canChangeName', 'canRemoveMember', 'canDisbandAlliance', 'canChangeCosmetics', 'canCreateRoles', 'canEditRoles', 'canRemoveRoles', 'canReadAnnouncements', 'isDefaultRole', 'canAssignRoles',
+            'alliance_id', 'name', 'canChangeName', 'canRemoveMember', 'canDisbandAlliance', 'canChangeCosmetics', 'canCreateRoles', 'canEditRoles', 'canRemoveRoles', 'canReadAnnouncements', 'isDefaultRole', 'canAssignRoles', 'isLeaderRole'
     ];
 
     /**
