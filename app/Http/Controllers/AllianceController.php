@@ -81,7 +81,8 @@ class AllianceController extends Controller
                 'canEditRoles' => true,
                 'canRemoveRoles' => true,
                 'canReadAnnouncements' => true,
-        		'canAssignRoles' => true,
+        		    'canAssignRoles' => true,
+                'isLeaderRole' => true,
         ]);
         $leader->save();
 
@@ -171,6 +172,12 @@ class AllianceController extends Controller
 
         if ($alliance->id == $nation->allianceID)
         {
+            $isLeaderRole = $nation->role->isLeaderRole;
+            $isOnlyLeader = count(Nations::where('role_id', $nation->role->id)) <= 1;
+            
+            if ($isLeaderRole && $isOnlyLeader) return redirect('/alliance/'.$alliance->id)->with('alert-danger', ['You are the only leader, and cannot leave! Make someone else leader first!']);
+            else 
+            {
             $nation->allianceID = null;
             $nation->role_id = null;
             $nation->save();
@@ -192,6 +199,7 @@ class AllianceController extends Controller
             $this->request->session()->flash('alert-success', ['You have left your alliance, '.$name.'!']);
 
             return redirect('/alliances');
+            }
         }
         else
         {
@@ -401,6 +409,12 @@ class AllianceController extends Controller
 
         // Check to see if the two are in the same alliance
         if (Auth::user()->nation->aID != $nation->aID) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['Either the person has been removed already or you do not have the proper permissions.']);
+       
+        // check to see if they're trying to remove the only leader
+        $isLeaderRole = $userNation->role->isLeaderRole;
+        $isOnlyLeader = count(Nations::where('role_id', $userNation->role->id)) <= 1;
+        
+        if ($isLeaderRole && $isOnlyLeader) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You cannot remove the only leader!']);
 
         // Remove them from the alliance
         $nation->allianceID = null;
@@ -513,10 +527,16 @@ class AllianceController extends Controller
     	// store nation and role
     	$nation = Nations::find($this->request->nation);
     	$role = $this->request->role;
-    	$name = Role::find($role)->name;
+    	
+// create booleans to indicate if this role can be changed or not, and redirect without changes if true.
+    	$isLeaderRole = $nation->role->isLeaderRole;
+    	$isOnlyLeader = count(Nations::where('role_id', $nation->role->id)) <= 1;
+    	
+    	if ($isLeaderRole && $isOnlyLeader) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-warning', ['This would leave the default Leader role uninhabited, and has been denied.']);
     
-		$nation->role_id = $role;
-		$nation->save();
+    	$name = Role::find($role)->name; 
+	$nation->role_id = $role;
+	$nation->save();
     
     	return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-success', [$nation->user->name.' has been moved to '.$name]);
     }
@@ -580,6 +600,14 @@ class AllianceController extends Controller
     	
     	// stop them from editing the default Applicant role
     	if ($role->isDefaultRole) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-warning', ['This is the default Applicant role, and cannot be edited.']);
+   
+    	// stop them from changing permissions for the default Leader role
+    	if ($role->isLeaderRole)
+    	{
+    	    $role->name = $this->request->name;
+    	    $role->save();
+    	    return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-warning', ['This is the default Leader role, and therefore only the name has been changed.']);
+    	}
 		
 		// set all the roles manually
 		$role->name = $this->request->name;
