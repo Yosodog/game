@@ -172,6 +172,12 @@ class AllianceController extends Controller
 
         if ($alliance->id == $nation->allianceID)
         {
+            $isLeaderRole = $nation->role->isLeaderRole;
+            $isOnlyLeader = count(Nations::where('role_id', $nation->role->id)) <= 1;
+            
+            if ($isLeaderRole && $isOnlyLeader) return redirect('/alliance/'.$alliance->id)->with('alert-danger', ['You are the only leader, and cannot leave! Make someone else leader first!']);
+            else 
+            {
             $nation->allianceID = null;
             $nation->role_id = null;
             $nation->save();
@@ -193,6 +199,7 @@ class AllianceController extends Controller
             $this->request->session()->flash('alert-success', ['You have left your alliance, '.$name.'!']);
 
             return redirect('/alliances');
+            }
         }
         else
         {
@@ -402,6 +409,12 @@ class AllianceController extends Controller
 
         // Check to see if the two are in the same alliance
         if (Auth::user()->nation->aID != $nation->aID) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['Either the person has been removed already or you do not have the proper permissions.']);
+       
+        // check to see if they're trying to remove the only leader
+        $isLeaderRole = $userNation->role->isLeaderRole;
+        $isOnlyLeader = count(Nations::where('role_id', $userNation->role->id)) <= 1;
+        
+        if ($isLeaderRole && $isOnlyLeader) return redirect('/alliance/'.$alliance->id.'/edit')->with('alert-danger', ['You cannot remove the only leader!']);
 
         // Remove them from the alliance
         $nation->allianceID = null;
