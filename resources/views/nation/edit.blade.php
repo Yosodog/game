@@ -5,9 +5,9 @@
     
     <div class="row">
        <div class="col-md-9">
-           <div class="panel panel-default">
-              <div class="panel-heading">Change Nation Name</div>
-                <div class="panel-body">
+           <div class="card mt-4">
+              <div class="card-header">Change Nation Name</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/nation/edit/renameNation") }}">
 
@@ -30,9 +30,9 @@
            
     <div class="row">
        <div class="col-md-9">
-           <div class="panel panel-default">
-              <div class="panel-heading">Change Nation Motto</div>
-                <div class="panel-body">
+           <div class="card mt-4">
+              <div class="card-header">Change Nation Motto</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/nation/edit/changeMotto") }}">
 
@@ -55,9 +55,9 @@
            
       <div class="row">
        <div class="col-md-9">
-           <div class="panel panel-default">
-              <div class="panel-heading">Change Flag</div>
-                <div class="panel-body">
+           <div class="card mt-4">
+              <div class="card-header">Change Flag</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/nation/edit/changeFlag") }}">
             				<div class="form-group">
