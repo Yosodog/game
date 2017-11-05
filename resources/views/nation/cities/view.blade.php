@@ -11,9 +11,9 @@
     @include("alerts") {{-- Include the template for alerts. This checks if there's something needed to display --}}
     <div class="row">
         <div class="col-md-4">
-            <div class="panel panel-default nationInfoPanel">
-                <div class="panel-heading">Information</div>
-                <div class="panel-body">
+            <div class="card nationInfoPanel">
+                <div class="card-header">Information</div>
+                <div class="card-body">
                     <table class="table table-hover">
                         <tr>
                             <td>Name</td>
@@ -48,9 +48,9 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="panel panel-default nationInfoPanel">
-                <div class="panel-heading">Population Info</div>
-                <div class="panel-body">
+            <div class="card nationInfoPanel">
+                <div class="card-header">Population Info</div>
+                <div class="card-body">
                     <table class="table table-hover">
                         <tr>
                             <td>Growth Rate</td>
@@ -85,9 +85,9 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="panel panel-default nationInfoPanel">
-                <div class="panel-heading">Economy</div>
-                <div class="panel-body">
+            <div class="card nationInfoPanel">
+                <div class="card-header">Economy</div>
+                <div class="card-body">
                     <table class="table table-hover">
                         <tr>
                             <td>Avg Income</td>
@@ -125,14 +125,14 @@
     <hr>
     <h2>Buildings</h2>
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#services">Services</a> </li>
-        <li><a data-toggle="tab" href="#transportation">Transportation</a> </li>
-        <li><a data-toggle="tab" href="#raw">Extractors</a> </li>
-        <li><a data-toggle="tab" href="#manufactories">Manufactories</a> </li>
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#services">Services</a> </li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#transportation">Transportation</a> </li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#raw">Extractors</a> </li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#manufactories">Manufactories</a> </li>
     </ul>
 
     <div class="tab-content">
-        <div id="services" class="tab-pane fade in active">
+        <div id="services" class="tab-pane fade in active show">
             @include('nation.cities.buildings', ['category' => "services"])
         </div>
         <div id="transportation" class="tab-pane fade">
@@ -167,9 +167,8 @@
                             <td>{{ $job->turnsLeft }} Turns</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                    <div class="progress-bar" role="progressbar"
                                          aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:{{ $job->percentageFinished() }}%">
-                                        {{ $job->percentageFinished() }}%
                                     </div>
                                 </div>
 

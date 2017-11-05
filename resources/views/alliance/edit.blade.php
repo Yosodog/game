@@ -6,9 +6,9 @@
     @if (Auth::user()->nation->role->canChangeName)
     <div class="row">
        <div class="col-md-9">
-           <div class="panel panel-default">
-              <div class="panel-heading">Change Alliance Name</div>
-                <div class="panel-body">
+           <div class="card mt-4">
+              <div class="card-header">Change Alliance Name</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/renameAlliance") }}">
 
@@ -32,9 +32,9 @@
    	 @if (Auth::user()->nation->role->canChangeCosmetics)
      <div class="row">
        <div class="col-md-9">
-           <div class="panel panel-default">
-              <div class="panel-heading">Change Forum URL</div>
-                <div class="panel-body">
+           <div class="card mt-4">
+              <div class="card-header">Change Forum URL</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/changeForumURL") }}">
 
@@ -56,9 +56,9 @@
      </div>
 	<div class="row">
        <div class="col-md-9">
-           <div class="panel panel-default">
-              <div class="panel-heading">Change Discord Server</div>
-                <div class="panel-body">
+           <div class="card mt-4">
+              <div class="card-header">Change Discord Server</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/changeDiscordServer") }}">
 
@@ -80,9 +80,9 @@
            </div>
 	<div class="row">
        <div class="col-md-9">
-           <div class="panel panel-default">
-              <div class="panel-heading">Change Alliance Description</div>
-                <div class="panel-body">
+           <div class="card mt-4">
+              <div class="card-header">Change Alliance Description</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/changeAllianceDescription") }}">
 
@@ -104,16 +104,16 @@
            </div>
 	<div class="row">
        <div class="col-md-9">
-           <div class="panel panel-default">
-              <div class="panel-heading">Change Flag</div>
-                <div class="panel-body">
+           <div class="card mt-4">
+              <div class="card-header">Change Flag</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/changeAllianceFlag") }}">
             				<div class="form-group">
                                 <label for="flag">Flag</label>
                                 	@include("templates.flagPreview", ["default" => $alliance->flagID])
                            		 </div>
-                           		 
+
 								<div class="form-group">
 								{{ csrf_field() }}
                                 {{ method_field("POST") }}
@@ -129,9 +129,9 @@
     @if (Auth::user()->nation->role->canRemoveMember)
 	<div class="row">
        <div class="col-md-9">
-           <div class="panel panel-default">
-              <div class="panel-heading">Remove Member</div>
-                <div class="panel-body">
+           <div class="card mt-4">
+              <div class="card-header">Remove Member</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/removeMember") }}">
             				<div class="form-group">
@@ -141,7 +141,7 @@
            							@endforeach
            							</select>
                            		 </div>
-                           		 
+
 								<div class="form-group">
 								{{ csrf_field() }}
                                 {{ method_field("PATCH") }}
@@ -157,9 +157,9 @@
     @if (Auth::user()->nation->role->canDisbandAlliance)
 	<div class="row">
     	<div class="col-md-9">
-			<div class="panel panel-danger">
-              <div class="panel-heading">Disband Alliance</div>
-                <div class="panel-body">
+			<div class="card text-white bg-danger mt-4">
+              <div class="card-header">Disband Alliance</div>
+                <div class="card-body">
                     <p>Disbanding this alliance is <strong>permanent</strong>. The alliance will be completely removed from the game and all members set to None. It will NOT be restored.</p>
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/disband") }}" onsubmit="return confirm('Are you sure you want to disband this alliance? This cannot be undone.')">
@@ -167,7 +167,7 @@
                             <div class="form-group">
                                 {{ csrf_field() }}
                                 {{ method_field("DELETE") }}
-                                <input type="submit" class="btn btn-danger" value="Disband">
+                                <input type="submit" class="btn btn-secondary" value="Disband">
                             </div>
                         </form>
                     </div>
@@ -179,9 +179,9 @@
       @if (Auth::user()->nation->role->canCreateRoles)
 	<div class="row">
        <div class="col-md-9">
-           <div class="panel panel-default">
-              <div class="panel-heading">Create Role</div>
-                <div class="panel-body">
+           <div class="card mt-4">
+              <div class="card-header">Create Role</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/createRole") }}">
             				<div class="form-group">
@@ -196,7 +196,7 @@
 								<input type="checkbox" id="announcements" name="announcements">Read Announcements<br>
 								<input type="checkbox" id="roleAssign" name="roleAssign">Assign Roles<br>
 								</div>
-								
+
 								<div class="form-group">
 								{{ csrf_field() }}
                                 {{ method_field("PATCH") }}
@@ -212,9 +212,9 @@
       @if (Auth::user()->nation->role->canEditRoles)
 	<div class="row">
        <div class="col-md-9">
-           <div class="panel panel-default">
-              <div class="panel-heading">Edit Role</div>
-                <div class="panel-body">
+           <div class="card mt-4">
+              <div class="card-header">Edit Role</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/editRole") }}">
             				<div class="form-group">
@@ -224,8 +224,8 @@
            							@endforeach
            							</select>
                            		 </div>
-                           		 
-								 <div class="form-group"> 
+
+								 <div class="form-group">
 								<input type="name" id="name" name="name" class="form-control" placeholder="Role Name" required><br> {{-- TODO throw in role name here when editing--}}
 								<input type="checkbox"	id="nameChange" name="nameChange">Change Alliance Name<br>
 								<input type="checkbox" id="userRemove" name="userRemove">Remove Members<br>
@@ -253,9 +253,9 @@
       @if (Auth::user()->nation->role->canRemoveRoles)
 	<div class="row">
        <div class="col-md-9">
-           <div class="panel panel-default">
-              <div class="panel-heading">Delete Role</div>
-                <div class="panel-body">
+           <div class="card mt-4">
+              <div class="card-header">Delete Role</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/removeRole/") }}">
             				<div class="form-group">
@@ -265,7 +265,7 @@
            							@endforeach
            						</select>
                            		 </div>
-                           		 
+
 								<div class="form-group">
 								{{ csrf_field() }}
                                 {{ method_field("PATCH") }}
@@ -281,9 +281,9 @@
       @if (Auth::user()->nation->role->canAssignRoles)
 	<div class="row">
        <div class="col-md-9">
-           <div class="panel panel-default">
-              <div class="panel-heading">Assign Role</div>
-                <div class="panel-body">
+           <div class="card mt-4">
+              <div class="card-header">Assign Role</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/alliance/".$alliance->id."/edit/assignRole") }}">
             				<div class="form-group">

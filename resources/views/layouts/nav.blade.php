@@ -1,13 +1,10 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <div class="navbar-header">
 
             <!-- Collapsed Hamburger -->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
 
             <!-- Branding Image -->
@@ -16,23 +13,23 @@
             </a>
         </div>
 
-        <div class="collapse navbar-collapse" id="app-navbar-collapse">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav" id="main-menu">
+            <ul class="navbar-nav mr-auto" id="main-menu">
                 @if (!Auth::guest()) {{-- If the user isn't a guest --}}
                 @if (!Auth::user()->hasNation) {{-- If the user doesn't have a nation --}}
-                <li><a href="{{ url("/nation/view/create") }}">Create Nation</a></li>
+                <li class="nav-item"><a href="{{ url("/nation/view/create") }}">Create Nation</a></li>
                 @else
-                    <li class="dropdown">
+                    <li class="dropdown nav-item">
                         @include("layouts.nav.nation")
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown nav-item">
                         @include("layouts.nav.military")
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown nav-item">
                         @include("layouts.nav.international")
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown nav-item">
                         @include("layouts.nav.resources")
                     </li>
                 @endif
@@ -40,8 +37,8 @@
             </ul>
 
             <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
+            <ul class="nav navbar-nav navbar-right mr-2">
+                <li class="dropdown nav-item">
                     @include("layouts.nav.community")
                 </li>
                 <!-- Authentication Links -->

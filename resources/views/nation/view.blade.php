@@ -3,31 +3,31 @@
 @section('content')
     @include("alerts") {{-- Include the template for alerts. This checks if there's something needed to display --}}
     <div class="jumbotron">
-        <div class="row">
-            <div class="col-md-4">
+        <div class="row h-100">
+            <div class="col-md-4 my-auto">
                 <img src="{{ url($nation->flag->url) }}" class="mainFlag">
             </div>
-            <div class="col-md-8">
-                <h1 class="text-center">{{ $nation->name }}</h1>
+            <div class="col-md-8 my-auto">
+                <h1 class="text-center display-4 align-middle">{{ $nation->name }}</h1>
                 <p class="text-center"><em>{{ $nation->motto }}</em></p>
             </div>
         </div>
     </div>
-    <div class="btn-group btn-group-justified">
-        <a href="#" class="btn btn-default">Button</a>
-        <a href="#" class="btn btn-default">Button</a>
-        <a href="#" class="btn btn-default">Button</a>
-        <a href="#" class="btn btn-default">Button</a>
-        <a href="#" class="btn btn-default">Button</a>
-        <a href="{{ url("/account/inbox/create/".$nation->user->name) }}" class="btn btn-default">Message</a>
-        @if($nation->id == Auth::user()->nation->id)<a href="/nation/edit" class="btn btn-default">Edit</a>@endif
+    <div class="btn-group d-flex" role="group">
+        <a href="#" class="btn btn-outline-primary w-100">Button</a>
+        <a href="#" class="btn btn-outline-primary w-100">Button</a>
+        <a href="#" class="btn btn-outline-primary w-100">Button</a>
+        <a href="#" class="btn btn-outline-primary w-100">Button</a>
+        <a href="#" class="btn btn-outline-primary w-100">Button</a>
+        <a href="{{ url("/account/inbox/create/".$nation->user->name) }}" class="btn btn-outline-primary w-100">Message</a>
+        @if($nation->id == Auth::user()->nation->id)<a href="/nation/edit" class="btn btn-outline-primary w-100">Edit</a>@endif
     </div>
     <hr>
     <div class="row">
         <div class="col-md-4">
-            <div class="panel panel-default nationInfoPanel">
-                <div class="panel-heading">Information</div>
-                <div class="panel-body">
+            <div class="card nationInfoPanel">
+                <div class="card-header">Information</div>
+                <div class="card-body">
                     <table class="table table-hover">
                         <tr>
                             <td>Leader</td>
@@ -62,9 +62,9 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="panel panel-default nationInfoPanel">
-                <div class="panel-heading">Population Info</div>
-                <div class="panel-body">
+            <div class="card nationInfoPanel">
+                <div class="card-header">Population Info</div>
+                <div class="card-body">
                     <table class="table table-hover">
                         <tr>
                             <td>Growth Rate</td>
@@ -99,9 +99,9 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="panel panel-default nationInfoPanel">
-                <div class="panel-heading">Economy</div>
-                <div class="panel-body">
+            <div class="card nationInfoPanel">
+                <div class="card-header">Economy</div>
+                <div class="card-body">
                     <table class="table table-hover">
                         <tr>
                             <td>Income</td>

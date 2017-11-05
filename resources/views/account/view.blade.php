@@ -7,9 +7,9 @@
             @include("account.accountNav")
         </div>
         <div class="col-md-9">
-            <div class="panel panel-default">
-                <div class="panel-heading">Change Email</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">Change Email</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/account/edit/email") }}">
 
@@ -27,9 +27,9 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">Change Username</div>
-                <div class="panel-body">
+            <div class="card mt-4">
+                <div class="card-header">Change Username</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/account/edit/username") }}">
 
@@ -47,9 +47,9 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">Edit Password</div>
-                <div class="panel-body">
+            <div class="card mt-4">
+                <div class="card-header">Edit Password</div>
+                <div class="card-body">
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/account/edit/password") }}">
 
@@ -77,9 +77,9 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-danger">
-                <div class="panel-heading">Delete Account</div>
-                <div class="panel-body">
+            <div class="card text-white bg-danger mt-4">
+                <div class="card-header">Delete Account</div>
+                <div class="card-body">
                     <p>Deleting your account is <strong>permanent</strong>. Your nation will be completely deleted and cannot be recovered. Make sure you want to do this.</p>
                     <div class="col-md-6">
                         <form method="post" action="{{ url("/account/delete") }}" onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.')">
@@ -90,7 +90,7 @@
                             <div class="form-group">
                                 {{ csrf_field() }}
                                 {{ method_field("DELETE") }}
-                                <input type="submit" class="btn btn-danger" value="Delete">
+                                <input type="submit" class="btn btn-secondary" value="Delete">
                             </div>
                         </form>
                     </div>

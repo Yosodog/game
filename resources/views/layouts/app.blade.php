@@ -9,7 +9,7 @@
 </header>
 
 <main>
-    <div class="container">
+    <div class="container pt-3">
         @yield('content')
     </div>
 </main>

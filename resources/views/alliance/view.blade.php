@@ -27,28 +27,29 @@
 </div>
 <div class="container" style="margin-top: 20px;">
     @include("alerts") {{-- Include the template for alerts. This checks if there's something needed to display --}}
-    <div class="btn-group btn-group-justified"> {{-- Button group for non-alliance members --}}
-        <a href="{{ url("/alliance/".$alliance->id) }}" class="btn btn-default">View</a>
-        <a href="{{ $alliance->forumURL }}" class="btn btn-default" target="_blank">Forums</a>
-        <a href="{{ $alliance->discord ?? "#" }}" class="btn btn-default">Discord</a>
-        <a href="#" class="btn btn-default">Wars</a>
+    <div class="btn-group d-flex"> {{-- Button group for non-alliance members --}}
+        <a href="{{ url("/alliance/".$alliance->id) }}" class="btn btn-outline-primary w-100">View</a>
+        <a href="{{ $alliance->forumURL }}" class="btn btn-outline-primary w-100" target="_blank">Forums</a>
+        <a href="{{ $alliance->discord ?? "#" }}" class="btn btn-outline-primary w-100">Discord</a>
+        <a href="#" class="btn btn-outline-primary w-100">Wars</a>
         @if (Auth::user()->nation->allianceID != $alliance->id)
-            <a href="#" class="btn btn-default" data-toggle="modal" data-target="#joinModal">Join</a>
+            <a href="#" class="btn btn-outline-primary w-100" data-toggle="modal" data-target="#joinModal">Join</a>
         @else (Auth::user()->nation->allianceID == $alliance->id) {{-- Is this supposed to be an else if? --}}
-            <a href="#" class="btn btn-default" data-toggle="modal" data-target="#leaveModal">Leave</a>
-            <a href="{{ url("/alliance/".$alliance->id."/edit") }}" class="btn btn-default">Edit</a> {{-- TODO make it so this button only shows to people with the proper permissions --}}
-            <a href="#" class="btn btn-default">Bank</a>
-             @if (Auth::user()->nation->role->canReadAnnouncements) <a href="#" class="btn btn-default">Announcements</a>@endif
+            <a href="#" class="btn btn-outline-primary w-100" data-toggle="modal" data-target="#leaveModal">Leave</a>
+            <a href="{{ url("/alliance/".$alliance->id."/edit") }}" class="btn btn-outline-primary w-100">Edit</a> {{-- TODO make it so this button only shows to people with the proper permissions --}}
+            <a href="#" class="btn btn-outline-primary w-100">Bank</a>
+             @if (Auth::user()->nation->role->canReadAnnouncements) <a href="#" class="btn btn-outline-primary w-100">Announcements</a>@endif
         @endif
     </div>
 
     @if (Auth::user()->nation->allianceID == $alliance->id)
         <div id="leaveModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Leave {{ $alliance->name }}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
                         <p>Are you sure you want to leave {{ $alliance->name }}?</p>
@@ -63,43 +64,40 @@
                 </div>
 
             </div>
-            @else
-                <div id="joinModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Join {{ $alliance->name }}</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>Are you sure you want to join {{ $alliance->name }}?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <form method="post" action="{{ url("/alliance/".$alliance->id."/join") }}">
-                                    {{ csrf_field() }}
-                                    {{ method_field("PATCH") }}
-                                    <input type="submit" value="Join" class="btn btn-success">
-                                </form>
-                            </div>
-                        </div>
+    @else
+        <div id="joinModal" class="modal fade" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Join {{ $alliance->name }}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to join {{ $alliance->name }}?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <form method="post" action="{{ url("/alliance/".$alliance->id."/join") }}">
+                            {{ csrf_field() }}
+                            {{ method_field("PATCH") }}
+                            <input type="submit" value="Join" class="btn btn-success">
+                        </form>
                     </div>
                 </div>
-            @endif
-    </div>
-    {{-- TODO make this look better --}}
-    <div class="row">
-        <h3 class="text-center">Alliance Description</h3>
-        {!! BBCode::parse(nl2br(e($alliance->description))) !!}
-    </div>
-    @if (Auth::user()->nation->allianceID == $alliance->id)
-        <hr>
-        <div class="row">
-            <h3 class="text-center">Member Board</h3>
-            {!! BBCode::parse(nl2br(e($alliance->member_board))) !!}
+            </div>
         </div>
     @endif
+    </div>
+    {{-- TODO make this look better --}}
+    <h2 class="text-center">Alliance Description</h2>
+    {!! BBCode::parse(nl2br(e($alliance->description))) !!}
+    @if (Auth::user()->nation->allianceID == $alliance->id)
+        <hr>
+        <h2 class="text-center">Member Board</h2>
+        {!! BBCode::parse(nl2br(e($alliance->member_board))) !!}
+    @endif
     <hr>
-    <h3 class="text-center">Members</h3>
+    <h2 class="text-center">Members</h2>
     <div class="text-center">
         {{ $nations->links() }}
     </div>
