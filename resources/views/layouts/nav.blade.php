@@ -43,8 +43,8 @@
                 </li>
                 <!-- Authentication Links -->
                 @if (Auth::guest())
-                    <li><a href="{{ url('/login') }}">Login</a></li>
-                    <li><a href="{{ url('/register') }}">Register</a></li>
+                    <li class="nav-item"><a href="{{ url('/login') }}" class="nav-link">Login</a></li>
+                    <li class="nav-item"><a href="{{ url('/register') }}" class="nav-link">Register</a></li>
                 @else
                     <li class="dropdown">
                         @include("layouts.nav.account")
