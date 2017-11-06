@@ -13,7 +13,7 @@
 
                             <div class="form-group">
                                 <label for="name">Nation Name</label>
-                                <input type="name" id="name" name="name" class="form-control" placeholder="{{ $nation->name }}" required>
+                                <input type="name" id="name" name="name" class="form-control" value="{{ $nation->name }}" required>
                             </div>
 
                             <div class="form-group">
@@ -38,7 +38,7 @@
 
                             <div class="form-group">
                                 <label for="motto">Nation Motto</label>
-                                <input type="name" id="motto" name="motto" class="form-control" placeholder="{{ $nation->motto }}" required>
+                                <input type="name" id="motto" name="motto" class="form-control" value="{{ $nation->motto }}" required>
                             </div>
 
                             <div class="form-group">
