@@ -158,6 +158,7 @@
                     <th>Status</th>
                     <th>Turns Left</th>
                     <th>Progress</th>
+                    <th>Cancel</th>
                 </tr>
                 @foreach ($city->jobs as $job)
                     @if ($job->status === "active" || $job->status === "queued")
@@ -172,6 +173,14 @@
                                     </div>
                                 </div>
 
+                            </td>
+                            <td>
+                                <form method="post" action="{{ url("/cities/".$city->id."/buildings/cancel"."/$job->id") }}" class="form-inline smallForm">
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-primary" value="Cancel">
+                                    </div>
+                                    {{ csrf_field() }}
+                                </form>
                             </td>
                         </tr>
                     @endif

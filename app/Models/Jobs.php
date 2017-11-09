@@ -40,7 +40,7 @@ class Jobs extends Model
      */
     public function nation() : \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne('App\Models\Nation\Nations', 'nation_id');
+        return $this->hasOne('App\Models\Nation\Nations', 'id', 'nation_id');
     }
 
     /**
@@ -171,9 +171,47 @@ class Jobs extends Model
         $next = self::where('runsAfter', $this->id)->first();
         if ($next != null)
         {
-            $next->status = 'active';
-            $next->save();
+            $this->start($next);
+
+            return true; // If we were able to start the next job, return true
         }
+
+        return false; // We weren't able to start the next job. This doesn't mean there's an error.
+    }
+
+    /**
+     * Alright, this is an interesting one. If jobs are cancelled in a certain order,
+     * it might not call the next job to start because runsAfter might already be deleted
+     * so this method does a little more work than startNextJob in order to ensure the next job is called
+     * however we keep startNextJob because it is less resource intensive for mostly the turn running
+     */
+    public function startNextJobHardcore()
+    {
+        // Call startNextJob to see if it can start the next job for us
+        if ($this->startNextJob())
+            return; // If it started the next job then YAY we don't have to do shit
+
+        // Didn't start the next job? Let's try to find the next one if there is any
+        $nextJob = self::where("city_id", $this->city_id)
+            ->where("status", "queued")
+            ->first();
+
+        if ($nextJob == null)
+            return; // No jobs are queued
+
+        // If we found a queued job, then let's start it
+        $this->start($nextJob);
+    }
+
+    /**
+     * Start the job
+     *
+     * @param Jobs $job
+     */
+    public function start(self $job)
+    {
+        $job->status = 'active';
+        $job->save();
     }
 
     /**
@@ -183,5 +221,48 @@ class Jobs extends Model
     {
         $this->turnsLeft -= 1;
         $this->save();
+    }
+
+    /**
+     * Cancels the job
+     *
+     * @throws \Exception
+     */
+    public function cancelJob()
+    {
+        $this->refund();
+        // Check if this job was active. If it was, then start the next one.
+        if ($this->status == "active")
+            $this->startNextJobHardcore();
+
+        $this->delete();
+    }
+
+    /**
+     * Determines which type of job this is and calls the appropriate method to refund
+     *
+     * @throws \Exception
+     */
+    protected function refund()
+    {
+        switch ($this->type)
+        {
+            case 'building':
+                $this->refundBuilding();
+                break;
+            default:
+                throw new \Exception("Couldn't determine job type");
+        }
+    }
+
+    /**
+     * Refunds the nation the value of the building
+     */
+    protected function refundBuilding()
+    {
+        // Get the nation's resources
+        $this->nation->resources->money += $this->relation->cost();
+        // And save their refund
+        $this->nation->resources->save();
     }
 }

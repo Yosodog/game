@@ -235,4 +235,32 @@ class CityController extends Controller
 
         return redirect("/cities/view/$id");
     }
+
+    /**
+     * Cancels a job
+     *
+     * @param Cities $cities
+     * @param Jobs $jobs
+     * @return mixed
+     */
+    public function cancelJob(Cities $cities, Jobs $jobs)
+    {
+        // Verify that the owner is cancelling the job
+        if (Auth::user()->nation->id != $jobs->nation_id)
+        {
+            $this->request->session()->flash('alert-danger', ["You don't own that job!"]);
+            return redirect("/cities/view/$cities->id");
+        }
+
+        // Verify that the job wasn't already completed
+        if ($jobs->status == "completed")
+        {
+            $this->request->session()->flash('alert-danger', ["That job is already finished"]);
+            return redirect("/cities/view/$cities->id");
+        }
+
+        $jobs->cancelJob();
+        $this->request->session()->flash('alert-success', ["That job has been cancelled"]);
+        return redirect("/cities/view/$cities->id");
+    }
 }

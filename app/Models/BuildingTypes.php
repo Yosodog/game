@@ -47,4 +47,16 @@ class BuildingTypes extends Model
 
         return $filtered->all();
     }
+
+    /**
+     * Returns the cost of the building
+     *
+     * We have a special method for this because the building cost won't always be the same as the base cost
+     *
+     * @return float
+     */
+    public function cost() : float
+    {
+        return $this->baseCost;
+    }
 }
