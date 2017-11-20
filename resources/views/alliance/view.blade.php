@@ -34,10 +34,9 @@
         <a href="#" class="btn btn-outline-primary w-100">Wars</a>
         @if (Auth::user()->nation->allianceID != $alliance->id)
             <a href="#" class="btn btn-outline-primary w-100" data-toggle="modal" data-target="#joinModal">Join</a>
-        @else (Auth::user()->nation->allianceID == $alliance->id) {{-- Is this supposed to be an else if? --}}
-            <a href="#" class="btn btn-outline-primary w-100" data-toggle="modal" data-target="#leaveModal">Leave</a>
-            <a href="{{ url("/alliance/".$alliance->id."/edit") }}" class="btn btn-outline-primary w-100">Edit</a> {{-- TODO make it so this button only shows to people with the proper permissions --}}
-            <a href="#" class="btn btn-outline-primary w-100">Bank</a>
+            @else <a href="#" class="btn btn-outline-primary w-100" data-toggle="modal" data-target="#leaveModal">Leave</a>
+            @if (! Auth::user()->nation->role->isDefaultRole) <a href="{{ url("/alliance/".$alliance->id."/edit") }}" class="btn btn-outline-primary w-100">Edit</a>
+			<a href="#" class="btn btn-outline-primary w-100">Bank</a> @endif
              @if (Auth::user()->nation->role->canReadAnnouncements) <a href="#" class="btn btn-outline-primary w-100">Announcements</a>@endif
         @endif
     </div>
