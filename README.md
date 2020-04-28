@@ -57,3 +57,5 @@ contributing. Tell me what you want to do and stuff like that. Then, fork the re
 Make sure that your changes follow the general code style. I'm not going to be a prick about it, but make sure that it looks generally the same.
 Also, make sure that your code follows proper "Laravel" things, like using migrations for database changes and such.
 Like I said, I'm not going to be a prick, but make sure your changes aren't bad.
+
+This game is abandoned so please don't ask me about it.
