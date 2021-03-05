@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\DevCodes;
-use Validator;
-use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\DevCodes;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Validator;
 
 class RegisterController extends Controller
 {
@@ -54,8 +54,8 @@ class RegisterController extends Controller
             'password' => 'required|min:6|confirmed',
             'dev-code' => 'required|exists:dev_codes,code', // To make it easy, we'll later check if the code has already been used
         ], [
-            'dev-code.exists' => 'That dev code is invalid. Please contact Yosodog if you would like to participate in the closed development'
-            ]);
+            'dev-code.exists' => 'That dev code is invalid. Please contact Yosodog if you would like to participate in the closed development',
+        ]);
     }
 
     /**
@@ -68,15 +68,15 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         // Get the dev code here so we save a query
-        $code = DevCodes::where("code", $data['dev-code'])->first();
+        $code = DevCodes::where('code', $data['dev-code'])->first();
 
         // To make it easy we're going to validate the dev code here
         if (! $this->validateDevCode($code)) // If it's already been used
         {
             header('Location: https://teletubbies.com/', true, '302');
-            die(); // Always kill after a redirect
+            exit(); // Always kill after a redirect
         }
-        
+
         // Now that we're all good, mark the code as used
         $code->useCode($data['name']);
 
@@ -88,12 +88,12 @@ class RegisterController extends Controller
     }
 
     /**
-     * Validate if the dev code was used or not
+     * Validate if the dev code was used or not.
      *
      * @param DevCodes $code
      * @return bool
      */
-    protected function validateDevCode(DevCodes $code) : bool
+    protected function validateDevCode(DevCodes $code): bool
     {
         // Now validate it
         if ($code->validateCode())

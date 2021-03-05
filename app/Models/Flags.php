@@ -12,7 +12,7 @@ class Flags extends Model
      *
      * @return HasMany
      */
-    public function nations() : HasMany
+    public function nations(): HasMany
     {
         return $this->hasMany('App\Models\Nation\Nations', 'flagID');
     }

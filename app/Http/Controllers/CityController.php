@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Jobs;
-use Illuminate\Http\Request;
 use App\Models\BuildingTypes;
-use App\Models\Nation\Cities;
+use App\Models\Jobs;
 use App\Models\Nation\Building;
+use App\Models\Nation\Cities;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CityController extends Controller
@@ -237,7 +237,7 @@ class CityController extends Controller
     }
 
     /**
-     * Cancels a job
+     * Cancels a job.
      *
      * @param Cities $cities
      * @param Jobs $jobs
@@ -249,18 +249,21 @@ class CityController extends Controller
         if (Auth::user()->nation->id != $jobs->nation_id)
         {
             $this->request->session()->flash('alert-danger', ["You don't own that job!"]);
+
             return redirect("/cities/view/$cities->id");
         }
 
         // Verify that the job wasn't already completed
-        if ($jobs->status == "completed")
+        if ($jobs->status == 'completed')
         {
-            $this->request->session()->flash('alert-danger', ["That job is already finished"]);
+            $this->request->session()->flash('alert-danger', ['That job is already finished']);
+
             return redirect("/cities/view/$cities->id");
         }
 
         $jobs->cancelJob();
-        $this->request->session()->flash('alert-success', ["That job has been cancelled"]);
+        $this->request->session()->flash('alert-success', ['That job has been cancelled']);
+
         return redirect("/cities/view/$cities->id");
     }
 }

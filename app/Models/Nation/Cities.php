@@ -2,10 +2,10 @@
 
 namespace App\Models\Nation;
 
-use Auth;
 use App\Models\Properties;
-use Illuminate\Database\Eloquent\Model;
+use Auth;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class Cities extends Model
 {
@@ -37,7 +37,7 @@ class Cities extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function nation() : \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function nation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo('App\Models\Nation\Nations');
     }
@@ -47,7 +47,7 @@ class Cities extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function jobs() : \Illuminate\Database\Eloquent\Relations\HasMany
+    public function jobs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany('App\Models\Jobs', 'city_id');
     }
@@ -67,7 +67,7 @@ class Cities extends Model
      *
      * @return bool
      */
-    public function isOwner() : bool
+    public function isOwner(): bool
     {
        return Auth::user()->nation->id === $this->nation_id;
     }
@@ -77,7 +77,7 @@ class Cities extends Model
      *
      * @return bool
      */
-    public function checkIfOpenBuildingSlots() : bool
+    public function checkIfOpenBuildingSlots(): bool
     {
         // TODO implement more than one building slots
 
@@ -91,7 +91,7 @@ class Cities extends Model
      *
      * @return int
      */
-    public function countActiveJobs() : int
+    public function countActiveJobs(): int
     {
         return $this->jobs()->where('status', 'active')->count();
     }

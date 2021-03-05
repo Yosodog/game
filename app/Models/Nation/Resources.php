@@ -15,7 +15,7 @@ class Resources extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function nation() : \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function nation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo('App\Models\Nation\Nations', 'nationID');
     }

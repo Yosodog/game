@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use \App\Models\Effects;
-use \App\Models\Properties;
-use \App\Models\BuildingTypes;
+use App\Models\BuildingTypes;
+use App\Models\Effects;
+use App\Models\Properties;
 use Illuminate\Database\Seeder;
 
 class BuildingTypesSeeder extends Seeder
