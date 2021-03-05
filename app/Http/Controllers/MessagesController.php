@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Auth;
 use Carbon\Carbon;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Cmgmyr\Messenger\Models\Thread;
 use Cmgmyr\Messenger\Models\Message;
 use Cmgmyr\Messenger\Models\Participant;
+use Cmgmyr\Messenger\Models\Thread;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class MessagesController extends Controller
 {
@@ -37,7 +37,7 @@ class MessagesController extends Controller
      */
     public function inbox()
     {
-        $threads = Thread::forUser(Auth::user()->id)->orderBy("updated_at", "desc")->get();
+        $threads = Thread::forUser(Auth::user()->id)->orderBy('updated_at', 'desc')->get();
 
         return view('messenger.inbox', [
             'threads' => $threads,
@@ -63,11 +63,11 @@ class MessagesController extends Controller
     public function create()
     {
         $this->validate($this->request, [
-            "subject" => "required|max:75",
-            "to" => "required|exists:users,name",
-            "message" => "required|max:3000"
+            'subject' => 'required|max:75',
+            'to' => 'required|exists:users,name',
+            'message' => 'required|max:3000',
         ], [
-            "to.exists" => "The person you're trying to send a message to doesn't exist"
+            'to.exists' => "The person you're trying to send a message to doesn't exist",
         ]);
 
         $thread = Thread::create([
@@ -81,7 +81,7 @@ class MessagesController extends Controller
         ]);
 
         Participant::create([
-           'thread_id' => $thread->id,
+            'thread_id' => $thread->id,
             'user_id' => Auth::user()->id,
             'last_read' => new Carbon(),
         ]);
@@ -124,17 +124,17 @@ class MessagesController extends Controller
     }
 
     /**
-     * Will check if the user trying to view a message is a participant
+     * Will check if the user trying to view a message is a participant.
      *
      * @param int $id
      * @return bool
      */
-    protected function checkIfParticipant(int $id) : bool
+    protected function checkIfParticipant(int $id): bool
     {
-        $participants = Participant::where("thread_id", $id)->get(); // Grab all participants of a thread
+        $participants = Participant::where('thread_id', $id)->get(); // Grab all participants of a thread
 
         // Check and see if the current user's ID is in that collection
-        return $participants->contains("user_id", Auth::user()->id);
+        return $participants->contains('user_id', Auth::user()->id);
     }
 
     /**
@@ -166,8 +166,8 @@ class MessagesController extends Controller
 
         // Add replier as a participant
         $participant = Participant::firstOrCreate([
-                'thread_id' => $thread->id,
-                'user_id'   => Auth::user()->id,
+            'thread_id' => $thread->id,
+            'user_id'   => Auth::user()->id,
         ]);
         $participant->last_read = new Carbon;
         $participant->save();

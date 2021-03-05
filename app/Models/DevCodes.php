@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DevCodes extends Model
 {
-    public $table = "dev_codes";
+    public $table = 'dev_codes';
     public $guarded = [];
 
     /**
@@ -14,7 +14,7 @@ class DevCodes extends Model
      *
      * @return bool
      */
-    public function validateCode() : bool
+    public function validateCode(): bool
     {
         if ($this->isUsed)
             return false;

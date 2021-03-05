@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class BuildingTypes extends Model
 {
@@ -41,7 +41,7 @@ class BuildingTypes extends Model
      * @param string $category
      * @return array
      */
-    public static function getByCategory(Collection $collection, string $category) : array
+    public static function getByCategory(Collection $collection, string $category): array
     {
         $filtered = $collection->where('category', $category);
 
@@ -49,13 +49,13 @@ class BuildingTypes extends Model
     }
 
     /**
-     * Returns the cost of the building
+     * Returns the cost of the building.
      *
      * We have a special method for this because the building cost won't always be the same as the base cost
      *
      * @return float
      */
-    public function cost() : float
+    public function cost(): float
     {
         return $this->baseCost;
     }

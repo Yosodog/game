@@ -28,7 +28,7 @@ class Alliance extends Model
      *
      * @return HasMany
      */
-    public function nations() : HasMany
+    public function nations(): HasMany
     {
         return $this->hasMany('App\Models\Nation\Nations', 'allianceID');
     }
@@ -38,7 +38,7 @@ class Alliance extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function flag() : \Illuminate\Database\Eloquent\Relations\HasOne
+    public function flag(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne('App\Models\Flags', 'id', 'flagID');
     }
@@ -48,7 +48,7 @@ class Alliance extends Model
      *
      * @return int
      */
-    public function countMembers() : int
+    public function countMembers(): int
     {
         return $this->nations->count();
     }
@@ -58,7 +58,7 @@ class Alliance extends Model
      *
      * @return HasMany
      */
-    public function role() : HasMany
+    public function role(): HasMany
     {
         return $this->hasMany('App\Models\Role', 'alliance_id');
     }

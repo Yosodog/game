@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use App\Models\Flags;
-use Illuminate\View\View;
-use App\Models\Properties;
-use Illuminate\Http\Request;
 use App\Models\Nation\Cities;
 use App\Models\Nation\Nations;
 use App\Models\Nation\Resources;
+use App\Models\Properties;
+use Auth;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class NationController extends Controller
 {
@@ -36,7 +36,7 @@ class NationController extends Controller
      * @param int|null $id
      * @return \Illuminate\Contracts\View\View
      */
-    public function view(int $id = null) : \Illuminate\Contracts\View\View
+    public function view(int $id = null): \Illuminate\Contracts\View\View
     {
         // Store the ID in a variable. If it's null, store the user's nation ID
         $nID = $id ?? Auth::user()->nation->id;
@@ -48,7 +48,7 @@ class NationController extends Controller
         }
         catch (\Exception $e)
         {
-            return view("errors.general")
+            return view('errors.general')
                 ->with('error', 'That nation doesn\'t exist');
         }
 
@@ -183,8 +183,8 @@ class NationController extends Controller
         $flags = Flags::all();
 
         return view('nation.edit', [
-                'nation' => $nation,
-                'flags' => $flags,
+            'nation' => $nation,
+            'flags' => $flags,
         ]);
     }
 
@@ -201,7 +201,7 @@ class NationController extends Controller
         $nation = Auth::user()->nation;
         // validate nation name change, make sure it is unique
         $this->validate($this->request, [
-                'name' => 'required|unique:nations,name|max:255',
+            'name' => 'required|unique:nations,name|max:255',
         ]);
 
         // actually change the name
@@ -244,7 +244,7 @@ class NationController extends Controller
 
         // confirm the flag exists
         $this->validate($this->request, [
-                'flag' => 'required|integer|exists:flags,id',
+            'flag' => 'required|integer|exists:flags,id',
         ]);
 
         // actually change the motto

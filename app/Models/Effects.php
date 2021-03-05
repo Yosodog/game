@@ -25,7 +25,7 @@ class Effects extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function property() : \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function property(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo('\App\Models\Properties', 'property');
     }

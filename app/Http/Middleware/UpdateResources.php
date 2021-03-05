@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Nation\Building;
+use App\Models\Nation\Cities;
+use App\Models\Properties;
 use Auth;
 use Closure;
-use App\Models\Properties;
-use App\Models\Nation\Cities;
-use App\Models\Nation\Building;
 
 class UpdateResources
 {
@@ -35,11 +35,11 @@ class UpdateResources
      * All resources are per second.
      *
      * @var int
-     * @var int $coal
-     * @var int $oil
-     * @var int $gas
-     * @var int $wheat
-     * @var int $livestock
+     * @var int
+     * @var int
+     * @var int
+     * @var int
+     * @var int
      */
     protected $money = 0;
     protected $coal = 0;
@@ -52,11 +52,11 @@ class UpdateResources
      * All are per second.
      *
      * @var int
-     * @var int $meat
-     * @var int $water
-     * @var int $clay
-     * @var int $cement
-     * @var int $timber
+     * @var int
+     * @var int
+     * @var int
+     * @var int
+     * @var int
      */
     protected $bread = 0;
     protected $meat = 0;
@@ -69,10 +69,10 @@ class UpdateResources
      * All are per second.
      *
      * @var int
-     * @var int $concrete
-     * @var int $lumber
-     * @var int $rubber
-     * @var int $iron
+     * @var int
+     * @var int
+     * @var int
+     * @var int
      */
     protected $brick = 0;
     protected $concrete = 0;
@@ -84,10 +84,10 @@ class UpdateResources
      * All are per second.
      *
      * @var int
-     * @var int $bauxite
-     * @var int $aluminum
-     * @var int $lead
-     * @var int $ammo
+     * @var int
+     * @var int
+     * @var int
+     * @var int
      */
     protected $steel = 0;
     protected $bauxite = 0;
@@ -101,8 +101,8 @@ class UpdateResources
      * @var array
      */
     protected $updates = [
-            'money', 'coal', 'oil', 'gas', 'rubber', 'steel', 'iron', 'bauxite', 'aluminum', 'lead', 'ammo',
-            'clay', 'cement', 'timber', 'brick', 'concrete', 'lumber', 'wheat', 'livestock', 'bread', 'meat', 'water',
+        'money', 'coal', 'oil', 'gas', 'rubber', 'steel', 'iron', 'bauxite', 'aluminum', 'lead', 'ammo',
+        'clay', 'cement', 'timber', 'brick', 'concrete', 'lumber', 'wheat', 'livestock', 'bread', 'meat', 'water',
     ];
 
     /**
@@ -236,7 +236,7 @@ class UpdateResources
      * @param Building $building
      * @return bool
      */
-    protected function calcRequired(Building $building) : bool
+    protected function calcRequired(Building $building): bool
     {
         // Calculate the amount this building needs
         $reqAmount = (($building->buildingType->requiredAmount * $building->quantity) / 86400) * $this->diff;

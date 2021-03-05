@@ -24,7 +24,7 @@ class Jobs extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function relation() : \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function relation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         // TODO when implementing other queue types, you'll have to determine the relationship using this model's type property
 
@@ -38,7 +38,7 @@ class Jobs extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function nation() : \Illuminate\Database\Eloquent\Relations\HasOne
+    public function nation(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne('App\Models\Nation\Nations', 'id', 'nation_id');
     }
@@ -48,7 +48,7 @@ class Jobs extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function city() : \Illuminate\Database\Eloquent\Relations\HasOne
+    public function city(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne('App\Models\Nation\City', 'city_id');
     }
@@ -59,7 +59,7 @@ class Jobs extends Model
      * @param array $attributes
      * @return Jobs
      */
-    public static function addJob(array $attributes) : self
+    public static function addJob(array $attributes): self
     {
         // Check if the status was set to active. If it was, set runsAfter to null, otherwise set it to whichever job this job should run after
         if ($attributes['status'] === 'active')
@@ -87,7 +87,7 @@ class Jobs extends Model
      * @param int $cityID
      * @return Jobs
      */
-    public static function selectLastCityJob(int $cityID) : self
+    public static function selectLastCityJob(int $cityID): self
     {
         return self::where('city_id', $cityID)
             ->where(function ($query) {
@@ -103,7 +103,7 @@ class Jobs extends Model
      *
      * @return int
      */
-    public function percentageFinished() : int
+    public function percentageFinished(): int
     {
         if ($this->status != 'active') // If it's not active then it's obviously 0%
             return 0;
@@ -120,7 +120,7 @@ class Jobs extends Model
      *
      * @return bool
      */
-    public function checkIfOneTurnLeftOnJob() : bool
+    public function checkIfOneTurnLeftOnJob(): bool
     {
         if ($this->turnsLeft === 1)
             return true;
@@ -183,7 +183,7 @@ class Jobs extends Model
      * Alright, this is an interesting one. If jobs are cancelled in a certain order,
      * it might not call the next job to start because runsAfter might already be deleted
      * so this method does a little more work than startNextJob in order to ensure the next job is called
-     * however we keep startNextJob because it is less resource intensive for mostly the turn running
+     * however we keep startNextJob because it is less resource intensive for mostly the turn running.
      */
     public function startNextJobHardcore()
     {
@@ -192,8 +192,8 @@ class Jobs extends Model
             return; // If it started the next job then YAY we don't have to do shit
 
         // Didn't start the next job? Let's try to find the next one if there is any
-        $nextJob = self::where("city_id", $this->city_id)
-            ->where("status", "queued")
+        $nextJob = self::where('city_id', $this->city_id)
+            ->where('status', 'queued')
             ->first();
 
         if ($nextJob == null)
@@ -204,7 +204,7 @@ class Jobs extends Model
     }
 
     /**
-     * Start the job
+     * Start the job.
      *
      * @param Jobs $job
      */
@@ -224,7 +224,7 @@ class Jobs extends Model
     }
 
     /**
-     * Cancels the job
+     * Cancels the job.
      *
      * @throws \Exception
      */
@@ -232,14 +232,14 @@ class Jobs extends Model
     {
         $this->refund();
         // Check if this job was active. If it was, then start the next one.
-        if ($this->status == "active")
+        if ($this->status == 'active')
             $this->startNextJobHardcore();
 
         $this->delete();
     }
 
     /**
-     * Determines which type of job this is and calls the appropriate method to refund
+     * Determines which type of job this is and calls the appropriate method to refund.
      *
      * @throws \Exception
      */
@@ -256,7 +256,7 @@ class Jobs extends Model
     }
 
     /**
-     * Refunds the nation the value of the building
+     * Refunds the nation the value of the building.
      */
     protected function refundBuilding()
     {
