@@ -9,7 +9,7 @@ Instructions on how to contribute to the project are below
 ### Requirements
 In order for this game to be ran, you need the following:
 * Git (lol ofc)
-* PHP 7
+* PHP 8
 * Composer
 * MySql 5.7
 
