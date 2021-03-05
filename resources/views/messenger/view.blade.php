@@ -26,7 +26,7 @@
             </a>
             <div class="media-body">
                 <h5 class="media-heading"><a href="{{ url("/nation/view"."/{$message->user->nation->id}") }}">{{ $message->user->name }}</a></h5>
-                <p>{!! BBCode::parse(nl2br(e($message->body))) !!}</p>
+                <p>{{ $message->body }}</p>
                 <div class="text-muted"><small title="{{ $message->created_at }}">Posted {{ $message->created_at->diffForHumans() }}</small></div>
             </div>
         </div>
