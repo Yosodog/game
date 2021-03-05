@@ -3,9 +3,9 @@
 namespace App\Models\Nation;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Nations extends Model
 {
@@ -25,13 +25,13 @@ class Nations extends Model
 
     /**
      * @var int
-     * @var int $land
-     * @var int $pollution
-     * @var int $growth_rate
-     * @var int $birth_rate
-     * @var int $death_rate
-     * @var int $immigration
-     * @var int $crime
+     * @var int
+     * @var int
+     * @var int
+     * @var int
+     * @var int
+     * @var int
+     * @var int
      */
     public $population;
     public $land;
@@ -44,11 +44,11 @@ class Nations extends Model
 
     /**
      * @var int
-     * @var int $satisfaction
-     * @var int $income
-     * @var int $avg_income
-     * @var int $unemployment
-     * @var int $literacy
+     * @var int
+     * @var int
+     * @var int
+     * @var int
+     * @var int
      */
     public $disease;
     public $satisfaction;
@@ -62,7 +62,7 @@ class Nations extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');
     }
@@ -72,7 +72,7 @@ class Nations extends Model
      *
      * @return HasMany
      */
-    public function cities() : HasMany
+    public function cities(): HasMany
     {
         return $this->hasMany('App\Models\Nation\Cities', 'nation_id');
     }
@@ -82,7 +82,7 @@ class Nations extends Model
      *
      * @return HasMany
      */
-    public function jobs() : HasMany
+    public function jobs(): HasMany
     {
         return $this->hasMany('App\Models\Jobs', 'nation_id');
     }
@@ -92,7 +92,7 @@ class Nations extends Model
      *
      * @return BelongsTo
      */
-    public function flag() : BelongsTo
+    public function flag(): BelongsTo
     {
         return $this->belongsTo('App\Models\Flags', 'flagID');
     }
@@ -102,7 +102,7 @@ class Nations extends Model
      *
      * @return BelongsTo
      */
-    public function alliance() : BelongsTo
+    public function alliance(): BelongsTo
     {
         return $this->belongsTo('App\Models\Alliance', 'allianceID');
     }
@@ -112,7 +112,7 @@ class Nations extends Model
      *
      * @return HasOne
      */
-    public function resources() : HasOne
+    public function resources(): HasOne
     {
         return $this->hasOne('App\Models\Nation\Resources', 'nationID');
     }
@@ -123,19 +123,19 @@ class Nations extends Model
      * @param int $id
      * @return Nations
      */
-    public static function getNationByID(int $id) : self
+    public static function getNationByID(int $id): self
     {
         return self::findOrFail($id);
     }
-    
+
     /**
      * The nation/role relationship.
      *
      * @return HasOne
      */
-    public function role() : HasOne
+    public function role(): HasOne
     {
-    	return $this->HasOne('App\Models\Role', 'id', 'role_id');
+        return $this->HasOne('App\Models\Role', 'id', 'role_id');
     }
 
     /**
@@ -143,7 +143,7 @@ class Nations extends Model
      *
      * @return bool
      */
-    public function hasAlliance() : bool
+    public function hasAlliance(): bool
     {
         return $this->allianceID != null;
     }

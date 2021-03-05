@@ -27,7 +27,7 @@ class Role extends Model
      * @var array
      */
     protected $fillable = [
-            'alliance_id', 'name', 'canChangeName', 'canRemoveMember', 'canDisbandAlliance', 'canChangeCosmetics', 'canCreateRoles', 'canEditRoles', 'canRemoveRoles', 'canReadAnnouncements', 'isDefaultRole', 'canAssignRoles', 'isLeaderRole'
+        'alliance_id', 'name', 'canChangeName', 'canRemoveMember', 'canDisbandAlliance', 'canChangeCosmetics', 'canCreateRoles', 'canEditRoles', 'canRemoveRoles', 'canReadAnnouncements', 'isDefaultRole', 'canAssignRoles', 'isLeaderRole',
     ];
 
     /**
@@ -35,7 +35,7 @@ class Role extends Model
      *
      * @return HasMany
      */
-    public function nations() : HasMany
+    public function nations(): HasMany
     {
         return $this->hasMany('App\Models\Nation\Nations', 'role_id', 'id');
     }
@@ -45,7 +45,7 @@ class Role extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function alliance() : \Illuminate\Database\Eloquent\Relations\HasOne
+    public function alliance(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne('App\Models\Alliance', 'id', 'alliance_id');
     }

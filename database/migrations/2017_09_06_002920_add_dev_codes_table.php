@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddDevCodesTable extends Migration
 {
@@ -13,12 +13,12 @@ class AddDevCodesTable extends Migration
      */
     public function up()
     {
-        Schema::create("dev_codes", function(Blueprint $table) {
-            $table->increments("id");
+        Schema::create('dev_codes', function (Blueprint $table) {
+            $table->increments('id');
             $table->timestamps();
-            $table->string("code");
-            $table->boolean("isUsed");
-            $table->string("usedBy")->nullable();
+            $table->string('code');
+            $table->boolean('isUsed');
+            $table->string('usedBy')->nullable();
         });
     }
 
@@ -29,6 +29,6 @@ class AddDevCodesTable extends Migration
      */
     public function down()
     {
-        Schema::drop("dev_codes");
+        Schema::drop('dev_codes');
     }
 }

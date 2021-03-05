@@ -38,20 +38,20 @@ class CreateDevCodes extends Command
      */
     public function handle()
     {
-        for ($x = 0; $x < $this->argument("num"); $x++)
+        for ($x = 0; $x < $this->argument('num'); $x++)
         {
             DevCodes::create([
-                "code" => $this->genCode(),
+                'code' => $this->genCode(),
             ]);
         }
     }
 
     /**
-     * Generates and returns a random string
+     * Generates and returns a random string.
      *
      * @return string
      */
-    protected function genCode() : string
+    protected function genCode(): string
     {
         return bin2hex(random_bytes(10));
     }

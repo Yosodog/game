@@ -1,6 +1,8 @@
 <?php
 
-use \App\Models\Properties;
+namespace Database\Seeders;
+
+use App\Models\Properties;
 use Illuminate\Database\Seeder;
 
 class PropertiesSeeder extends Seeder

@@ -3,9 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\Jobs;
-use App\Models\Properties;
 use App\Models\Nation\Cities;
 use App\Models\Nation\Nations;
+use App\Models\Properties;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 

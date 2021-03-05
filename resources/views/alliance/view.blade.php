@@ -89,11 +89,11 @@
     </div>
     {{-- TODO make this look better --}}
     <h2 class="text-center">Alliance Description</h2>
-    {!! BBCode::parse(nl2br(e($alliance->description))) !!}
+    {{ $alliance->description }}
     @if (Auth::user()->nation->allianceID == $alliance->id)
         <hr>
         <h2 class="text-center">Member Board</h2>
-        {!! BBCode::parse(nl2br(e($alliance->member_board))) !!}
+        {{ $alliance->member_board }}
     @endif
     <hr>
     <h2 class="text-center">Members</h2>
