@@ -21,7 +21,7 @@
                             <div class="form-group">
                                 {{ csrf_field() }}
                                 {{ method_field("PATCH") }}
-                                <input type="submit" value="Edit" class="btn btn-default">
+                                <input type="submit" value="Edit" class="btn btn-primary">
                             </div>
                         </form>
                     </div>
@@ -41,7 +41,7 @@
                             <div class="form-group">
                                 {{ csrf_field() }}
                                 {{ method_field("PATCH") }}
-                                <input type="submit" value="Edit" class="btn btn-default">
+                                <input type="submit" value="Edit" class="btn btn-primary">
                             </div>
                         </form>
                     </div>
@@ -71,7 +71,7 @@
                             <div class="form-group">
                                 {{ csrf_field() }}
                                 {{ method_field("PATCH") }}
-                                <input type="submit" value="Edit" class="btn btn-default">
+                                <input type="submit" value="Edit" class="btn btn-primary">
                             </div>
                         </form>
                     </div>
