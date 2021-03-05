@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use \App\Models\Effects;
 use \App\Models\Properties;
 use \App\Models\BuildingTypes;
