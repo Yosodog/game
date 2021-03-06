@@ -43,7 +43,10 @@ class BuildingQueue extends Model
     {
         $buildingType = $this->buildingType();
 
-        dispatch(new BuildBuilding($buildingType, $this))
+        $job = dispatch(new BuildBuilding($buildingType, $this))
             ->delay(now()->addMinutes($buildingType->buildingTime));
+
+        $this->jobID = $job->id;
+        $this->save();
     }
 }

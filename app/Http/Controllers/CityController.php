@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BuildingTypes;
 use App\Models\Jobs;
 use App\Models\Nation\Building;
+use App\Models\Nation\BuildingQueue;
 use App\Models\Nation\Cities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -145,22 +146,16 @@ class CityController extends Controller
         $resources->money -= $buildingtypes->baseCost;
         Auth::user()->nation->resources()->save($resources);
 
-        // Determine if the request should be active or queued
-        if ($cities->checkIfOpenBuildingSlots())
-            $status = 'active';
-        else
-            $status = 'queued';
+        // Setup BuildingQueue
+        $buildingQueue = new BuildingQueue();
+        $buildingQueue->cityID = $cities->id;
+        $buildingQueue->buildingID = $buildingtypes->id; // We'll save at the later
 
-        // Add building to queue
-        $job = Jobs::addJob([
-            'type' => 'building',
-            'status' => $status,
-            'nation_id' => $cities->nation->id,
-            'city_id' => $cities->id,
-            'item_id' => $buildingtypes->id,
-            'totalTurns' => $buildingtypes->buildingTime,
-            'turnsLeft' => $buildingtypes->buildingTime,
-        ]);
+        // Determine if the request should be active or queued
+        if ($cities->checkIfOpenBuildingSlots()) // If nothing is currently being built, dispatch the queue
+            $buildingQueue->start(); // Instance of BuildingQueue gets saved in this method
+        else
+            $buildingQueue->save(); // We don't need to do anything else while it's queued
 
         $this->request->session()->flash('alert-success', ["You've added a $buildingtypes->name to your queue"]);
 
