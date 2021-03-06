@@ -95,4 +95,26 @@ class BuildingQueue extends Model
 
         return Carbon::createFromTimestamp($this->job->available_at)->diffForHumans();
     }
+
+    /**
+     * Calculates the percentage left on the job
+     *
+     * @return float|int
+     */
+    public function percLeft(): float|int
+    {
+        // First figure out how many seconds are left
+        $timeElapsed = time() - $this->job->created_at->timestamp; // While this is stored as a timestamp in the database, Laravel pisses me off and converts it to a carbon object
+        // Find how many seconds are needed total
+        $timeNeeded = $this->buildingType->buildingTime * 60; // Convert minutes to seconds
+        // Now divide to get percentage
+        $perc = ($timeElapsed / $timeNeeded) * 100;
+
+        if ($perc > 100) // Juuuust in case
+            return 100;
+        elseif ($perc < 0)
+            return 0;
+
+        return $perc;
+    }
 }

@@ -168,7 +168,7 @@
                         <td>
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar"
-                                     aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:{{ 50 }}%">
+                                     aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:{{ $job->percLeft() }}%">
                                 </div>
                             </div>
 
