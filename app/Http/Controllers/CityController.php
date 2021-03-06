@@ -150,12 +150,12 @@ class CityController extends Controller
         $buildingQueue = new BuildingQueue();
         $buildingQueue->cityID = $cities->id;
         $buildingQueue->buildingID = $buildingtypes->id; // We'll save at the later
+        $buildingQueue->save(); // Must do this here otherwise this will return a 404 lol
 
         // Determine if the request should be active or queued
-        if ($cities->checkIfOpenBuildingSlots()) // If nothing is currently being built, dispatch the queue
+        if ($cities->countActiveJobs() - 1 === 0) // If nothing is currently being built, dispatch the queue. We minus 1 because the current job just created is included in this count
             $buildingQueue->start(); // Instance of BuildingQueue gets saved in this method
-        else
-            $buildingQueue->save(); // We don't need to do anything else while it's queued
+
 
         $this->request->session()->flash('alert-success', ["You've added a $buildingtypes->name to your queue"]);
 
