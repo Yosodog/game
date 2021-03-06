@@ -6,6 +6,7 @@ use App\Jobs\BuildBuilding;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class BuildingQueue extends Model
@@ -41,14 +42,18 @@ class BuildingQueue extends Model
      */
     public static function selectNextJob(int $cityID): bool|self
     {
-        $building = self::where("cityID", $cityID)
-            ->orderBy("created_at", "ASC")
-            ->first();
+        try
+        {
+            $building = self::where("cityID", $cityID)
+                ->orderBy("created_at", "ASC")
+                ->firstOrFail();
+        }
+        catch (ModelNotFoundException $e)
+        {
+            return false;
+        }
 
-        if ($building->count() === 0)
-            return false; //
-        else
-            return $building;
+        return $building;
     }
 
     /**

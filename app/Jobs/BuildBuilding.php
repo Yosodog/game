@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Throwable;
 
 class BuildBuilding implements ShouldQueue
 {
@@ -21,9 +22,9 @@ class BuildBuilding implements ShouldQueue
     protected BuildingTypes $building;
 
     /**
-     * @var BuildingQueue
+     * @var BuildingQueue|bool
      */
-    protected BuildingQueue $buildingQueue;
+    protected BuildingQueue|bool $buildingQueue;
 
     /**
      * @var int Hold the City ID for this job for future use
@@ -49,6 +50,8 @@ class BuildBuilding implements ShouldQueue
      */
     public function handle(): void
     {
+        $this->cityID = $this->buildingQueue->cityID; // For later so we know what city this building is for after deleting BuildingQueue
+
         $this->build();
         $this->killBuildingQueue();
         $this->startNextJob();
@@ -69,7 +72,7 @@ class BuildBuilding implements ShouldQueue
      */
     protected function killBuildingQueue(): void
     {
-        $this->buildingQueue->delete();
+        $this->buildingQueue->delete(); // TODO If Laravel Telescope is enabled, deleting the model does not allow the job to fully end and returns a model not found exception but doesn't act like it's failed
     }
 
     protected function startNextJob(): void
