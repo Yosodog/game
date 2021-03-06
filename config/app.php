@@ -155,6 +155,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
         //App\Providers\BroadcastServiceProvider::class, I don't need the broadcaster, but the upgrade said it needed to be here...
 
         // Messenger

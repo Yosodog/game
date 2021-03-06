@@ -9,7 +9,8 @@
         "laravel/framework": "^8.0",
         "cmgmyr/messenger": "~2.0",
         "doctrine/dbal": "^2.5",
-        "laravel/ui": "^3.0"
+        "laravel/ui": "^3.0",
+        "laravel/telescope": "^4.4"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
