@@ -40,8 +40,8 @@
                             <td>{{ number_format($city->pollution) }}</td>
                         </tr>
                         <tr>
-                            <td>Some Label</td>
-                            <td>Some Data</td>
+                            <td>Power</td>
+                            <td>420 MW</td>
                         </tr>
                     </table>
                 </div>
@@ -129,6 +129,7 @@
         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#transportation">Transportation</a> </li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#raw">Extractors</a> </li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#manufactories">Manufactories</a> </li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#power">Power</a> </li>
     </ul>
 
     <div class="tab-content">
@@ -143,6 +144,9 @@
         </div>
         <div id="manufactories" class="tab-pane fade">
             @include('nation.cities.buildings', ['category' => "manufactory"])
+        </div>
+        <div id="power" class="tab-pane fade">
+            @include('nation.cities.buildings', ['category' => "power"])
         </div>
     </div>
 
