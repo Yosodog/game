@@ -148,7 +148,14 @@
 
     @if ($city->isOwner())
         <hr>
-        <h2>Queue</h2>
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Queue</h2>
+            </div>
+            <div class="col-sm-6">
+                <h2 class="text-right">{{ $city->countActiveJobs() }}/{{ $city->getTotalBuildingSlots() }} slots</h2>
+            </div>
+        </div>
         <table class="table table-hover table-striped">
             <thead>
             <tr>
