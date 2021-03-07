@@ -39,9 +39,9 @@
                             <td>Pollution</td>
                             <td>{{ number_format($city->pollution) }}</td>
                         </tr>
-                        <tr>
+                        <tr {{ $city->isPowered() ? "" : "class=table-danger" }}>
                             <td>Power</td>
-                            <td>420 MW</td>
+                            <td>{{ $city->calculatePowerUsage() - $city->calculatePowerProduction() }}</td>
                         </tr>
                     </table>
                 </div>

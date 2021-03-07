@@ -311,4 +311,58 @@ class Cities extends Model
 
         $this->properties['Avg Income']['value'] = $value;
     }
+
+    /**
+     * Calculates energy based on whether we want to calculate power production or power consumption
+     *
+     * @param bool $produces
+     * @return int
+     */
+    protected function calcPower(bool $produces): int
+    {
+        // TODO optimise
+        $power = 0;
+        foreach ($this->buildings as $building)
+        {
+            if ($building->buildingType->category === "power" xor ! $produces)
+                continue; // Building produces power, does not consume
+
+            $power += $building->buildingType->energy * $building->quantity;
+        }
+
+        return $power;
+    }
+
+    /**
+     * Calculates power usage
+     *
+     * @return int
+     */
+    public function calculatePowerUsage(): int
+    {
+        return $this->calcPower(false);
+    }
+
+    /**
+     * Calculates energy production
+     *
+     * @return int
+     */
+    public function calculatePowerProduction(): int
+    {
+        return $this->calcPower(true);
+    }
+
+    /**
+     * Determines if the city is powered
+     *
+     * @return bool
+     */
+    public function isPowered(): bool
+    {
+        if ($this->calculatePowerUsage() < $this->calculatePowerProduction())
+            return false;
+
+        return true;
+    }
 }
