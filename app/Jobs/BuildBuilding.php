@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Helpers\UpdateResources;
 use App\Models\BuildingTypes;
 use App\Models\Nation\BuildingQueue;
 use Illuminate\Bus\Queueable;
@@ -52,9 +53,22 @@ class BuildBuilding implements ShouldQueue
     {
         $this->cityID = $this->buildingQueue->cityID; // For later so we know what city this building is for after deleting BuildingQueue
 
+        $this->updateResources();
+
         $this->build();
         $this->killBuildingQueue();
         $this->startNextJob();
+    }
+
+    /**
+     * This needs to be called before the building is built to avoid an exploit where the user gets all the benefits of the building before it's built
+     */
+    protected function updateResources()
+    {
+        // Get user model
+        $user = $this->buildingQueue->city->nation->user;
+        $update = new UpdateResources();
+        $update->handle($user);
     }
 
     /**
