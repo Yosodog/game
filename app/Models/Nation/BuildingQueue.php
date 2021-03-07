@@ -25,6 +25,16 @@ class BuildingQueue extends Model
     }
 
     /**
+     * Relationship for this job and it's owning city
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function city()
+    {
+        return $this->belongsTo("\App\Models\Nation\Cities", "cityID", "id");
+    }
+
+    /**
      * Relationship between this queued building and its job
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -116,5 +126,59 @@ class BuildingQueue extends Model
             return 0;
 
         return $perc;
+    }
+
+    /**
+     * Determines if the job is currently running or not
+     *
+     * @return bool
+     */
+    public function inProgress(): bool
+    {
+        if (is_null($this->jobID))
+            return false;
+
+        return true;
+    }
+
+    /**
+     * Will handle cancelling the BuildingQueue for us
+     *
+     * @throws \Exception
+     */
+    public function cancel()
+    {
+        // Refund and delete ourselves
+        $this->refund();
+        $this->delete();
+
+        // Now cancel our associated job and check if there's another one we need to start
+        if ($this->inProgress())
+        {
+            // We need to delete our associated Job and start the next one
+            $this->cancelAssociatedJob();
+            $next = self::selectNextJob($this->cityID);
+            // If this is a BuildBuilding model, then there's a pending job that needs to start. Otherwise, this will be false
+            if ($next instanceof self)
+                $next->start();
+        }
+    }
+
+    /**
+     * Cancels the associated job in the Laravel queue
+     */
+    protected function cancelAssociatedJob()
+    {
+        $this->job->delete();
+    }
+
+    /**
+     * Refunds the nation the amount that this building costs
+     */
+    protected function refund()
+    {
+        // TODO eventually cost will rise and they will require resources, so do this later
+        $this->city->nation->resources->money += $this->buildingType->baseCost;
+        $this->city->nation->resources->save();
     }
 }
