@@ -54,8 +54,8 @@
                             <td>{{ number_format($nation->pollution) }}</td>
                         </tr>
                         <tr>
-                            <td>Some Label</td>
-                            <td>Some Data</td>
+                            <td>Last Active</td>
+                            <td>{{ \Carbon\Carbon::createFromTimestamp($nation->user->lastRequest)->diffForHumans() }}</td>
                         </tr>
                     </table>
                 </div>
