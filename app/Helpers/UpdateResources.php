@@ -156,10 +156,10 @@ class UpdateResources
      */
     protected function calcDiff()
     {
-        if ($this->user->lastRequest === null)
+        if ($this->user->nation->resources_last_updated === null)
             $this->diff = 1;
         else
-            $this->diff = $this->now - ($this->user->lastRequest ?? $this->now - 1);
+            $this->diff = $this->now - ($this->user->nation->resources_last_updated ?? $this->now - 1);
     }
 
     /**
@@ -301,13 +301,13 @@ class UpdateResources
     }
 
     /**
-     * Updates the last request in the users table.
+     * Updates the resources last updated in the nations table.
      */
     protected function updateReq()
     {
-        $this->user->lastRequest = $this->now;
+        $this->user->nation->resources_last_updated = $this->now;
 
-        $this->user->save();
+        $this->user->nation->save();
     }
 
     /**

@@ -21,6 +21,10 @@ class UpdateResources
         $update->handle(Auth::user());
         $request = $update->updateSession($request);
 
+        // Also, because I don't wanna create a new middlewear, just update lastActive for the user
+        Auth::user()->lastRequest = time();
+        Auth::user()->save();
+
         return $next($request);
     }
 }
