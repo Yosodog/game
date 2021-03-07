@@ -1,5 +1,6 @@
 <div class="table-responsive">
     <table class="table table-striped table-hover">
+        <thead>
         <tr>
             <th>Name</th>
             <th>About</th>
@@ -9,6 +10,8 @@
             <th>Current</th>
             {!! ($isOwner) ? "<th>Buy/Sell</th>" : "" !!}
         </tr>
+        </thead>
+        <tbody>
         @foreach (\App\Models\BuildingTypes::getByCategory($buildingTypes, $category) as $building)
             <tr>
                 <td>{{ $building->name }}</td>
@@ -35,5 +38,6 @@
                 @endif
             </tr>
         @endforeach
+        </tbody>
     </table>
 </div>
