@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\BuildingTypes;
-use App\Models\Jobs;
 use App\Models\Nation\Building;
 use App\Models\Nation\BuildingQueue;
 use App\Models\Nation\Cities;

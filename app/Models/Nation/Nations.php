@@ -78,16 +78,6 @@ class Nations extends Model
     }
 
     /**
-     * Nation/Jobs relationship.
-     *
-     * @return HasMany
-     */
-    public function jobs(): HasMany
-    {
-        return $this->hasMany('App\Models\Jobs', 'nation_id');
-    }
-
-    /**
      * Relationship between the nation and it's flag.
      *
      * @return BelongsTo
