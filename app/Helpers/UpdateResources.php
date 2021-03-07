@@ -163,6 +163,17 @@ class UpdateResources
     }
 
     /**
+     * Checks if the city is powered. We create our own method here in case of future logic
+     *
+     * @param Cities $city
+     * @return bool
+     */
+    protected function checkForPower(Cities $city): bool
+    {
+        return $city->isPowered();
+    }
+
+    /**
      * Calculate the stats of all the user's cities.
      */
     protected function calcStats()
@@ -184,6 +195,9 @@ class UpdateResources
     {
         foreach ($this->user->nation->cities as $city)
         {
+            if (! $this->checkForPower($city))
+                continue; // We won't do any calculations for the unpowered city
+
             $this->calcMoney($city);
             $this->calcResources($city);
         }
