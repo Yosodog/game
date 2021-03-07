@@ -79,11 +79,19 @@ class Cities extends Model
      */
     public function checkIfOpenBuildingSlots(): bool
     {
-        // TODO implement more than one building slots
-
         $activeSlots = $this->countActiveJobs();
 
-        return $activeSlots == 0;
+        return $activeSlots < $this->getTotalBuildingSlots();
+    }
+
+    /**
+     * Returns how many building queue slots the city can support
+     *
+     * @return int
+     */
+    public function getTotalBuildingSlots(): int
+    {
+        return 5;
     }
 
     /**

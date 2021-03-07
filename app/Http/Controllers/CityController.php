@@ -141,6 +141,14 @@ class CityController extends Controller
             return redirect("/cities/view/$cities->id");
         }
 
+        // Determine if we have enough building slots
+        if (! $cities->checkIfOpenBuildingSlots())
+        {
+            $this->request->session()->flash('alert-danger', ["You do not have enough open queue slots! You may only have {$cities->getTotalBuildingSlots()} queued jobs."]);
+
+            return redirect("/cities/view/$cities->id");
+        }
+
         // Now subtract the money from the nation
         $resources->money -= $buildingtypes->baseCost;
         Auth::user()->nation->resources()->save($resources);
