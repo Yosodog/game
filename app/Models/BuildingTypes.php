@@ -62,7 +62,7 @@ class BuildingTypes extends Model
     }
 
     /**
-     * Build the BuildingType in the city
+     * Build the BuildingType in the city.
      *
      * @param int $cityID
      */
@@ -70,8 +70,8 @@ class BuildingTypes extends Model
     {
         // Get the Building or create a new one if it's the first of its type
         $building = Building::firstOrNew([
-            "city_id" => $cityID,
-            "building_id" => $this->id
+            'city_id' => $cityID,
+            'building_id' => $this->id,
         ]);
 
         $building->quantity++; // Add one to the quantity
