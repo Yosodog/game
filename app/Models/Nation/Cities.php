@@ -43,13 +43,13 @@ class Cities extends Model
     }
 
     /**
-     * City/Jobs relationship.
+     * City/BuildingQueue relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function jobs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function buildingQueue(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany('App\Models\Jobs', 'city_id');
+        return $this->hasMany('App\Models\Nation\BuildingQueue', 'cityID');
     }
 
     /**
@@ -93,7 +93,7 @@ class Cities extends Model
      */
     public function countActiveJobs(): int
     {
-        return $this->jobs()->where('status', 'active')->count();
+        return $this->buildingQueue()->count();
     }
 
     /**

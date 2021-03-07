@@ -147,46 +147,49 @@
     </div>
 
     @if ($city->isOwner())
-        @if (count($city->jobs) === 0)
-            <p>No active/pending jobs</p>
-        @else
-            <hr>
-            <h2>Queue</h2>
-            <table class="table table-hover table-striped">
+        <hr>
+        <h2>Queue</h2>
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th>Building</th>
+                <th>Status</th>
+                <th>Time Left</th>
+                <th>Progress</th>
+                <th>Cancel</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse($city->buildingQueue as $job)
                 <tr>
-                    <th>Building</th>
-                    <th>Status</th>
-                    <th>Turns Left</th>
-                    <th>Progress</th>
-                    <th>Cancel</th>
-                </tr>
-                @foreach ($city->jobs as $job)
-                    @if ($job->status === "active" || $job->status === "queued")
-                        <tr>
-                            <td>{{ $job->relation->name }}</td>
-                            <td class="text-capitalize">{{ $job->status }}</td>
-                            <td>{{ $job->turnsLeft }} Turns</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar"
-                                         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:{{ $job->percentageFinished() }}%">
-                                    </div>
-                                </div>
+                    <td>{{ $job->buildingType->name }}</td>
+                    <td class="text-capitalize">{{ $job->isActive() ? "Building..." : "Queued" }}</td>
+                    <td>{{ $job->isActive() ? $job->timeLeft() : "Queued" }}</td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar"
+                                 aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:{{ $job->isActive() ? $job->percLeft() : 0 }}%">
+                            </div>
+                        </div>
 
-                            </td>
-                            <td>
-                                <form method="post" action="{{ url("/cities/".$city->id."/buildings/cancel"."/$job->id") }}" class="form-inline smallForm">
-                                    <div class="form-group">
-                                        <input type="submit" class="btn btn-primary" value="Cancel">
-                                    </div>
-                                    {{ csrf_field() }}
-                                </form>
-                            </td>
-                        </tr>
-                    @endif
-                @endforeach
-            </table>
-        @endif
+                    </td>
+                    <td>
+                        <form method="post" action="{{ url("/cities/".$city->id."/buildings/cancel"."/$job->id") }}" class="form-inline smallForm">
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary" value="Cancel">
+                            </div>
+                            {{ csrf_field() }}
+                        </form>
+                    </td>
+                </tr>
+
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center"><strong>No Queued Buildings</strong></td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
     @endif
 
     @if ($isOwner)

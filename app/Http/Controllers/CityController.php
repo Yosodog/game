@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\BuildingTypes;
-use App\Models\Jobs;
 use App\Models\Nation\Building;
+use App\Models\Nation\BuildingQueue;
 use App\Models\Nation\Cities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -145,22 +145,15 @@ class CityController extends Controller
         $resources->money -= $buildingtypes->baseCost;
         Auth::user()->nation->resources()->save($resources);
 
-        // Determine if the request should be active or queued
-        if ($cities->checkIfOpenBuildingSlots())
-            $status = 'active';
-        else
-            $status = 'queued';
+        // Setup BuildingQueue
+        $buildingQueue = new BuildingQueue();
+        $buildingQueue->cityID = $cities->id;
+        $buildingQueue->buildingID = $buildingtypes->id; // We'll save at the later
+        $buildingQueue->save(); // Must do this here otherwise this will return a 404 lol
 
-        // Add building to queue
-        $job = Jobs::addJob([
-            'type' => 'building',
-            'status' => $status,
-            'nation_id' => $cities->nation->id,
-            'city_id' => $cities->id,
-            'item_id' => $buildingtypes->id,
-            'totalTurns' => $buildingtypes->buildingTime,
-            'turnsLeft' => $buildingtypes->buildingTime,
-        ]);
+        // Determine if the request should be active or queued
+        if ($cities->countActiveJobs() - 1 === 0) // If nothing is currently being built, dispatch the queue. We minus 1 because the current job just created is included in this count
+            $buildingQueue->start(); // Instance of BuildingQueue gets saved in this method
 
         $this->request->session()->flash('alert-success', ["You've added a $buildingtypes->name to your queue"]);
 
@@ -240,28 +233,20 @@ class CityController extends Controller
      * Cancels a job.
      *
      * @param Cities $cities
-     * @param Jobs $jobs
+     * @param BuildingQueue $buildingQueue
      * @return mixed
      */
-    public function cancelJob(Cities $cities, Jobs $jobs)
+    public function cancelJob(Cities $cities, BuildingQueue $buildingQueue)
     {
         // Verify that the owner is cancelling the job
-        if (Auth::user()->nation->id != $jobs->nation_id)
+        if (Auth::user()->nation->id != $buildingQueue->city->nation->id)
         {
             $this->request->session()->flash('alert-danger', ["You don't own that job!"]);
 
             return redirect("/cities/view/$cities->id");
         }
 
-        // Verify that the job wasn't already completed
-        if ($jobs->status == 'completed')
-        {
-            $this->request->session()->flash('alert-danger', ['That job is already finished']);
-
-            return redirect("/cities/view/$cities->id");
-        }
-
-        $jobs->cancelJob();
+        $buildingQueue->cancel();
         $this->request->session()->flash('alert-success', ['That job has been cancelled']);
 
         return redirect("/cities/view/$cities->id");

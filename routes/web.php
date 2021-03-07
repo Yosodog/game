@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth', 'NoNation']], function () { // Pages that
     Route::post('/cities/{id}/land', 'CityController@buyLand');
     Route::post('/cities/{cities}/buildings/buy/{buildingtypes}', 'CityController@buyBuilding');
     Route::post('/cities/{cities}/buildings/sell/{buildingtypes}', 'CityController@sellBuilding');
-    Route::post('/cities/{cities}/buildings/cancel/{jobs}', 'CityController@cancelJob');
+    Route::post('/cities/{cities}/buildings/cancel/{buildingQueue}', 'CityController@cancelJob');
     Route::post('/cities/{id}/rename', 'CityController@renameCity');
 
     // Alliance related pages

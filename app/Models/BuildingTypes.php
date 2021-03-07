@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Nation\Building;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -58,5 +59,22 @@ class BuildingTypes extends Model
     public function cost(): float
     {
         return $this->baseCost;
+    }
+
+    /**
+     * Build the BuildingType in the city.
+     *
+     * @param int $cityID
+     */
+    public function build(int $cityID)
+    {
+        // Get the Building or create a new one if it's the first of its type
+        $building = Building::firstOrNew([
+            'city_id' => $cityID,
+            'building_id' => $this->id,
+        ]);
+
+        $building->quantity++; // Add one to the quantity
+        $building->save(); // And save and build
     }
 }
