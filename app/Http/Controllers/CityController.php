@@ -155,7 +155,6 @@ class CityController extends Controller
         if ($cities->countActiveJobs() - 1 === 0) // If nothing is currently being built, dispatch the queue. We minus 1 because the current job just created is included in this count
             $buildingQueue->start(); // Instance of BuildingQueue gets saved in this method
 
-
         $this->request->session()->flash('alert-success', ["You've added a $buildingtypes->name to your queue"]);
 
         return redirect("/cities/view/$cities->id");

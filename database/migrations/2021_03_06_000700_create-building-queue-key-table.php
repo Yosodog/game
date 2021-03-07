@@ -13,15 +13,15 @@ class CreateBuildingQueueKeyTable extends Migration
      */
     public function up()
     {
-        Schema::create("building_queue_key", function(Blueprint $table) {
-            $table->increments("id");
+        Schema::create('building_queue_key', function (Blueprint $table) {
+            $table->increments('id');
             $table->timestamps();
-            $table->integer("cityID")->unsigned();
-            $table->integer("jobID")
+            $table->integer('cityID')->unsigned();
+            $table->integer('jobID')
                 ->unsigned()
                 ->nullable()
-                ->comment("The ID with the associated job in the queue. If null, then the building is not currently under construction");
-            $table->integer("buildingID")->unsigned();
+                ->comment('The ID with the associated job in the queue. If null, then the building is not currently under construction');
+            $table->integer('buildingID')->unsigned();
         });
     }
 
@@ -32,6 +32,6 @@ class CreateBuildingQueueKeyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists("building_queue_key");
+        Schema::dropIfExists('building_queue_key');
     }
 }
