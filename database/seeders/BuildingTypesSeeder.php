@@ -31,18 +31,19 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Literacy')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
             'relation' => $building->id,
-            'affect' => 5,
+            ],[
+            'affect' => 5
         ]);
 
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 2,
         ]);
 
@@ -59,18 +60,18 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Literacy')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 10,
         ]);
 
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 10,
         ]);
 
@@ -87,17 +88,17 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 3,
         ]);
 
         $property = Properties::where('name', 'Crime')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 2,
         ]);
 
@@ -114,18 +115,18 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 3,
         ]);
 
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Crime')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 10,
         ]);
 
@@ -142,27 +143,27 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 3,
         ]);
 
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Disease')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 5,
         ]);
 
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Crime')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 1,
         ]);
 
@@ -179,27 +180,27 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 5,
         ]);
 
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Disease')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 15,
         ]);
 
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Crime')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 3,
         ]);
 
@@ -216,18 +217,18 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 1,
         ]);
 
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Disease')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 5,
         ]);
 
@@ -244,9 +245,9 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 15,
         ]);
 
@@ -263,9 +264,9 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 30,
         ]);
 
@@ -282,9 +283,9 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 5,
         ]);
 
@@ -301,9 +302,9 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 15,
         ]);
 
@@ -320,18 +321,18 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 1,
         ]);
 
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Disease')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 3,
         ]);
 
@@ -348,9 +349,9 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 10,
         ]);
 
@@ -367,18 +368,18 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Crime')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 5,
         ]);
 
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 1,
         ]);
 
@@ -395,9 +396,9 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 10,
         ]);
 
@@ -414,9 +415,9 @@ class BuildingTypesSeeder extends Seeder
         // Get ID of property this next effect will affect
         $property = Properties::where('name', 'Unemployment')->firstOrFail();
 
-        Effects::create([
+        Effects::updateOrCreate([
             'property' => $property->id,
-            'relation' => $building->id,
+            'relation' => $building->id],[
             'affect' => 3,
         ]);
 
@@ -719,6 +720,120 @@ class BuildingTypesSeeder extends Seeder
                 'requiredResource' => 'lead',
                 'requiredAmount' => 5,
             ]);
+
+        // Power Buildings
+
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => 'Coal Power Plant'],
+            [
+                'category' => 'power',
+                'description' => 'Produces power by using coal. Uses 5 coal per day',
+                'energy' => 300,
+                'baseCost' => 10000000,
+                'buildingTime' => 30,
+                'requires' => 1,
+                'requiredResource' => 'coal',
+                'requiredAmount' => 5,
+            ]);
+
+        // Get ID of property this next effect will affect
+        $property = Properties::where('name', 'Unemployment')->firstOrFail();
+
+        Effects::updateOrCreate([
+            'property' => $property->id,
+            'relation' => $building->id],[
+            'affect' => 5,
+        ]);
+
+        // Get ID of property this next effect will affect
+        $property = Properties::where('name', 'disease')->firstOrFail();
+
+        Effects::updateOrCreate([
+            'property' => $property->id,
+            'relation' => $building->id],[
+            'affect' => 5,
+        ]);
+
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => 'Oil Power Plant'],
+            [
+                'category' => 'power',
+                'description' => 'Produces power by using oil. Uses 5 oil per day',
+                'energy' => 300,
+                'baseCost' => 10000000,
+                'buildingTime' => 30,
+                'requires' => 1,
+                'requiredResource' => 'oil',
+                'requiredAmount' => 5,
+            ]);
+
+        // Get ID of property this next effect will affect
+        $property = Properties::where('name', 'Unemployment')->firstOrFail();
+
+        Effects::updateOrCreate([
+            'property' => $property->id,
+            'relation' => $building->id],[
+            'affect' => 5,
+        ]);
+
+        // Get ID of property this next effect will affect
+        $property = Properties::where('name', 'disease')->firstOrFail();
+
+        Effects::updateOrCreate([
+            'property' => $property->id,
+            'relation' => $building->id],[
+            'affect' => 5,
+        ]);
+
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => 'Natural Gas Power Plant'],
+            [
+                'category' => 'power',
+                'description' => 'Produces power by using gas. Uses 5 gas per day',
+                'energy' => 300,
+                'baseCost' => 10000000,
+                'buildingTime' => 30,
+                'requires' => 1,
+                'requiredResource' => 'gas',
+                'requiredAmount' => 5,
+            ]);
+
+        // Get ID of property this next effect will affect
+        $property = Properties::where('name', 'Unemployment')->firstOrFail();
+
+        Effects::updateOrCreate([
+            'property' => $property->id,
+            'relation' => $building->id],[
+            'affect' => 5,
+        ]);
+
+        // Get ID of property this next effect will affect
+        $property = Properties::where('name', 'disease')->firstOrFail();
+
+        Effects::updateOrCreate([
+            'property' => $property->id,
+            'relation' => $building->id],[
+            'affect' => 5,
+        ]);
+
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => 'Solar Power Plant'],
+            [
+                'category' => 'power',
+                'description' => 'Produces power by the magical powers of the sun. Uses no resources and does not increase disease.',
+                'energy' => 100,
+                'baseCost' => 15000000,
+                'buildingTime' => 30,
+            ]);
+
+        // Get ID of property this next effect will affect
+        $property = Properties::where('name', 'Unemployment')->firstOrFail();
+
+        Effects::updateOrCreate([
+            'property' => $property->id,
+            'relation' => $building->id],[
+            'affect' => 5,
+        ]);
 
     }
 }
