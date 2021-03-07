@@ -18,13 +18,14 @@ class BuildingTypesSeeder extends Seeder
      */
     public function run()
     {
-        $building = BuildingTypes::create([
-            'name' => 'School',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "School"],
+            [
             'category' => 'services',
             'description' => 'A School',
             'energy' => 5,
             'baseCost' => 5000000,
-            'buildingTime' => 1,
+            'buildingTime' => 30,
         ]);
 
         // Get ID of property this next effect will affect
@@ -45,13 +46,14 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 2,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'University',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "University"],
+            [
             'category' => 'services',
             'description' => 'A university',
             'energy' => 10,
             'baseCost' => 20000000,
-            'buildingTime' => 1,
+            'buildingTime' => 60,
         ]);
 
         // Get ID of property this next effect will affect
@@ -72,13 +74,14 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Fire Station',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Fire Station"],
+            [
             'category' => 'services',
             'description' => 'A fire station',
             'energy' => 5,
             'baseCost' => 5000000,
-            'buildingTime' => 1,
+            'buildingTime' => 25,
         ]);
 
         // Get ID of property this next effect will affect
@@ -98,13 +101,14 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 2,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Police Station',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Police Station"],
+            [
             'category' => 'services',
             'description' => 'A Police Station',
             'energy' => 5,
             'baseCost' => 5000000,
-            'buildingTime' => 1,
+            'buildingTime' => 25,
         ]);
 
         // Get ID of property this next effect will affect
@@ -125,13 +129,14 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Clinic',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Clinic"],
+            [
             'category' => 'services',
             'description' => 'A clinic',
             'energy' => 5,
             'baseCost' => 5000000,
-            'buildingTime' => 1,
+            'buildingTime' => 30,
         ]);
 
         // Get ID of property this next effect will affect
@@ -161,13 +166,14 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 1,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Hospital',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Hospital"],
+            [
             'category' => 'services',
             'description' => 'A hospital',
             'energy' => 10,
             'baseCost' => 25000000,
-            'buildingTime' => 3,
+            'buildingTime' => 60,
         ]);
 
         // Get ID of property this next effect will affect
@@ -197,13 +203,14 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 3,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Cemetery',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Cemetery"],
+            [
             'category' => 'services',
             'description' => 'A cemetery',
             'energy' => 1,
             'baseCost' => 5000000,
-            'buildingTime' => 1,
+            'buildingTime' => 15,
         ]);
 
         // Get ID of property this next effect will affect
@@ -224,13 +231,14 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 5,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Airport',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Airport"],
+            [
             'category' => 'transportation',
             'description' => 'An airport',
             'energy' => 10,
             'baseCost' => 30000000,
-            'buildingTime' => 1,
+            'buildingTime' => 60,
         ]);
 
         // Get ID of property this next effect will affect
@@ -242,13 +250,14 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 15,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'International Airport',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "International Airport"],
+            [
             'category' => 'transportation',
             'description' => 'An International Airport',
             'energy' => 100,
             'baseCost' => 100000000,
-            'buildingTime' => 1,
+            'buildingTime' => 180,
         ]);
 
         // Get ID of property this next effect will affect
@@ -260,13 +269,14 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 30,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Bus Depot',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Bus Depot"],
+            [
             'category' => 'transportation',
             'description' => 'A bus depot',
             'energy' => 10,
             'baseCost' => 5000000,
-            'buildingTime' => 1,
+            'buildingTime' => 30,
         ]);
 
         // Get ID of property this next effect will affect
@@ -278,13 +288,14 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 5,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Harbor',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Harbor"],
+            [
             'category' => 'transportation',
             'description' => 'A harbor',
             'energy' => 10,
             'baseCost' => 50000000,
-            'buildingTime' => 10,
+            'buildingTime' => 60,
         ]);
 
         // Get ID of property this next effect will affect
@@ -296,13 +307,14 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 15,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Landfill',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Landfill"],
+            [
             'category' => 'services',
             'description' => 'A landfill',
             'energy' => 2,
             'baseCost' => 10000000,
-            'buildingTime' => 1,
+            'buildingTime' => 15,
         ]);
 
         // Get ID of property this next effect will affect
@@ -323,13 +335,14 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 3,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Metro',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Metro"],
+            [
             'category' => 'transportation',
             'description' => 'A metro',
             'energy' => 50,
             'baseCost' => 60000000,
-            'buildingTime' => 1,
+            'buildingTime' => 45,
         ]);
 
         // Get ID of property this next effect will affect
@@ -341,13 +354,14 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Prison',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Prison"],
+            [
             'category' => 'services',
             'description' => 'A prison',
             'energy' => 10,
             'baseCost' => 25000000,
-            'buildingTime' => 1,
+            'buildingTime' => 60,
         ]);
 
         // Get ID of property this next effect will affect
@@ -368,13 +382,14 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 1,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Railway',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Railway"],
+            [
             'category' => 'transportation',
             'description' => 'Railway',
             'energy' => 50,
             'baseCost' => 100000000,
-            'buildingTime' => 1,
+            'buildingTime' => 180,
         ]);
 
         // Get ID of property this next effect will affect
@@ -386,13 +401,14 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Road',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Road"],
+            [
             'category' => 'transportation',
             'description' => 'Road',
             'energy' => 50,
             'baseCost' => 70000000,
-            'buildingTime' => 1,
+            'buildingTime' => 45,
         ]);
 
         // Get ID of property this next effect will affect
@@ -404,37 +420,40 @@ class BuildingTypesSeeder extends Seeder
             'affect' => 3,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Coal mine',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Coal Mine"],
+            [
             'category' => 'raw',
             'description' => 'A Coal mine',
             'energy' => 10,
             'baseCost' => 25000,
-            'buildingTime' => 1,
+            'buildingTime' => 30,
             'produces' => 1,
             'producedResource' => 'coal',
             'producedAmount' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Oil Well',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Oil Well"],
+            [
             'category' => 'raw',
             'description' => 'An Oil Well',
             'energy' => 10,
             'baseCost' => 25000,
-            'buildingTime' => 1,
+            'buildingTime' => 30,
             'produces' => 1,
             'producedResource' => 'oil',
             'producedAmount' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Oil Refinery',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Oil Refinery"],
+            [
             'category' => 'manufactory',
             'description' => 'An Oil Refinery',
             'energy' => 20,
             'baseCost' => 100000,
-            'buildingTime' => 1,
+            'buildingTime' => 60,
             'produces' => 1,
             'producedResource' => 'gas',
             'producedAmount' => 10,
@@ -443,37 +462,40 @@ class BuildingTypesSeeder extends Seeder
             'requiredAmount' => 5,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Wheat Farm',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Wheat Farm"],
+            [
             'category' => 'raw',
             'description' => 'A Wheat Farm',
             'energy' => 10,
             'baseCost' => 25000,
-            'buildingTime' => 1,
+            'buildingTime' => 30,
             'produces' => 1,
             'producedResource' => 'wheat',
             'producedAmount' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Ranch',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Ranch"],
+            [
             'category' => 'raw',
             'description' => 'A ranch',
             'energy' => 10,
             'baseCost' => 25000,
-            'buildingTime' => 1,
+            'buildingTime' => 30,
             'produces' => 1,
             'producedResource' => 'livestock',
             'producedAmount' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Wheat Refinery',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Wheat Refinery"],
+            [
             'category' => 'manufactory',
             'description' => 'A Wheat Refinery',
             'energy' => 20,
             'baseCost' => 100000,
-            'buildingTime' => 1,
+            'buildingTime' => 60,
             'produces' => 1,
             'producedResource' => 'bread',
             'producedAmount' => 5,
@@ -482,13 +504,14 @@ class BuildingTypesSeeder extends Seeder
             'requiredAmount' => 5,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Meat Processor',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Meat Processor"],
+            [
             'category' => 'manufactory',
             'description' => 'A Meat Processor',
             'energy' => 20,
             'baseCost' => 100000,
-            'buildingTime' => 1,
+            'buildingTime' => 30,
             'produces' => 1,
             'producedResource' => 'meat',
             'producedAmount' => 5,
@@ -497,61 +520,66 @@ class BuildingTypesSeeder extends Seeder
             'requiredAmount' => 5,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Water Tower',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Water Tower"],
+            [
             'category' => 'raw',
             'description' => 'A Water Tower',
             'energy' => 1,
             'baseCost' => 10000,
-            'buildingTime' => 1,
+            'buildingTime' => 30,
             'produces' => 1,
             'producedResource' => 'water',
             'producedAmount' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Clay Mine',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Clay Mine"],
+            [
             'category' => 'raw',
             'description' => 'A Clay Mine',
             'energy' => 10,
             'baseCost' => 25000,
-            'buildingTime' => 1,
+            'buildingTime' => 30,
             'produces' => 1,
             'producedResource' => 'clay',
             'producedAmount' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Cement Kiln',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Cement Kiln"],
+            [
             'category' => 'raw',
             'description' => 'A Cement Kiln',
             'energy' => 10,
             'baseCost' => 25000,
-            'buildingTime' => 1,
+            'buildingTime' => 30,
             'produces' => 1,
             'producedResource' => 'cement',
             'producedAmount' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Timber Mill',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Timber Mill"],
+            [
             'category' => 'raw',
             'description' => 'A Timber Mill',
             'energy' => 10,
             'baseCost' => 25000,
-            'buildingTime' => 1,
+            'buildingTime' => 30,
             'produces' => 1,
             'producedResource' => 'timber',
             'producedAmount' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Brick House',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Brick House"],
+            [
             'category' => 'manufactory',
             'description' => 'A Brick house',
             'energy' => 20,
             'baseCost' => 100000,
-            'buildingTime' => 1,
+            'buildingTime' => 60,
             'produces' => 1,
             'producedResource' => 'brick',
             'producedAmount' => 5,
@@ -560,13 +588,14 @@ class BuildingTypesSeeder extends Seeder
             'requiredAmount' => 5,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Concrete Mixer',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Concrete Mixer"],
+            [
             'category' => 'manufactory',
             'description' => 'A Concrete Mixer',
             'energy' => 20,
             'baseCost' => 100000,
-            'buildingTime' => 1,
+            'buildingTime' => 60,
             'produces' => 1,
             'producedResource' => 'concrete',
             'producedAmount' => 5,
@@ -575,13 +604,14 @@ class BuildingTypesSeeder extends Seeder
             'requiredAmount' => 5,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Lumber Refinery',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Lumber Refinery"],
+            [
             'category' => 'manufactory',
             'description' => 'A Lumber Refinery',
             'energy' => 20,
             'baseCost' => 100000,
-            'buildingTime' => 1,
+            'buildingTime' => 60,
             'produces' => 1,
             'producedResource' => 'lumber',
             'producedAmount' => 5,
@@ -590,61 +620,66 @@ class BuildingTypesSeeder extends Seeder
             'requiredAmount' => 5,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Rubber Processor',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Rubber Processor"],
+            [
             'category' => 'raw',
             'description' => 'A Rubber Processor',
             'energy' => 10,
             'baseCost' => 25000,
-            'buildingTime' => 1,
+            'buildingTime' => 60,
             'produces' => 1,
             'producedResource' => 'rubber',
             'producedAmount' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Iron Mine',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Iron Mine"],
+            [
             'category' => 'raw',
             'description' => 'An Iron Mine',
             'energy' => 10,
             'baseCost' => 25000,
-            'buildingTime' => 1,
+            'buildingTime' => 30,
             'produces' => 1,
             'producedResource' => 'iron',
             'producedAmount' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Bauxite Mill',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Bauxite Mill"],
+            [
             'category' => 'raw',
             'description' => 'A Bauxite Mill',
             'energy' => 10,
             'baseCost' => 25000,
-            'buildingTime' => 1,
+            'buildingTime' => 30,
             'produces' => 1,
             'producedResource' => 'bauxite',
             'producedAmount' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Lead Mine',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Lead Mine"],
+            [
             'category' => 'raw',
             'description' => 'A Lead Mine',
             'energy' => 10,
             'baseCost' => 25000,
-            'buildingTime' => 1,
+            'buildingTime' => 30,
             'produces' => 1,
             'producedResource' => 'lead',
             'producedAmount' => 10,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Steel Mill',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Steel Mill"],
+            [
             'category' => 'manufactory',
             'description' => 'A Steel Mill',
             'energy' => 20,
             'baseCost' => 100000,
-            'buildingTime' => 1,
+            'buildingTime' => 60,
             'produces' => 1,
             'producedResource' => 'steel',
             'producedAmount' => 5,
@@ -653,13 +688,14 @@ class BuildingTypesSeeder extends Seeder
             'requiredAmount' => 5,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Aluminum Factory',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Aluminum Factory"],
+            [
             'category' => 'manufactory',
             'description' => 'An Aluminum Factory',
             'energy' => 20,
             'baseCost' => 100000,
-            'buildingTime' => 1,
+            'buildingTime' => 60,
             'produces' => 1,
             'producedResource' => 'aluminum',
             'producedAmount' => 5,
@@ -668,13 +704,14 @@ class BuildingTypesSeeder extends Seeder
             'requiredAmount' => 5,
         ]);
 
-        $building = BuildingTypes::create([
-            'name' => 'Ammo Factory',
+        $building = BuildingTypes::updateOrCreate(
+            ['name' => "Ammo Factory"],
+            [
             'category' => 'manufactory',
             'description' => 'An Ammo Factory',
             'energy' => 20,
             'baseCost' => 100000,
-            'buildingTime' => 1,
+            'buildingTime' => 60,
             'produces' => 1,
             'producedResource' => 'ammo',
             'producedAmount' => 5,
