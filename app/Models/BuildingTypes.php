@@ -77,4 +77,16 @@ class BuildingTypes extends Model
         $building->quantity++; // Add one to the quantity
         $building->save(); // And save and build
     }
+
+    /**
+     * Determines if the building produces power
+     *
+     * @return bool
+     */
+    public function producesPower(): bool
+    {
+        if ($this->category === "power")
+            return true;
+        return false;
+    }
 }

@@ -139,6 +139,8 @@ class UpdateResources
         $this->user = $user->load('nation.resources', 'nation.cities.buildings.buildingType.effects.property');
 
         $this->calcDiff();
+
+        echo "Diff $this->diff <br>";
         if ($this->diff < 1)
             return; // If the difference is 0, don't bother doing all this
 
@@ -183,8 +185,10 @@ class UpdateResources
 
         foreach ($this->user->nation->cities as $city)
         {
+            echo "$city->name <br>";
             $city->setupProperties($properties);
             $city->calcStats();
+            echo "<br>";
         }
     }
 
@@ -198,6 +202,9 @@ class UpdateResources
             if (! $this->checkForPower($city))
                 continue; // We won't do any calculations for the unpowered city
 
+            $city->getPowerMultiplier();
+            echo "Mult $city->powerMultiplier";
+
             $this->calcMoney($city);
             $this->calcResources($city);
         }
@@ -210,9 +217,9 @@ class UpdateResources
      */
     protected function calcMoney(Cities $city)
     {
-        // Calculate how much money they make per day
+        // Calculate how much money they make per day. Multiply it by the power multiplier
         $income = $city->properties['Avg Income']['value'] * $city->population;
-        $this->money += $income / 86400;
+        $this->money += ($income / 86400) * $city->powerMultiplier;
     }
 
     /**
@@ -263,17 +270,17 @@ class UpdateResources
             $this->percOfResource = $this->user->nation->resources->{$building->buildingType->requiredResource} / $reqAmount;
 
             // Now remove all of this resource. Divide it by the diff because later we multiply it by the diff. This makes it more simple
-            $this->{$building->buildingType->requiredResource} -= $this->user->nation->resources->{$building->buildingType->requiredResource} / $this->diff;
+            $this->{$building->buildingType->requiredResource} -= ($this->user->nation->resources->{$building->buildingType->requiredResource} / $this->diff) * $building->city->powerMultiplier;
 
             // Return true now that the resources has been subtracted
             return true;
         }
 
         // If the nation has the required resource, then subtract it
-        $this->{$building->buildingType->requiredResource} -= $reqAmount;
+        $this->{$building->buildingType->requiredResource} -= ($reqAmount / $this->diff) * $building->city->powerMultiplier;
 
         // Also subtract it from the nation->resources variable so that the next buildings are checked properly
-        $this->user->nation->resources->{$building->buildingType->requiredResource} -= $reqAmount;
+        $this->user->nation->resources->{$building->buildingType->requiredResource} -= ($reqAmount / $this->diff) * $building->city->powerMultiplier;
 
         return true;
     }
@@ -292,13 +299,13 @@ class UpdateResources
             $produce = ((($building->buildingType->producedAmount * $building->quantity) / 86400) * $this->diff) * $this->percOfResource;
 
             // Set the amount needed but divide it by the the diff because later is it multiplied by the diff
-            $this->{$building->buildingType->producedResource} += $produce / $this->diff;
+            $this->{$building->buildingType->producedResource} += ($produce / $this->diff) * $building->city->powerMultiplier;
 
             return;
         }
 
         // If they can produce the full amount, add it here
-        $this->{$building->buildingType->producedResource} += ($building->buildingType->producedAmount * $building->quantity) / 86400;
+        $this->{$building->buildingType->producedResource} += (($building->buildingType->producedAmount * $building->quantity) / 86400) * $building->city->powerMultiplier;
     }
 
     /**
@@ -309,7 +316,10 @@ class UpdateResources
         $resources = $this->user->nation->resources;
 
         foreach ($this->updates as $update)
+        {
             $resources->{$update} += $this->{$update} * $this->diff;
+            echo "Updated $update by " . ($this->{$update} * $this->diff). "<br>";
+        }
 
         $resources->save();
     }

@@ -24,6 +24,11 @@ class Cities extends Model
     protected $appends = ['properties'];
 
     /**
+     * @var float Holds the multiplier for power if the city is underpowered
+     */
+    public float $powerMultiplier;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -364,5 +369,82 @@ class Cities extends Model
             return false;
 
         return true;
+    }
+
+    public function getPowerMultiplier()
+    {
+        
+    }
+
+    /**
+     * This method determines if the city was powered for the duration that we're looking at
+     * If the city was powered for 100% of the time, we'll return 1. If it was powered for
+     * 40% of the time, we'll return 0.4. Then, we will use this value and multiply it
+     * by the amount produced to get an accurate number of what was actually produced
+     *
+     * @param bool $refresh If the value is already set but we want to refresh it
+     */
+    public function getPowerMultiplierr(bool $refresh = false): void
+    {
+        if (isset($this->powerMultiplier) && ! $refresh)
+            return; // In case this is called after it has already been set. No need to re-run everything
+
+        $producedPower = 0;
+        // First we need to determine how many MWs we produced for this diff
+        foreach ($this->buildings as $building)
+        {
+            if (! $building->buildingType->producesPower())
+                continue; // Building doesn't produce power
+
+            $totalPower = ($building->buildingType->energy * $building->quantity) * $this->diff; // How much power this should produce for this diff
+            $reqAmount = (($building->buildingType->requiredAmount * $building->quantity) / 86400) * $this->diff; // How many resources we needed for this diff
+
+            echo "Required $reqAmount <br>";
+
+            // Determine if we were able to feed the power plant for the whole time
+            if ($reqAmount > $this->nation->resources->{$building->buildingType->requiredResource}) // holy shit
+            {
+                echo "Required Amount $reqAmount <br>";
+                // We need to check if they had enough resources to produce some stuff.
+                // If they have nothing of what's required, continue to the next building
+                if ($this->nation->resources->{$building->buildingType->requiredResource} <= 0)
+                    continue;
+
+                echo "asdf " . $this->nation->resources->{$building->buildingType->requiredResource} . "<br>";
+
+                echo "heyyy <br>";
+
+                // if they have some of the required resource but not enough for the entire duration,
+                // calculate what percentage they can afford and later, that'll be how much they produce
+                $percOfProduced = $this->nation->resources->{$building->buildingType->requiredResource} / $reqAmount;
+
+                echo "Perc $percOfProduced <br>";
+
+                // Now see what was produced by multiplying the expected total power output by the percentage we could produce power
+                $producedPower += $totalPower * $percOfProduced; // Add how much power we produced to the $producedPower
+            }
+            else // If we had the required amount to produce power
+            {
+                $producedPower += $totalPower; // Add all of our power to the produced power
+            }
+        }
+
+        // Now that we've calculated how many MWs we produced for this diff, we need to figure out how much we needed
+        $neededPower = $this->calculatePowerUsage() * $this->diff; // Total required power times how many seconds for the diff
+
+        // Now calculate the percentage of produced power to total power needed
+        $perc = $producedPower / $neededPower;
+
+        echo "Actual Perc $perc <br>";
+
+        echo "Pro $producedPower Need $neededPower <br>";
+
+        // If we produced more than what we needed, set multiplier to 1, otherwise, set it to the perc we calculated above
+        if ($perc > 1)
+            $this->powerMultiplier = 1;
+        elseif($perc < 0)
+            $this->powerMultiplier = 0;
+        else
+            $this->powerMultiplier = $perc;
     }
 }
